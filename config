@@ -1,0 +1,4 @@
+Host github-bcount
+HostName github.com
+User git
+IdentityFile ~/.ssh/id_rsa_BCount

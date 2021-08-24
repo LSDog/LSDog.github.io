@@ -1,0 +1,8 @@
+h1 {color:rgb(222, 241, 167);}
+p {margin-left:20px;}
+body {
+    background-image:url("./res/back.png");
+    background-repeat: repeat;
+    background-blend-mode: normal;
+    background-attachment: fixed;
+}
