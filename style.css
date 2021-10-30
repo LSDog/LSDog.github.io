@@ -1,0 +1,70 @@
+
+header, section, footer, aside, nav, article, figure {display: block;}
+a {display: flex; align-items: center;}
+h1, h2, p {text-align: center;}
+article{
+	margin-left:auto;
+	margin-right:auto;
+	width:95%;
+	background-color: rgba(204,116,70,0.5)	
+}
+article a{
+	display: block;
+	border:4px solid gray;
+	margin-left:auto;
+	margin-right:auto;
+	width:90%;
+	background-color:rgba(0,0,0,0.80);
+	text-align:left;
+	padding:8px;
+}
+article h1{
+	margin-left: 70px;
+	font-family: "华文细黑", "宋体", "微软雅黑";
+	font-weight: bold;
+	text-align: start; text-indent: 5px;
+	color: #351300;
+	text-shadow: 0px 0px 4px white;
+}
+article h2{
+	line-height: inherit;
+	font-family: "宋体";
+	font-weight: bold;
+	font-size: 25px;
+	text-align: center; text-indent: 5px;
+	color: white;
+	text-shadow: 0px 0px 4px purple;
+}
+article sup{
+	font-family: "华文细黑", "宋体", "微软雅黑";
+	font-size: 10px;
+	font-weight: normal;
+}
+article .note{
+	position: absolute;
+	float: right;
+	right: 70px;
+	width: 200px;
+	padding: 5px;
+	background: rgba(119,252,192,0.30);
+	font-family: "华文细黑", "宋体", "微软雅黑";
+	font-size: 15px;
+	text-align: start; text-indent: 5px;
+	color: #FFFFFF;
+	border-style: groove; border-width: 2px; border-radius: 5px; border-color: salmon;
+}
+article .auther{
+	line-height: 300%;
+	font-family: 
+		"仿宋", "宋体", "新宋体";
+	text-align: 10px;
+	color: white;
+	text-shadow: 0px 0px 4px white;
+}
+article .text{
+	font-family: 
+		"楷体", "微软雅黑";
+	text-align: 10px;
+	font-size: 20px;
+	color: white;
+}
