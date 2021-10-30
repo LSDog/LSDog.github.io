@@ -2,8 +2,12 @@
 @font-face{
 	font-family: "楷体";
 	src: url("res/font/SIMKAI.TTF");
+}
+@font-face{
 	font-family: "仿宋";
 	src: url("res/font/SIMFANG.TTF");
+}
+@font-face{
 	font-family: "微软雅黑";
 	src: url("res/font/MSYH.TTC");
 }
@@ -48,15 +52,14 @@ article .intext{
 	width: 50%;
 }
 article .inimgset{
-	object-fit: contain;
+	object-fit: cover;
 	position: relative;
 	float: right;
     width: 50%;
 	height: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
 	border-radius: 5px;
+	margin: 5px;
 }
 article sup{
 	font-size: 10px;
@@ -86,10 +89,19 @@ article .auther{
 	color: white;
 	text-shadow: 0px 0px 4px white;
 }
-article .text{
-	font-family: 
-		"楷体";
+article .poem{
+	font-family: "楷体";
 	text-align: 10px;
 	font-size: 20px;
 	color: white;
+}
+article .text{
+	font-family: "微软雅黑";
+	text-align: left;
+	font-size: 15px;
+	line-height: 1.4;
+	color: white;
+}
+article .float-left{
+	float: left;
 }
