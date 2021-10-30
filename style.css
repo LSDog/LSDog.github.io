@@ -14,6 +14,7 @@
 header, section, footer, aside, nav, article, figure {display: block;}
 h1, h2, p {text-align: center;}
 article{
+	display: inline-block;
 	margin-left:auto;
 	margin-right:auto;
 	padding: 10px,0px,0px,10px;
@@ -45,6 +46,7 @@ article a{
 	margin: 10px auto 0px 5px;
 	background-color:rgba(0,0,0,0.80);
 	padding:8px;
+	text-align: left;
 }
 article .intext{
 	position: absolute;
@@ -91,13 +93,22 @@ article .auther{
 }
 article .poem{
 	font-family: "楷体";
-	text-align: 10px;
+	text-align: left 10px;
 	font-size: 20px;
 	color: white;
 }
 article .text{
 	font-family: "微软雅黑";
 	text-align: left;
+	font-size: 15px;
+	line-height: 1.4;
+	color: white;
+}
+article .p{
+	display: block;
+	font-family: "微软雅黑";
+	text-align: left;
+	margin-left: 10px;
 	font-size: 15px;
 	line-height: 1.4;
 	color: white;
