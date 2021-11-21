@@ -7,10 +7,6 @@
 	font-family: "仿宋";
 	src: url("res/font/SIMFANG.TTF");
 }
-@font-face{
-	font-family: "微软雅黑";
-	src: url("res/font/MSYH.TTC");
-}
 header, section, footer, aside, nav, article, figure {display: block;}
 h1, h2, p {text-align: center;}
 article{
@@ -30,7 +26,7 @@ article h1{
 }
 article h2{
 	line-height: inherit;
-	font-family: "宋体";
+	font-family: "仿宋", "宋体";
 	font-weight: bold;
 	font-size: 25px;
 	text-align: center; text-indent: 5px;
@@ -38,7 +34,7 @@ article h2{
 	text-shadow: 0px 0px 4px purple;
 }
 article a{
-	display: inline-block;
+	display: inline-table;
 	min-width: 100px;
 	position: relative;
 	overflow: hidden;
