@@ -103,7 +103,7 @@ article .note{
 	color: #FFFFFF;
 	border-style: groove; border-width: 2px; border-radius: 5px; border-color: salmon;
 }
-article .auther{
+article .author{
 	line-height: 300%;
 	font-family: 
 		"仿宋", "宋体";
@@ -120,6 +120,7 @@ article .poem{
 	color: white;
 }
 article .text{
+	display: inline-block;
 	font-family: "微软雅黑";
 	text-align: left;
 	font-size: 17px;
