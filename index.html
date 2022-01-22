@@ -48,21 +48,10 @@
         box-shadow: 0 10px 14px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
     }
 </style>
-<script>
-    function fart() {
-        var audio = document.getElementById('fart_sound');
-        audio.play();
-        rMove('fart');
-    }
-    function rMove(id) {
-        var e = document.getElementById(id);
-        e.style.left=Math.random()*950+"px"; //水平方向随机距离
-        e.style.top=Math.random()*550+"px";  //竖直方向随机距离
-    }
-</script>
 <link rel="shortcut icon" type="image/x-icon" href="res/favicon.ico">
 <link rel="stylesheet" type="text/css" href="style.css">
 <link rel="stylesheet" type="text/css" href="css/audio.css">
+
 </head>
 <body style="font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Noto Sans CJK SC,WenQuanYi Micro Hei,Arial,sans-serif;">
 	
@@ -85,6 +74,32 @@ text-shadow: 0px 0px 6px black, 0px 0px 3px black, 0px 0px 4px rgb(225, 216, 233
 
 <br />
 
+<blackboard>
+	<br />
+	<h1 style="font-size: 20px;">我会在这里搞一些无聊的东西...</h1>
+	<br />
+
+	<h2><p style="font-size: 15px;">(Project1)</p>
+		<p>Butt on YES</p>
+	</h2>
+	<audio src="res/sounds/fart.mp3" controls="controls" preload id="fart_sound"  hidden> </audio>
+	<button class="button" id="fart" onclick="fart();" style="display:block; margin:0 auto;"><p style="margin: auto; color: darkgreen;"><b>surprise!</b></p></button>
+	<script>
+		function fart() {
+			var audio = document.getElementById('fart_sound');
+			if (!audio.pause) {
+				audio.play();
+			} else {
+				setTimeout(() => {
+					new Audio("res/sounds/fart.mp3").play();
+				}, 0);
+			}
+		}
+	</script>
+
+
+</blackboard>
+
 <a>
 	<p>Your information: </p>
 	<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>  
@@ -92,7 +107,7 @@ text-shadow: 0px 0px 6px black, 0px 0px 3px black, 0px 0px 4px rgb(225, 216, 233
 		document.write(returnCitySN["cip"]+','+returnCitySN["cname"])  
 	</script>
 </a>
-	
+
 <br />
 <br />
 
@@ -246,12 +261,7 @@ text-shadow: 0px 0px 6px black, 0px 0px 3px black, 0px 0px 4px rgb(225, 216, 233
         <spam>- my Github page</spam></a>
 </p>
 
-<h2>
-	<p style="font-size: 15px;">(Project1)</p>
-	<p>Butt on YES</p>
-	</h2>
-<audio src="res/sounds/fart.mp3" controls="controls" preload id="fart_sound"  hidden> </audio>
-<button class="button" id="fart" onclick="fart();rMove('fart');" style="display:block; margin:0 auto;"><p style="margin: auto; color: darkgreen;"><b>surprise!</b></p></button>
+
 
 <br />
 <br />

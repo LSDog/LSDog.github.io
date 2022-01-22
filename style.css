@@ -9,6 +9,15 @@
 }
 header, section, footer, aside, nav, article, figure {display: block;}
 h1, h2, p {text-align: center;}
+blackboard{
+	display: block;
+	margin-left:auto;
+	margin-right:auto;
+	padding: 10px,0px,0px,10px;
+	width:90%;
+	background-color: rgba(0, 0, 0, 0.6);
+	border-style: ridge; border-width: 6px; border-radius: 5px; border-color: #000000;
+}
 article{
 	display: block;
 	margin-left:auto;
