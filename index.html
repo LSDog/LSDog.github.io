@@ -20,8 +20,10 @@
     background-blend-mode: normal;
     background-attachment: fixed;
 	}
-    img.inset {border-style:inset; border-width: 5px; border-radius: 10px; border-color: salmon;
-    box-shadow: -1em -1em rgb(128, 168, 241);}
+    img.inset {
+		border-style:inset; border-width: 5px; border-radius: 10px; border-color: salmon;
+	    box-shadow: -0.5em -0.5em rgb(128, 168, 241);
+	}
     /*.small-img {text-align: center;}*/
     .link {text-decoration: none;}
     .smallImageText {display: flex; align-items: center; text-align: center;}
@@ -72,6 +74,9 @@
   <dev style="font-size: 50px;color:rgb(231, 255, 124);
 text-shadow: 0px 0px 6px black, 0px 0px 3px black, 0px 0px 4px rgb(225, 216, 233), -0.07em -0.07em salmon;">: </dev>Welcome to LSDog 's WEBSHIT!</h1>
 
+<p class="center"><img id="oreTitle" class="inset" src="oreTitle.webp" alt="oreoreore"></p>
+
+
 <br />
 
 <blackboard>
@@ -82,21 +87,18 @@ text-shadow: 0px 0px 6px black, 0px 0px 3px black, 0px 0px 4px rgb(225, 216, 233
 	<h2><p style="font-size: 15px;">(Project1)</p>
 		<p>Butt on YES</p>
 	</h2>
-	<audio src="res/sounds/fart.mp3" controls="controls" preload id="fart_sound"  hidden> </audio>
 	<button class="button" id="fart" onclick="fart();" style="display:block; margin:0 auto;"><p style="margin: auto; color: darkgreen;"><b>surprise!</b></p></button>
 	<script>
 		function fart() {
-			var audio = document.getElementById('fart_sound');
-			if (!audio.pause) {
-				audio.play();
-			} else {
-				setTimeout(() => {
-					new Audio("res/sounds/fart.mp3").play();
-				}, 0);
-			}
+			new Audio("res/sounds/fart.mp3").play();
 		}
 	</script>
+	<br />
 
+	
+	<h2><p style="font-size: 15px;">(Project2)</p>
+		<p>Butt on YES</p>
+	</h2>
 
 </blackboard>
 
@@ -247,7 +249,7 @@ text-shadow: 0px 0px 6px black, 0px 0px 3px black, 0px 0px 4px rgb(225, 216, 233
 			<br>
 
 			<b>2021年 12月6号 0:22</b><br>
-			<b>#1#</b> 回来看看上次写的玩意，...那是啥啊？！现在感觉就像是在System.out.print("");System.out.print("");System.out.print("");System.out.print("");System.out.print("");
+			<b>#1#</b> 回来看看上次写的玩意，...那是啥啊？！现在感觉就像是在System.out.print("");
 							一样啥也没说啊！大概是昏昏欲睡的时候写的 ——我觉得闭上眼睛敲键盘也比“那个”日记好的多罢！！！！<br>
 			<b>#2#</b> 明天有月考，还是先睡了好。总之下次写点有意义的.<br>
 			<br>
