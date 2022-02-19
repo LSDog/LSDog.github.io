@@ -91,24 +91,60 @@ text-shadow: 0px 0px 6px black, 0px 0px 3px black, 0px 0px 4px rgb(225, 216, 233
 	<script>
 		function fart() {
 			new Audio("res/sounds/fart.mp3").play();
+			window.open("GaymE/GaymE.html","","");
 		}
 	</script>
 	<br />
 
 	
 	<h2><p style="font-size: 15px;">(Project2)</p>
-		<p>Butt on YES</p>
+		<p>解诗谜</p>
 	</h2>
+	<br>
+	<h2><p style="font-size: 15px;">***现在用不了，因为不会写!!!!***</br></br>现在下面的框内输入一句诗, 然后指定密语, 然后点击"开导!"<br>听了长者的话以后, 你若有所思, 点击"推敲"领会.</p>
+	<dev style="display: inline-block;">
+		<form>
+			讲句诗:
+			<textarea rows="3" cols="50" id="poem">苟,,,</textarea>
+			<br>
+			密语: <input type="text" id="pass" value="我爱你">
+			<br>
+		</form>
+		<button onclick="writePoem(document.getElementById('poem').value, document.getElementById('pass').value);">开导!</button>
+		<button onclick="readPoem(document.getElementById('result').value, document.getElementById('pass').value);">推敲...</button>
+		<br>
+		长者说:
+		<textarea rows="3" cols="50" id="result"></textarea>
+	</dev>
+	<script>
+		function writePoem(poem, pass) {
+			if (pass == null || pass == "") pass = "我爱你";
+			poem = escape(poem);
+			result = "";
+			for (s in poem) {
+				result += pass.charAt(String(s).charCodeAt(0) % pass.length)
+			}
+			console.log(poem + " -> " + pass + " = " + result);
+			document.getElementById('result').innerHTML = result;
+		}
+		function readPoem(result, pass) {
+			if (pass == null || pass == "") pass = "我爱你";
+			poem = "";
+			for (s in result) {
+				poem += String.fromCharCode()
+				poem += result.charAt(String(s).charCodeAt(0) % pass.length)
+			}
+			result = unescape(result);
+			console.log(result + " -> " + pass + "=" + poem);
+			document.getElementById('result').innerHTML = result;
+		}
+		function indexToIndexes(index) {
+			
+		}
+	</script>
 
 </blackboard>
-
-<a>
-	<p>Your information: </p>
-	<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>  
-	<script type="text/javascript">
-		document.write(returnCitySN["cip"]+','+returnCitySN["cname"])  
-	</script>
-</a>
+<br>
 
 <br />
 <br />
@@ -161,7 +197,6 @@ text-shadow: 0px 0px 6px black, 0px 0px 3px black, 0px 0px 4px rgb(225, 216, 233
 			<b>傻逼</b>：你竟敢用我的魔法对付我,波特儿？<br>
 			<b>傻逼</b>：我感觉... 我的体内有不可思议的黑魔力，让我发出这些不好的黑暗句子<br>
 			<b>傻逼</b>：啊 我该如何是好......  我该拿我 怎么办......  我要绝望了。<br><br>
-			<img class="inimgset" alt="记录" src="res/images/通讯·其一.1.png"><br>
 			<b>徐</b>：敞开你的心扉，拥抱黑暗之力，傻逼之神会在暗中保护你。愿每一个傻逼都能拥有自己的归宿<br><br>
 			<b>徐</b>：你睡着了，但是你没有睡着，用你的小脑好好思考一下，你睡着究竟是为了什么，你睡不睡着对你睡着有什么影响。通过这个过程来判断你到底睡没睡着<br><br>
 			<b>徐</b>：哦，我的意思是，没错，嗯，傻逼是一种高等智慧的动物，和一般动物相比，层次上就有压倒性的差距，我想在我们用脊髓思考的时候，傻逼们已经开始使用到“脑”了，对，是“脑”，这是一种巨大的变革，我愿称之为：高等动物<br><br>
@@ -276,10 +311,6 @@ text-shadow: 0px 0px 6px black, 0px 0px 3px black, 0px 0px 4px rgb(225, 216, 233
 	
 	
 <p class="center">
-    <a class="link" href="SpigotAPI1.12.2/index.html" target="_blank">
-        <img class="small-img" src="res/images/spigot.svg" >
-  <spam>-Spigot API 1.12.2 (Chinese)</spam></a>
-  <br/>
     <a class="link" href="https://github.com/LSDogX/" target="_blank">
         <svg class="small-img" height="32" viewBox="0 0 16 16" version="1.1" width="32" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
         <spam>- my Github page</spam></a>
