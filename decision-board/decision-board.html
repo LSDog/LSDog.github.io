@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8" />
     <title>[决策板] by LSDog</title>
-    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
     <style type="text/css">
         body {
-            margin: 0;
+            background-color: black;
         }
     </style>
 </head>
@@ -16,10 +16,20 @@
 
     <script type="text/javascript">
 
+        const width = document.documentElement.clientWidth;
+        const height = document.documentElement.clientHeight;
+
         var config = {
-            type: Phaser.AUTO,
-            width: 600,
-            height: 800,
+            type: Phaser.CANVAS,
+            width: width,
+            height: height,
+            physics: {
+                default: 'arcade',
+                arcade: {
+                    gravity: { y: 300 },
+                    debug: false
+                }
+            },
             scene: {
                 preload: preload,
                 create: create,
@@ -30,14 +40,22 @@
         var game = new Phaser.Game(config);
 
         function preload() {
-            this.load.image('background', 'img/background.jpg');
+            this.load.image('ball', 'img/ball.png');
+            this.load.svg('board', 'img/board.svg');
         }
 
         function create() {
-            this.add.image(0, 0, 'background').setOrigin(0, 0);
+            let ball = this.add.image(0, 0, 'ball');
+            ball.setScale(0.4);
+            let board = this.add.image(500, 500, 'board').setOrigin(0, 0);
         }
 
         function update() {
+        }
+
+
+        function getScale(originWidth) {
+            return width/originWidth;
         }
 
     </script>
