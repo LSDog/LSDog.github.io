@@ -1,0 +1,24 @@
+.title {
+    display: block;
+    position: fixed;
+    bottom: -0.5em;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    padding: 0 1em;
+    width: 23em;
+    text-align: center;
+    background-color: #00aeff3d;
+
+}
+
+.about {
+    visibility: hidden;
+
+    display: inline-block;
+    position: fixed;
+    bottom: 1em;
+    left: 5em;
+    padding: 0 5em;
+    background-image: url("img/StreetBackground.jpg");
+}

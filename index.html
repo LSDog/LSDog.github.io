@@ -6,35 +6,60 @@
     <meta charset="utf-8">
     <title>LSDog's websh*t</title>
 
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+
     <meta name="keywords" content="LSDog,LSDogX,LSDog.fun,笑天犬">
     <meta name="description" content="The website about LSDog">
     <meta name="author" content="LSDog">
 
-    <style>
+    <link rel="stylesheet" type="text/css" href="style.css">
 
+    <style>
         body {
             background-color: black;
             color: white;
         }
-
     </style>
 
-    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!--禁止移动端缩放-->
+
+    <script src="js/pixi.min.js"></script>
+    <script src="js/pixi-sound.js"></script>
+    <script src="./script.js"></script>
+
 
 </head>
 
 <body>
 
-    <h1>LSDog's websh_t</h1>
+    <div id="title" class="title">
 
-    <h2>Enjoy for nothing.</h2>
+        <h1><a style="text-decoration: underline;" onclick="toggleVisibleWithFade('about', 0.8);">LSDog's</a> websh_t
+        </h1>
+        <h2>Enjoy for nothing.</h2>
 
+        <div id="about" class="about" style="border-radius: 0.5em; backdrop-filter: blur(8px);">
+            Hi! Im LSDog for sure~ <br>
+            <a href="https://github.com/LSDogX" target="_blank" style="color: white;">Github</a> ~ <a
+                href="https://gitee.com/LSDog" target="_blank" style="color: white;">Gitee</a>
+        </div>
+
+    </div>
+
+    <!--
     <p style="font-size: 2em; color: azure;">
         <a style="font-family: '幼圆';"></a>
         [决策板]
         <a class="link" href="./decision-board/decision-board.html" target="_blank" style="font-family: Impact">
             Decision Board
-        </a>
     </p>
+        </a>
+    -->
 
 </body>
+
+<script>
+
+</script>
