@@ -27,7 +27,6 @@
 
     <script src="js/pixi.min.js"></script>
     <script src="js/pixi-sound.js"></script>
-    <script src="./script.js"></script>
 
 
 </head>
@@ -35,12 +34,15 @@
 <body>
 
     <div id="title" class="title">
+        
+        <a id="test">test value</a>
 
         <h1><a style="text-decoration: underline;" onclick="toggleVisibleWithFade('about', 0.8);">LSDog's</a> websh_t
         </h1>
         <h2>Enjoy for nothing.</h2>
 
-        <div id="about" class="about" style="border-radius: 0.5em; backdrop-filter: blur(8px);">
+        <div id="about" class="about" style="border-radius: 0.5em; backdrop-filter: blur(8px);"
+            onclick="toggleVisibleWithFade('about', 1);">
             Hi! Im LSDog for sure~ <br>
             <a href="https://github.com/LSDogX" target="_blank" style="color: white;">Github</a> ~ <a
                 href="https://gitee.com/LSDog" target="_blank" style="color: white;">Gitee</a>
@@ -60,6 +62,5 @@
 
 </body>
 
-<script>
-
-</script>
+<script src="js/script.js"></script>
+<script src="js/mouse-trail.js"></script>
