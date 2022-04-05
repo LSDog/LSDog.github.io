@@ -37,7 +37,7 @@ app.stage.addChild(rope);
 
 var drawLock = false;
 
-document.addEventListener("onmousemove", ((event) => {
+document.addEventListener("mousemove", ((event) => {
     x = event.clientX;
     y = event.clientY;
 }));
@@ -49,7 +49,7 @@ document.addEventListener("touchmove", ((event) => {
 }))
 
 // touch/mouse start -> set history point to now
-document.addEventListener("onmouseenter", ((event) => {
+document.addEventListener("mouseenter", ((event) => {
     drawLock = true;
     var tx = event.clientX;
     var ty = event.clientY;
@@ -99,9 +99,8 @@ app.ticker.add(() => {
     historyX.pop();
     historyY.pop();
     if (!drawLock) {
-    historyX.unshift(x);
-    historyY.unshift(y);
-
+        historyX.unshift(x);
+        historyY.unshift(y);
     }
     // Update the points to correspond with history.
     for (let i = 0; i < ropeSize; i++) {
