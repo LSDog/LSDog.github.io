@@ -1,3 +1,8 @@
+html {
+    height: 100%;
+    font-family: "Josefin Sans", "sans-serif", "黑体";
+}
+
 .title {
     display: block;
     position: fixed;
@@ -22,4 +27,26 @@
     margin: 1em 0;
     padding: 0 5em;
     background-image: url("img/StreetBackground.jpg");
+}
+
+.article {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    padding: 0 1em;
+    width: 56em;
+    background-color: #ffffff33;
+}
+
+.article p {
+    font-size: 1.3em;
+    line-height: 1.5em;
+    margin-left: 1em;
+}
+
+.article f {
+    display: inline-block;
+    font-size: 0.8em;
 }
