@@ -3,7 +3,9 @@ const app = new PIXI.Application({
     width: document.body.clientWidth,
     height: innerHeight - 20
 });
-document.body.appendChild(app.view);
+app.view.style.position = "fixed"
+app.view.style.display = "block"
+document.getElementById("bg").innerHtml = app.view;
 
 
 const trailTexture = PIXI.Texture.from('../img/trail.png'); // texture
@@ -35,22 +37,14 @@ rope.blendmode = PIXI.BLEND_MODES.ADD;
 app.stage.addChild(rope);
 
 
-var drawLock = false;
 
 document.addEventListener("mousemove", ((event) => {
     x = event.clientX;
     y = event.clientY;
 }));
 
-document.addEventListener("touchmove", ((event) => {
-    touch = event.touches[0];
-    x = touch.clientX;
-    y = touch.clientY;
-}))
-
-// touch/mouse start -> set history point to now
+// mouse start -> set history point to now
 document.addEventListener("mouseenter", ((event) => {
-    drawLock = true;
     var tx = event.clientX;
     var ty = event.clientY;
     for (let i = 0; i < historySize; i++) {
@@ -65,43 +59,15 @@ document.addEventListener("mouseenter", ((event) => {
     }
     x = tx;
     y = ty;
-    drawLock = false;
 }));
-
-document.addEventListener("touchstart", ((event) => {
-    drawLock = true;
-    touch = event.touches[0];
-    var tx = touch.clientX;
-    var ty = touch.clientY;
-    for (let i = 0; i < historySize; i++) {
-        historyX.pop();
-        historyY.pop();
-        historyX.unshift(tx);
-        historyY.unshift(ty);
-    }
-    for (let i = 0; i < ropeSize; i++) {
-        points.shift();
-        points.push(new PIXI.Point(tx, ty));
-    }
-    x = tx;
-    y = ty;
-    drawLock = false;
-}));
-
-document.addEventListener("touchend", ((event) => {
-    document.getElementById("test").innerText = (parseInt(rope._geometry.points[0].x) + "," + parseInt(rope._geometry.points[0].y));
-}));
-
 
 // animate update
 app.ticker.add(() => {
     // Update the pos values to history
     historyX.pop();
     historyY.pop();
-    if (!drawLock) {
-        historyX.unshift(x);
-        historyY.unshift(y);
-    }
+    historyX.unshift(x);
+    historyY.unshift(y);
     // Update the points to correspond with history.
     for (let i = 0; i < ropeSize; i++) {
         const p = points[i];

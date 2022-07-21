@@ -31,12 +31,11 @@ html {
 
 .article {
     display: block;
-    position: fixed;
     left: 0;
     right: 0;
     margin: 0 auto;
     padding: 0 1em;
-    width: 56em;
+    width: 60%;
     background-color: #ffffff33;
 }
 
@@ -49,4 +48,34 @@ html {
 .article f {
     display: inline-block;
     font-size: 0.8em;
+    color: coral;
+}
+
+.article c {
+    display: inline-block;
+    background-color: black;
+    color: white;
+    border-radius: 0.2em;
+    margin: 0.1em 0 0.1em 0;
+    padding: 0.1em;
+    white-space: pre-wrap;
+    word-break: break-all
+}
+
+.article cs {
+    font-size: 0.5em;
+    line-height: 1.2em;
+    display: inline-block;
+    background-color: black;
+    color: white;
+    border-radius: 0.2em;
+    margin: 0.1em 0 0.1em 0;
+    padding: 0.1em;
+    white-space: pre-wrap;
+    word-break: break-all
+}
+
+.article img {
+    display: inline;
+    width: 70%;
 }

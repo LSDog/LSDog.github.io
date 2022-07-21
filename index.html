@@ -22,9 +22,7 @@
         }
     </style>
 
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <!--禁止移动端缩放-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5">
 
     <script src="js/pixi.min.js"></script>
     <script src="js/pixi-sound.js"></script>
@@ -34,20 +32,7 @@
 
 <body>
 
-    <div id="title" class="title">
-
-        <a id="test">test value</a>
-
-        <h1><a style="text-decoration: underline;" onclick="toggleVisibleWithFade('about', 0.8);">LSDog's</a> websh_t
-        </h1>
-        <h2>Enjoy for nothing.</h2>
-
-        <div id="about" class="about" style="border-radius: 0.5em; backdrop-filter: blur(8px);"
-            onclick="toggleVisibleWithFade('about', 1);">
-            Hi! Im LSDog for sure~ <br>
-            <a href="https://github.com/LSDogX" target="_blank" style="color: white;">Github</a> ~ <a
-                href="https://gitee.com/LSDog" target="_blank" style="color: white;">Gitee</a>
-        </div>
+    <div id="bg">
 
     </div>
 
@@ -84,23 +69,89 @@
                 位置:
             </h3>
             <p>
-                腾讯会议:<br>
+                程序残留：<br>
+                | 在下列文件夹中找找有没有你【已卸载的应用的名字】，如果确实不需要保留那些应用数据就 全！部！删！掉！<br>
+                | <f>C:\Users\你的windows用户名\AppData\Local</f><br>
+                | <f>C:\Users\你的windows用户名\AppData\Roaming</f><br>
+                <br>
+                | 在 Everything 搜索【"C:\Users" "\pending" .exe】、点击上方【大小】以文件大小排序、这部分是升级安装包、根据程序的图标和路径判断是否可以删除这些<br>
+                <br>
+
+                浏览器：<br>
+                | 浏览器可能是最会产生垃圾的应用之一，如果你正在使用edge，可以用 SpaceSniffer 查看 <f>C:\Users\LSDog\AppData\Local\Microsoft\Edge\UserData\Default</f>、占用还是蛮大的<br>
+                | C 盘不够用时去浏览器的设置界面清除所有数据（当然这样肯定会掉网站登录）会有不错的效果<br>
+                <br>
+
+                腾讯会议：<br>
+                | 吐槽：腾讯会议给每个会议室都复制了一遍自带的背景图<br>
                 | 日志 <f>C:\Users\LSDog\AppData\Roaming\Tencent\WeMeet\Global\Logs</f><br>
                 | 聊天区图片 <f>C:\Users\LSDog\AppData\Roaming\Tencent\WeMeet\Global\IM\image</f><br>
-                | 虚拟背景图 <f>C:\Users\LSDog\AppData\Roaming\Tencent\WeMeet\Global\VirtualBkg</f> 吐槽：这挠头玩意给每个会议室都复制了一遍自带背景图<br>
+                | 虚拟背景图 <f>C:\Users\LSDog\AppData\Roaming\Tencent\WeMeet\Global\VirtualBkg</f><br>
+                <br>
+
+                音乐软件：<br>
+                去听歌软件里的设置找到【清理缓存】清理即可<br>
+                <br>
+
+                python 的 pip 缓存：<br>
+                | 如果你使用 python <br>
+                | 使用 <c>Win</c> + <c>R</c> 键打开命令行窗口 <br>
+                | 输入 <c>cmd</c> 回车：<br>
+                | 执行这两行可以查看、清除缓存：<br>
+                <c>python -m pip cache info
+python -m pip cache remove</c><br>
+                | 示例/执行输出：<br>
+                <cs>
+C:\Users\LSDog>python -m pip cache info
+Package index page cache location: c:\users\lsdog\appdata\local\pip\cache\http
+Package index page cache size: 743.6 MB
+Number of HTTP files: 360
+Wheels location: c:\users\lsdog\appdata\local\pip\cache\wheels
+Wheels size: 101.2 MB
+Number of wheels: 10
+                    
+C:\Users\LSDog>python -m pip cache purge
+Files removed: 370
+                    
+C:\Users\LSDog>python -m pip cache info
+Package index page cache location: c:\users\lsdog\appdata\local\pip\cache\http
+Package index page cache size: 0 bytes
+Number of HTTP files: 0
+Wheels location: c:\users\lsdog\appdata\local\pip\cache\wheels
+Wheels size: 0 bytes
+Number of wheels: 0
+                </cs><br>
+                <br>
+
+                杂项：<br>
+                | PowerToys下载缓存 <f>C:\Users\LSDog\AppData\Local\Microsoft\PowerToys\Updates</f><br>
+                | 完美世界html缓存 <f>C:\Users\LSDog\AppData\Roaming\perfectworldarena\Cache</f><br>
+                | Epic html缓存 <f>C:\Users\LSDog\AppData\Local\EpicGamesLauncher\Saved\<b>以webcache开头的文件夹</b></f><br>
+                | Steam html缓存1 <f>C:\Users\LSDog\AppData\Local\Steam\htmlcache\Cache</f><br>
+                | Steam html缓存2 <f>C:\Users\LSDog\AppData\Local\Steam\htmlcache\Code Cache</f><br>
+                | 反正删了没问题的 <f>C:\Windows\ServiceProfiles\LocalService\AppData\Local\Temp</f>
+                | 安装包 <f>C:\Users\LSDog\AppData\Local\Downloaded Installations</f>
+                | 安装包 <f>C:\Users\LSDog\AppData\Roaming\Downloaded Installations</f>
             </p>
 
     </div>
 
-    <!--
-    <p style="font-size: 2em; color: azure;">
-        <a style="font-family: '幼圆';"></a>
-        [决策板]
-        <a class="link" href="./decision-board/decision-board.html" target="_blank" style="font-family: Impact">
-            Decision Board
-    </p>
-        </a>
-    -->
+    <br><br><br><br><br><br><br><br>
+
+    <div id="title" class="title">
+
+        <h1><a style="text-decoration: underline;" onclick="toggleVisibleWithFade('about', 0.8);">LSDog's</a> websh_t
+        </h1>
+        <h2>Enjoy for nothing.</h2>
+
+        <div id="about" class="about" style="border-radius: 0.5em; backdrop-filter: blur(8px);"
+            onclick="toggleVisibleWithFade('about', 1);">
+            Hi! Im LSDog for sure~ <br>
+            <a href="https://github.com/LSDogX" target="_blank" style="color: white;">Github</a> ~ <a
+                href="https://gitee.com/LSDog" target="_blank" style="color: white;">Gitee</a>
+        </div>
+
+    </div>
 
 </body>
 
