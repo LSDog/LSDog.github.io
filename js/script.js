@@ -1,5 +1,9 @@
 function isVisible(element) {
-    return window.getComputedStyle(element, null).getPropertyValue("visibility") != "hidden";
+    return window.getComputedStyle(element).visibility != "hidden";
+}
+
+function setVisible(element, visible) {
+    element.style.visibility = visible ? "visible" : "hidden";
 }
 
 function toggleVisibleWithFade(id, sec, step) {
@@ -33,4 +37,18 @@ function FadeIn(element, sec, step) {
         }
         element.style.opacity = trans;
     }, sec * Math.abs(step) * 100);
+}
+
+let map = new Map();
+
+function expand_collapse(parentElementId, elementId) {
+    parentElement = document.getElementById(parentElementId);
+    element = document.getElementById(elementId);
+    if (element == null) {
+        parentElement.appendChild(map.get(elementId));
+    } else {
+        map.set(elementId, element);
+        element.remove();
+    }
+    //setVisible(element, !isVisible(element));
 }

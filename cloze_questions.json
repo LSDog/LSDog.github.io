@@ -1,0 +1,22 @@
+﻿{
+  "questions": [
+    {
+      "Q": "When fat and salt ______ (remove) from food, the food tastes as if it is missing something.",
+      "A": [ "are removed" ],
+      "analysis": "一般现在时的被动语态。",
+      "tags": [ "TEST" ]
+    },
+    {
+      "Q": "______ (learn) more about Chinese culture, Jack has decided to take Chinese folk music as an elective course.",
+      "A": [ "To learn" ],
+      "analysis": "根据句式分析，该题有一个谓语，且无连词，故应填非谓语，根据句意可知此处表目的，故填 To learn。",
+      "tags": [ "分啥类啊", "我不到啊" ]
+    },
+    {
+      "Q": "Much time ______ (spend) sitting at a desk, office workers are generally troubled by health problems.",
+      "A": [ "spent" ],
+      "analysis": "根据句式分析，该题只有一个谓语，且无连词，尽管前半句很长，但也应填非谓语，“spend”与“much time”之间为被动关系，故填过去分词 spent。",
+      "tags": [ "谁救救我", "帮我收集点题" ]
+    }
+  ]
+}
