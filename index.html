@@ -37,33 +37,38 @@
     </div>
 
 
-    <div id="cloze" style=" display: block; width: 80%; border-radius: 0.5em; left: 0; right: 0; margin: 0 auto; padding: 0.5em 1em; color: teal; font-size: 1.5em; background-color: ghostwhite;">
+    <div id="cloze" style=" display: block; width: 80%; border-radius: 0.5em; left: 0; right: 0; margin: 0 auto; padding: 0.5em 1em 1em 1em; color: teal; font-size: 1.5em; background-color: ghostwhite;">
         <h2>Cloze - 随机完形填空练习</h2>
         <hr />
-        <h3 id="cloze_question" style="font-family: Arial, Helvetica, sans-serif; ">
-            [QUESTION]
-        </h3>
-        你的答案: <input type="text" id="cloze_answer"  />
-        <br />
-        <div style="font-size: 0.6em;">状态: <a id="cloze_state"></a></div>
-        <br />
-        <div id="cloze_ans" style="visibility: hidden; color: darkslategrey; opacity: 1; line-height: 1.5em; font-size: 0.8em; font-family: Arial, Helvetica, sans-serif;">
-            &ensp;<b><a id="cloze_ans_right"></a></b> <br />
-            题目: &ensp;&ensp;<a id="cloze_ans_Q"></a> <br />
-            答案: &ensp;&ensp;<b><a id="cloze_ans_A" style="color: darkorange"></a></b> <br />
-            你的: &ensp;&ensp;<a id="cloze_ans_your" style="color: orange"></a> <br />
-            解析: &ensp;&ensp;<a id="cloze_ans_analysis"></a> <br />
-            分类: &ensp;&ensp;<a id="cloze_ans_tags"></a> <br />
+        <!-- 答题区 -->
+        <div>
+            <h3 id="cloze_question" style="font-family: Arial, Helvetica, sans-serif; ">[QUESTION]</h3>
+            你的答案: <input type="text" id="cloze_answer" />
+            <br />
+            <div style="font-size: 0.6em;">状态: <a id="cloze_state"></a></div>
         </div>
-        <a style="display: block; padding: 0; font-size: 0.5em; text-align: right;">Made in LSDog</a>
+        <br />
+        <!-- 答案区 -->
+        <div id="cloze_ans" style="visibility: hidden; color: mediumslateblue; opacity: 1; line-height: 1.5em; font-size: 0.8em; padding: 0.3em; font-family: Arial, Helvetica; border-color: mediumseagreen; border-width: 5px; border-style: solid; border-top: 1px solid gray; border-bottom: 1px solid gray; ">
+            <div id="cloze_ans_right" style="background-color: #80808005; font-weight: 700"></div>
+            <div style="background-color: #80808010">📜&ensp;<a id="cloze_ans_Q" style="font-weight: 600"></a></div>
+            <div style="background-color: #80808005">💬&ensp;<b><a id="cloze_ans_A" style="color: seagreen"></a></b></div>
+            <div style="background-color: #80808010">📑&ensp;<a id="cloze_ans_ana"></a></div>
+            <div style="background-color: #80808005">📌&ensp;<a id="cloze_ans_tags"></a></div>
+        </div>
+        <br />
+        <div style="display: inline-block; padding: 0; font-size: 0.5em; float: left;">输入答案回车即可，再次回车下一题</div>
+        <div style="display: inline-block; padding: 0; font-size: 0.5em; float: right;">Made in LSDog</div>
         <script>
             cloze_state.innerText = "初始化...";
             var cloze_questions;
             var cloze_count;
             var cloze_current;
             var cloze_current_number;
+            var cloze_answered = false;
+            /* 新题 */
             function newCloze() {
-                cloze_answer.value = "";
+                cloze_ans.style.opacity = 0.5; // 答案区透明(减淡)
                 if (cloze_count > 1) { // 防止json就留一题导致卡死
                     let newNumber = cloze_current_number;
                     while (cloze_current_number == newNumber) {
@@ -73,27 +78,30 @@
                 } else {
                     cloze_current_number = randomInt(cloze_count);
                 }
-                cloze_current = cloze_questions[cloze_current_number];
-                cloze_state.innerText = "(随机)题目: " + (cloze_current_number + 1) + " of " + cloze_count + " in total.";
-                cloze_question.innerText = cloze_current.Q;
+                cloze_current = cloze_questions[cloze_current_number]; // 放到当前题目中
+                cloze_state.innerText = "(随机)题目: " + (cloze_current_number + 1) + " of " + cloze_count + " in total."; // 更新信息
+                cloze_question.innerText = cloze_current.Q; // 将题目写进去
+                cloze_answered = false;
             }
+            /* 回答 */
             function answerCloze() {
                 if (cloze_current == null) return;
                 if (cloze_ans.style.visibility == "hidden") {
                     cloze_ans.style.visibility = "visible";
                 }
+                cloze_answered = true;
                 cloze_ans.style.opacity = 1;
-                let correct = (cloze_current.A == cloze_answer.value);
-                cloze_ans_right.innerText = correct ? "正确！" : "错了.";
-                cloze_ans_right.style.color = correct ? "green" : "red";
+                let correct = (cloze_current.A.indexOf(cloze_answer.value) > -1); // 答案列表里包含输入答案
+                cloze_ans_right.innerText = correct ? "🙆‍♀️ 正确！" : "🙅‍♀️  错误！";
+                cloze_ans_right.style.color = correct ? "green" : "inherit";
                 cloze_ans_Q.innerText = cloze_current.Q;
-                cloze_ans_your.innerText = cloze_answer.value;
                 cloze_ans_A.innerText = cloze_current.A.join(" 或 ");
-                cloze_ans_analysis.innerText = cloze_current.analysis;
+                cloze_ans_ana.innerText = cloze_current.ana;
                 cloze_ans_tags.innerText = cloze_current.tags.join();
-                //cloze_answer.blur(); // 主动失去焦点
-                newCloze();
+                //cloze_answer.value = "";
+                cloze_ans.style.opacity = 1; // 答案区恢复不透明
             }
+            /* 随机整数 */
             function randomInt(start, end) {
                 if (end == null) {
                     end = start;
@@ -101,10 +109,14 @@
                 }
                 return Math.floor((end - start) * Math.random() + start);
             }
+            /* 输入框的按键事件 */
             cloze_answer.onkeydown = (e) => {
-                if (e.key == "Enter") answerCloze();
-                else if (cloze_ans.style.opacity != 0.6) {
-                    cloze_ans.style.opacity = 0.6; // 输入新答案时降低旧解析不透明度
+                if (!cloze_answered) {
+                    if (e.key == "Enter") answerCloze(); // 未答完题且输入回车
+                } else {
+                    cloze_answer.value = "";
+                    e.preventDefault();
+                    newCloze(); // 答完题只要有输入就清空输入框开新题
                 }
             }
             cloze_state.innerText = "正在加载题目...";

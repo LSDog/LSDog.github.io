@@ -1,22 +1,53 @@
 ﻿{
+  "备注": [
+    "每道题必须包含以下四条数据: ",
+    "Q: 问题, 空必须为7个下划线",
+    "A: 答案, 列表格式, 可以有多个答案",
+    "ana: 解析，英文(半角)标点加空格，中文(全角)标点不要带空格",
+    "tags: 考点, 特点相关标签"
+  ],
   "questions": [
     {
-      "Q": "When fat and salt ______ (remove) from food, the food tastes as if it is missing something.",
+      "Q": "When fat and salt _______ (remove) from food, the food tastes as if it is missing something.",
       "A": [ "are removed" ],
-      "analysis": "一般现在时的被动语态。",
-      "tags": [ "TEST" ]
+      "ana": "一般现在时的被动语态。",
+      "tags": [ "一般现在时" ]
     },
     {
-      "Q": "______ (learn) more about Chinese culture, Jack has decided to take Chinese folk music as an elective course.",
+      "Q": "_______ (learn) more about Chinese culture, Jack has decided to take Chinese folk music as an elective course.",
       "A": [ "To learn" ],
-      "analysis": "根据句式分析，该题有一个谓语，且无连词，故应填非谓语，根据句意可知此处表目的，故填 To learn。",
+      "ana": "根据句式分析，该题有一个谓语，且无连词，故应填非谓语，根据句意可知此处表目的，故填 To learn。",
       "tags": [ "分啥类啊", "我不到啊" ]
     },
     {
-      "Q": "Much time ______ (spend) sitting at a desk, office workers are generally troubled by health problems.",
+      "Q": "Much time _______ (spend) sitting at a desk, office workers are generally troubled by health problems.",
       "A": [ "spent" ],
-      "analysis": "根据句式分析，该题只有一个谓语，且无连词，尽管前半句很长，但也应填非谓语，“spend”与“much time”之间为被动关系，故填过去分词 spent。",
-      "tags": [ "谁救救我", "帮我收集点题" ]
+      "ana": "根据句式分析，该题只有一个谓语，且无连词，尽管前半句很长，但也应填非谓语，“spend”与“much time”之间为被动关系，故填过去分词 spent。",
+      "tags": [ "过去式", "非谓语动词" ]
+    },
+    {
+      "Q": "Children, when _______ (accompany) by their parents, are allowed to enter the stadium.",
+      "A": [ "accompanied" ],
+      "ana": "本题考查非谓语动词作状语。主语“children”与“accompany”之间为逻辑上的被动关系。",
+      "tags": []
+    },
+    {
+      "Q": "In the last few years, China _______ (make) great achievements in environmental protection.",
+      "A": [ "has made" ],
+      "ana": "根据时间状语“in the last few years”可知，此处使用现在完成时态，主语与“make”之间为主动关系，且为单数。",
+      "tags": []
+    },
+    {
+      "Q": "The book I wrote last year ________ (print) and it will soon come out.",
+      "A": [ "is being printed" ],
+      "ana": "根据“It will soon come out”可知当前正在印刷中，“the book”与“print”之间为被动关系，故用现在进行时态的被动语态。",
+      "tags": []
+    },
+    {
+      "Q": "Just as I got to the school gate, I realized I _______ (leave) my book in the cafe.",
+      "A": [ "had left" ],
+      "ana": "“realized”为一般过去时，其后面宾语从句中的动作发生在其之前，故用过去完成时。",
+      "tags": []
     }
   ]
 }
