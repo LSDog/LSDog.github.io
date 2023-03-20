@@ -37,24 +37,24 @@
     </div>
 
 
-    <div id="cloze" style=" display: block; width: 80%; border-radius: 0.5em; left: 0; right: 0; margin: 0 auto; padding: 0.5em 1em 1em 1em; color: teal; font-size: 1.5em; background-color: ghostwhite;">
+    <div id="cloze" style="display: block; width: 70%; max-width: 1024px; border-radius: 0.5em; left: 0; right: 0; margin: 1em auto 1em auto; padding: 0.5em 1em 1em 1em; color: teal; font-size: 1.5em; background-color: ghostwhite; ">
         <h2>Cloze - 随机完形填空练习</h2>
         <hr />
         <!-- 答题区 -->
         <div>
             <h3 id="cloze_question" style="font-family: Arial, Helvetica, sans-serif; ">[QUESTION]</h3>
-            你的答案: <input type="text" id="cloze_answer" />
+            你的答案: <input type="text" id="cloze_answer" style="width: 9em; font-size: 0.8em; border: 1px solid darkblue; border-radius: 3px;" autocomplete="new-password" tabindex="-1" />
             <br />
             <div style="font-size: 0.6em;">状态: <a id="cloze_state"></a></div>
+            <div style="font-size: 0.6em;">跳转到第 <input type="text" id="cloze_goto" style="width: 3em; font-size: 0.5em;" autocomplete="new-password" tabindex="-1"> 题.</div>
         </div>
         <br />
         <!-- 答案区 -->
         <div id="cloze_ans" style="visibility: hidden; color: mediumslateblue; opacity: 1; line-height: 1.5em; font-size: 0.8em; padding: 0.3em; font-family: Arial, Helvetica; border-color: mediumseagreen; border-width: 5px; border-style: solid; border-top: 1px solid gray; border-bottom: 1px solid gray; ">
-            <div id="cloze_ans_right" style="background-color: #80808005; font-weight: 700"></div>
+            <div id="cloze_ans_right" style="background-color: #80808005; display:inline-block; font-weight: 700"></div> <b>是 <a id="cloze_ans_A" style="color: seagreen"></a> !</b>
             <div style="background-color: #80808010">📜&ensp;<a id="cloze_ans_Q" style="font-weight: 600"></a></div>
-            <div style="background-color: #80808005">💬&ensp;<b><a id="cloze_ans_A" style="color: seagreen"></a></b></div>
-            <div style="background-color: #80808010">📑&ensp;<a id="cloze_ans_ana"></a></div>
-            <div style="background-color: #80808005">📌&ensp;<a id="cloze_ans_tags"></a></div>
+            <div style="background-color: #80808005">📑&ensp;<a id="cloze_ans_ana"></a></div>
+            <div style="background-color: #80808010">📌&ensp;<a id="cloze_ans_tags"></a></div>
         </div>
         <br />
         <div style="display: inline-block; padding: 0; font-size: 0.5em; float: left;">输入答案回车即可，再次回车下一题</div>
@@ -66,18 +66,34 @@
             var cloze_current;
             var cloze_current_number;
             var cloze_answered = false;
-            /* 新题 */
-            function newCloze() {
-                cloze_ans.style.opacity = 0.5; // 答案区透明(减淡)
+            let autoResize = () => {
+                if (window.innerWidth < window.innerHeight) { // 如果是 "竖屏"，增加宽度
+                    if (cloze.style.width != "85%") cloze.style.width = "85%";
+                } else {
+                    if (cloze.style.width != "70%") cloze.style.width = "70%";
+                }
+            }
+            autoResize();
+            window.onresize = () => autoResize();
+            /* 新随机题 */
+            function newRandomCloze() {
+                let newNumber;
                 if (cloze_count > 1) { // 防止json就留一题导致卡死
-                    let newNumber = cloze_current_number;
+                    newNumber = cloze_current_number;
                     while (cloze_current_number == newNumber) {
                         newNumber = randomInt(cloze_count);
                     }
-                    cloze_current_number = newNumber;
                 } else {
-                    cloze_current_number = randomInt(cloze_count);
+                    newNumber = randomInt(cloze_count);
                 }
+                return newCloze(newNumber);
+            }
+            /* 新题 */
+            function newCloze(cloze_number) {
+                cloze_number = Math.min(cloze_count - 1, cloze_number);
+                cloze_number = Math.max(0, cloze_number);
+                cloze_current_number = cloze_number;
+                cloze_ans.style.opacity = 0.5; // 答案区透明(减淡)
                 cloze_current = cloze_questions[cloze_current_number]; // 放到当前题目中
                 cloze_state.innerText = "(随机)题目: " + (cloze_current_number + 1) + " of " + cloze_count + " in total."; // 更新信息
                 cloze_question.innerText = cloze_current.Q; // 将题目写进去
@@ -116,7 +132,27 @@
                 } else {
                     cloze_answer.value = "";
                     e.preventDefault();
-                    newCloze(); // 答完题只要有输入就清空输入框开新题
+                    newRandomCloze(); // 答完题只要有输入就清空输入框开新题
+                }
+            }
+            /* 跳转 */
+            cloze_goto.onkeydown = (e) => {
+                if (e.key == "Enter") {
+                    if (cloze_goto.value == "") return;
+                    let num = parseInt(cloze_goto.value);
+                    if (num == NaN) return;
+                    num--;
+                    num = Math.max(0, num);
+                    num = Math.min(cloze_count - 1, num);
+                    newCloze(num);
+                    cloze_answer.value = "";
+                    cloze_answer.focus();
+                    cloze_goto.value = "";
+                }
+            }
+            cloze_goto.oninput = (e) => { // 防止往跳转框里输入奇怪的东西
+                if (e.data != null && ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].indexOf(e.data) < 0) {
+                    cloze_goto.value = cloze_goto.value.substring(0, cloze_goto.value.length - e.data.length);
                 }
             }
             cloze_state.innerText = "正在加载题目...";
@@ -129,135 +165,189 @@
                 cloze_questions = JSON.parse(request.responseText).questions;
                 cloze_count = cloze_questions.length
                 cloze_state.innerText = "加载完成! 总题目数量: " + cloze_count;
-                newCloze();
+                newRandomCloze();
             }
         </script>
     </div>
 
-    <div id="atricle_1" class="article">
-        <h1>C盘生活垃圾清理指南</h1>
-        <h4>2022 / 07 / 20</h4>
-        <button onclick="expand_collapse('atricle_1', 'atricle_1_content')">展开/收起</button>
-        <div id="atricle_1_content">
-            <hr>
-            <p>
-                最近、C盘又开始爆红、介于手 头都很紧、120G 的固态也只能留着回家过年再换(¿)<br>
-                今天来看看除了网上的通用教程以外、还有什么可以删的地方罢。<br>
-            </p>
-            <h3>
-                非常重要、紧急的Tip：别忘了删除文件后右键回收站、【清空回收站】再看效果！
-            </h3>
-            <br>
-
-            <h3>
-                用到的工具:
-            </h3>
-            <p>
-                搜寻文件神器 Everything <a href="https://www.voidtools.com/zh-cn/">https://www.voidtools.com/zh-cn/</a><br>
-                统览占用秘宝 SpaceSniffer <a href="http://www.uderzo.it/main_products/space_sniffer/download.html">http://www.uderzo.it/main_products/space_sniffer/download.html</a>
-            </p>
-
-            <h3>
-                垃圾分类:
-            </h3>
-            <p>
-                Log | 运行日志、这种玩意就是大家8杆子打不着的 程序运行的时候写的日记 (不要闲的没事干去读，因为写的全是流水账)<br>
-            </p>
-
-            <h3>
-                位置:
-            </h3>
-            <p>
-                程序残留：<br>
-                | 在下列文件夹中找找有没有你【已卸载的应用的名字】，如果确实不需要保留那些应用数据就 全！部！删！掉！<br>
-                | <f>C:\Users\你的windows用户名\AppData\Local</f><br>
-                | <f>C:\Users\你的windows用户名\AppData\Roaming</f><br>
-                <br>
-                | 在 Everything 搜索【"C:\Users" "\pending" .exe】、点击上方【大小】以文件大小排序、这部分是升级安装包、根据程序的图标和路径判断是否可以删除这些<br>
-                <br>
-
-                浏览器：<br>
-                | 浏览器可能是最会产生垃圾的应用之一，如果你正在使用edge，可以用 SpaceSniffer 查看 <f>C:\Users\LSDog\AppData\Local\Microsoft\Edge\UserData\Default</f>、占用还是蛮大的<br>
-                | C 盘不够用时去浏览器的设置界面清除所有数据（当然这样肯定会掉网站登录）会有不错的效果<br>
-                <br>
-
-                腾讯会议：<br>
-                | 吐槽：腾讯会议给每个会议室都复制了一遍自带的背景图<br>
-                | 日志 <f>C:\Users\LSDog\AppData\Roaming\Tencent\WeMeet\Global\Logs</f><br>
-                | 聊天区图片 <f>C:\Users\LSDog\AppData\Roaming\Tencent\WeMeet\Global\IM\image</f><br>
-                | 虚拟背景图 <f>C:\Users\LSDog\AppData\Roaming\Tencent\WeMeet\Global\VirtualBkg</f><br>
-                <br>
-
-                音乐软件：<br>
-                去听歌软件里的设置找到【清理缓存】清理即可<br>
-                <br>
-
-                python 的 pip 缓存：<br>
-                | 如果你使用 python <br>
-                | 使用 <c>Win</c> + <c>R</c> 键打开命令行窗口 <br>
-                | 输入 <c>cmd</c> 回车：<br>
-                | 执行这两行可以查看、清除缓存：<br>
-                <c>
-                    python -m pip cache info
-                    python -m pip cache remove
-                </c><br>
-                | 示例/执行输出：<br>
-                <cs>
-                    C:\Users\LSDog>python -m pip cache info
-                    Package index page cache location: c:\users\lsdog\appdata\local\pip\cache\http
-                    Package index page cache size: 743.6 MB
-                    Number of HTTP files: 360
-                    Wheels location: c:\users\lsdog\appdata\local\pip\cache\wheels
-                    Wheels size: 101.2 MB
-                    Number of wheels: 10
-
-                    C:\Users\LSDog>python -m pip cache purge
-                    Files removed: 370
-
-                    C:\Users\LSDog>python -m pip cache info
-                    Package index page cache location: c:\users\lsdog\appdata\local\pip\cache\http
-                    Package index page cache size: 0 bytes
-                    Number of HTTP files: 0
-                    Wheels location: c:\users\lsdog\appdata\local\pip\cache\wheels
-                    Wheels size: 0 bytes
-                    Number of wheels: 0
-                </cs><br>
-                <br>
-
-                杂项：<br>
-                | PowerToys下载缓存 <f>C:\Users\LSDog\AppData\Local\Microsoft\PowerToys\Updates</f><br>
-                | 完美世界html缓存 <f>C:\Users\LSDog\AppData\Roaming\perfectworldarena\Cache</f><br>
-                | Epic html缓存 <f>C:\Users\LSDog\AppData\Local\EpicGamesLauncher\Saved\<b>以webcache开头的文件夹</b></f><br>
-                | Steam html缓存1 <f>C:\Users\LSDog\AppData\Local\Steam\htmlcache\Cache</f><br>
-                | Steam html缓存2 <f>C:\Users\LSDog\AppData\Local\Steam\htmlcache\Code Cache</f><br>
-                | 反正删了没问题的 <f>C:\Windows\ServiceProfiles\LocalService\AppData\Local\Temp</f>
-                | 安装包 <f>C:\Users\LSDog\AppData\Local\Downloaded Installations</f>
-                | 安装包 <f>C:\Users\LSDog\AppData\Roaming\Downloaded Installations</f>
-            </p>
+    <div id="FunkyTownRotater" style="display: block; width: 70%; max-width: 1024px; border-radius: 0.5em; left: 0; right: 0; margin: 1em auto 1em auto; padding: 0.5em 1em 1em 1em; color: teal; font-size: 1.5em; background-color: ghostwhite;">
+        <h2>FunkyTownRotater - 你喜欢的旋转</h2>
+        <hr />
+        <!--音乐区-->
+        <div style="font-size: 0.8em">
+            <audio id="rotate_music" src="sound/FunkyTown.mp3" type="audio/mpeg"></audio>
+            放小曲儿 <input id="rotate_check" type="checkbox" style="width: 1em; height: 1em; background-color:darkcyan"/><br>
         </div>
+        <!--旋转区-->
+        <div id="rotater" style="height: 500px;">
+            <img id="rotator" src="img/NVGNGYU.webp" style="object-fit: contain; height: 500px; transform: rotateY(0deg)"/>
+        </div>
+        上传你中意的图片 <input id="rotate_upload" type="file" accept="image/*"/>
+        <script>
+            rotator_degree = 0;
+            /* 放小曲儿 */
+            rotate_check.onclick = ()=>{
+                if (rotate_check.checked) {
+                    rotate_music.play();
+                } else {
+                    rotate_music.pause();
+                    rotate_music.currentTime = 0.2;
+                }
+            }
+            rotate_music.onended = () => {rotate_music.currentTime = 0.2;rotate_music.play();}
+            /* 上传文件 */
+            rotate_upload.onchange = () => {
+                const files = rotate_upload.files;
+                if (files.length == 0) return;
+                rotator.src = URL.createObjectURL(files[0]);
+            }
+            /* 旋转 */
+            setInterval(()=>{
+                if (!rotate_music.paused) {
+                    rotator_degree = rotator_degree < 360 ? rotator_degree + 3 : 0;
+                    rotator.style.transform = "rotateY("+rotator_degree+"deg)";
+                }
+            },20);
+        </script>
     </div>
 
-    <br><br><br><br><br><br><br><br>
+        <div id="atricle_1" class="article" style="visibility: hidden;">
+            <h1>C盘生活垃圾清理指南</h1>
+            <h4>2022 / 07 / 20</h4>
+            <button onclick="expand_collapse('atricle_1', 'atricle_1_content')">展开/收起</button>
+            <div id="atricle_1_content">
+                <hr>
+                <p>
+                    最近、C盘又开始爆红、介于手 头都很紧、120G 的固态也只能留着回家过年再换(¿)<br>
+                    今天来看看除了网上的通用教程以外、还有什么可以删的地方罢。<br>
+                </p>
+                <h3>
+                    非常重要、紧急的Tip：别忘了删除文件后右键回收站、【清空回收站】再看效果！
+                </h3>
+                <br>
 
-    <div id="title" class="title">
+                <h3>
+                    用到的工具:
+                </h3>
+                <p>
+                    搜寻文件神器 Everything <a href="https://www.voidtools.com/zh-cn/">https://www.voidtools.com/zh-cn/</a><br>
+                    统览占用秘宝 SpaceSniffer <a href="http://www.uderzo.it/main_products/space_sniffer/download.html">http://www.uderzo.it/main_products/space_sniffer/download.html</a>
+                </p>
 
-        <h1>
-            <a style="text-decoration: underline;" onclick="toggleVisibleWithFade('about', 0.8);">LSDog's</a> websh_t
-        </h1>
-        <h2>Enjoy for nothing.</h2>
+                <h3>
+                    垃圾分类:
+                </h3>
+                <p>
+                    Log | 运行日志、这种玩意就是大家8杆子打不着的 程序运行的时候写的日记 (不要闲的没事干去读，因为写的全是流水账)<br>
+                </p>
 
-        <div id="about" class="about" style="border-radius: 0.5em; backdrop-filter: blur(8px);"
-             onclick="toggleVisibleWithFade('about', 1);">
-            Hi! Im LSDog for sure~ <br>
-            <a href="https://github.com/LSDogX" target="_blank" style="color: white;">Github</a> ~ <a href="https://gitee.com/LSDog" target="_blank" style="color: white;">Gitee</a>
+                <h3>
+                    位置:
+                </h3>
+                <p>
+                    程序残留：<br>
+                    | 在下列文件夹中找找有没有你【已卸载的应用的名字】，如果确实不需要保留那些应用数据就 全！部！删！掉！<br>
+                    | <f>C:\Users\你的windows用户名\AppData\Local</f><br>
+                    | <f>C:\Users\你的windows用户名\AppData\Roaming</f><br>
+                    <br>
+                    | 在 Everything 搜索【"C:\Users" "\pending" .exe】、点击上方【大小】以文件大小排序、这部分是升级安装包、根据程序的图标和路径判断是否可以删除这些<br>
+                    <br>
+
+                    浏览器：<br>
+                    | 浏览器可能是最会产生垃圾的应用之一，如果你正在使用edge，可以用 SpaceSniffer 查看 <f>C:\Users\LSDog\AppData\Local\Microsoft\Edge\UserData\Default</f>、占用还是蛮大的<br>
+                    | C 盘不够用时去浏览器的设置界面清除所有数据（当然这样肯定会掉网站登录）会有不错的效果<br>
+                    <br>
+
+                    腾讯会议：<br>
+                    | 吐槽：腾讯会议给每个会议室都复制了一遍自带的背景图<br>
+                    | 日志 <f>C:\Users\LSDog\AppData\Roaming\Tencent\WeMeet\Global\Logs</f><br>
+                    | 聊天区图片 <f>C:\Users\LSDog\AppData\Roaming\Tencent\WeMeet\Global\IM\image</f><br>
+                    | 虚拟背景图 <f>C:\Users\LSDog\AppData\Roaming\Tencent\WeMeet\Global\VirtualBkg</f><br>
+                    <br>
+
+                    音乐软件：<br>
+                    去听歌软件里的设置找到【清理缓存】清理即可<br>
+                    <br>
+
+                    python 的 pip 缓存：<br>
+                    | 如果你使用 python <br>
+                    | 使用 <c>Win</c> + <c>R</c> 键打开命令行窗口 <br>
+                    | 输入 <c>cmd</c> 回车：<br>
+                    | 执行这两行可以查看、清除缓存：<br>
+                    <c>
+                        python -m pip cache info
+                        python -m pip cache remove
+                    </c><br>
+                    | 示例/执行输出：<br>
+                    <cs>
+                        C:\Users\LSDog>python -m pip cache info
+                        Package index page cache location: c:\users\lsdog\appdata\local\pip\cache\http
+                        Package index page cache size: 743.6 MB
+                        Number of HTTP files: 360
+                        Wheels location: c:\users\lsdog\appdata\local\pip\cache\wheels
+                        Wheels size: 101.2 MB
+                        Number of wheels: 10
+
+                        C:\Users\LSDog>python -m pip cache purge
+                        Files removed: 370
+
+                        C:\Users\LSDog>python -m pip cache info
+                        Package index page cache location: c:\users\lsdog\appdata\local\pip\cache\http
+                        Package index page cache size: 0 bytes
+                        Number of HTTP files: 0
+                        Wheels location: c:\users\lsdog\appdata\local\pip\cache\wheels
+                        Wheels size: 0 bytes
+                        Number of wheels: 0
+                    </cs><br>
+                    <br>
+
+                    杂项：<br>
+                    | PowerToys下载缓存 <f>C:\Users\LSDog\AppData\Local\Microsoft\PowerToys\Updates</f><br>
+                    | 完美世界html缓存 <f>C:\Users\LSDog\AppData\Roaming\perfectworldarena\Cache</f><br>
+                    | Epic html缓存 <f>C:\Users\LSDog\AppData\Local\EpicGamesLauncher\Saved\<b>以webcache开头的文件夹</b></f><br>
+                    | Steam html缓存1 <f>C:\Users\LSDog\AppData\Local\Steam\htmlcache\Cache</f><br>
+                    | Steam html缓存2 <f>C:\Users\LSDog\AppData\Local\Steam\htmlcache\Code Cache</f><br>
+                    | 反正删了没问题的 <f>C:\Windows\ServiceProfiles\LocalService\AppData\Local\Temp</f>
+                    | 安装包 <f>C:\Users\LSDog\AppData\Local\Downloaded Installations</f>
+                    | 安装包 <f>C:\Users\LSDog\AppData\Roaming\Downloaded Installations</f>
+                </p>
+            </div>
         </div>
 
-    </div>
+        <br><br><br><br><br><br><br><br>
+
+        <div id="title" class="title">
+
+            <h1>
+                <a style="text-decoration: underline;" onclick="toggleVisibleWithFade('about', 0.8);">LSDog's</a> websh_t
+            </h1>
+            <h2>Enjoy for nothing.</h2>
+
+            <div id="about" class="about" style="border-radius: 0.5em; backdrop-filter: blur(8px);"
+                 onclick="toggleVisibleWithFade('about', 1);">
+                Hi! Im LSDog for sure~ <br>
+                <a href="https://github.com/LSDogX" target="_blank" style="color: white;">Github</a> ~ <a href="https://gitee.com/LSDog" target="_blank" style="color: white;">Gitee</a>
+            </div>
+
+            <script>
+                autoResize = () => {
+                    if (window.innerWidth < window.innerHeight) { // 如果是 "竖屏"，将标签放小
+                        if (title.style.fontSize != "0.6em") title.style.fontSize = "0.6em";
+                    } else {
+                        if (title.style.fontSize != "1em") title.style.fontSize = "1em";
+                    }
+                }
+                autoResize();
+                title.onresize = autoResize();
+            </script>
+
+        </div>
+
+        <script src="js/script.js"></script>
+
+        <script>
+            expand_collapse('atricle_1', 'atricle_1_content');
+
+        </script>
 
 </body>
-
-<script src="js/script.js"></script>
-
-<script>
-    expand_collapse('atricle_1', 'atricle_1_content');
-</script>
