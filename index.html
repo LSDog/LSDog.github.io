@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8">
-    <title>LSDog's websh*t</title>
+    <title>LSDog ~ 欢迎光临 ヾ(≧▽≦*)o</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
 
@@ -63,7 +63,11 @@
             }
 
             .simple-keyboard .hg-button.hg-functionBtn.hg-button-enter {
-                max-width: 80px;
+                max-width: 100px;
+            }
+
+            .simple-keyboard .hg-button.hg-functionBtn.hg-button-n_enter {
+                max-width: 100px;
             }
 
             #cloze_question {
@@ -126,7 +130,7 @@
         <br />
 
         <!-- tip -->
-        <div style="display: block; padding: 0; font-size: 0.8em; float: left;">回车即可【提交】，再次【提交】下一题！</div>
+        <div style="display: block; padding: 0; font-size: 0.8em; float: left;">回车即可【提交】，再次回车进入下一题！</div>
         <div style="display: block; padding: 0; font-size: 0.8em; float: right;">Made by LSDog</div>
 
         <!-- script -->
@@ -178,7 +182,7 @@
                 cloze_number = Math.min(cloze_count - 1, cloze_number);
                 cloze_number = Math.max(0, cloze_number);
                 cloze_current_number = cloze_number;
-                cloze_ans.style.opacity = 0.5; // 答案区透明(减淡)
+                cloze_ans.style.opacity = 0.2; // 答案区透明(减淡)
                 cloze_current = cloze_questions[cloze_current_number]; // 放到当前题目中
                 cloze_state.innerText = "(随机)题目: " + (cloze_current_number + 1) + " of " + cloze_count + " in total."; // 更新信息
                 cloze_question.innerText = cloze_current.Q; // 将题目写进去
@@ -301,25 +305,51 @@
                         "q w e r t y u i o p",
                         "a s d f g h j k l",
                         "{shift} z x c v b n m {backspace}",
-                        "{enter} {space} {enter}"
+                        "{n_enter} {space} {enter}"
                     ],
                     shift: [
                         "Q W E R T Y U I O P",
                         "A S D F G H J K L",
                         "{shift} Z X C V B N M {backspace}",
-                        "{enter} {space} {enter}"
+                        "{n_enter} {space} {enter}"
                     ]
                 },
                 display: {
                     "{backspace}": "←",
                     "{shift}": "⇧",
-                    "{enter}": "提交"
+                    "{enter}": "提交",
+                    "{n_enter}": "下一题"
                 }
             });
         </script>
     </div>
 
-
+    <div style="display: block; width: 400px; text-align: center; background: linear-gradient(#d2dbeb3a, #d2dbeb00); margin: auto; padding: 5px; border-radius: 10px 10px;">
+        <div style="text-align: center; font-size: 1.2em;"> <b>Cloze</b> 的简明使用教程： </div>
+        <br />
+        <div style="text-align: left; line-height: 150%;">
+            Ⅰ. 读题 —— 根据括号提示想出合适的答案来！<br />
+            Ⅱ. 输入 —— 点击 “你的答案：” 右侧的输入框，然后用你自己的键盘输入！—— 或者使用屏幕上的虚拟键盘输入！<br />
+            Ⅲ. 提交 —— 敲击回车，或者点击虚拟键盘的 “提交” 来检查你的答案！<br />
+            Ⅳ. 继续 —— 再次敲击回车，或者点击 “下一题” 显示新的题目~ <br />
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
 
     <div id="FunkyTownRotater" style="display: block; width: 70%; max-width: 1024px; border-radius: 0.5em; left: 0; right: 0;
         margin: 1em auto 1em auto; padding: 0.5em 1em 1em 1em; object-fit: contain;
@@ -373,7 +403,7 @@
 
     <div id="title" class="title" style="visibility: visible;">
 
-        <div id="title_close" style="position: absolute; right: 0; font-size: 5em; font-weight: 900;">×</div>
+        <div id="title_close" style="position: absolute; right: 0; font-size: 2em; font-weight: 900;">[X]</div>
 
         <h1>
             <a style="text-decoration: underline;" onclick="toggleVisibleWithFade('about', 0.8);">LSDog's</a> websh_t
