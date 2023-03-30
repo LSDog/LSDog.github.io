@@ -32,9 +32,14 @@
 
 <body>
 
-    <div id="bg">
 
+    <div style="text-align: center;">
+        <h1>) 欢迎光临 LSDog 的个人网站 (</h1>
+        <p>联系我: lsdog2006@qq.com / 差不多随时在线</p>
+        <p></p>
     </div>
+
+    <br>
 
 
     <!-- 非常便捷简约的 语法填空练习！可以直接拿走复制粘贴放到自己的网站，非常方便！(不过记得还要下载 cloze_questions.json 放到根目录)-->
@@ -100,7 +105,7 @@
         </style>
 
         <!-- 标题 -->
-        <h1>Cloze - 随机语法填空</h1>
+        <h1>ClozeMaster - 语法填空练习</h1>
         <hr />
 
         <!-- 答题区 -->
@@ -108,10 +113,11 @@
             <h3 id="cloze_question">[QUESTION]</h3>
             <a style="font-size: 1.5em;">你的答案: </a><input type="text" id="cloze_answer" autocomplete="new-password"
                 tabindex="-1" />
-            <br />
-            <div style="font-size: 0.6em;">状态: <a id="cloze_state"></a></div>
-            <div style="font-size: 0.6em;">跳转到第 <input type="text" id="cloze_goto" style="width: 3em;"
+            <br /><br />
+            <div style="font-size: 0.8em;">状态: <a id="cloze_state"></a></div>
+            <div style="font-size: 0.8em;">跳转到第 <input type="text" id="cloze_goto" style="width: 3em;"
                     autocomplete="new-password" tabindex="-1"> 题.</div>
+            <br />
         </div>
         <br />
 
@@ -119,7 +125,9 @@
         <div id="cloze_ans" style="visibility: hidden">
             <div id="cloze_ans_right" style="background-color: #80808005; display:inline-block; font-weight: 700"></div>
             <b>是 <a id="cloze_ans_A" style="color: seagreen"></a> !</b>
-            <div style="background-color: #80808010">📜&ensp;<a id="cloze_ans_Q" style="font-weight: 600"></a></div>
+            <div style="background-color: #80808010">📜&ensp;<a id="cloze_ans_Q" style="font-weight: 600"></a> <a id="cloze_translate"
+                    style="cursor: pointer; color: blue; font-size: 75%; display: inline; border-color: black; border-width: 0.2em; border-radius: 0.5em; border-style: dotted;">全文翻译</a>
+            </div>
             <div style="background-color: #80808005">📑&ensp;<a id="cloze_ans_ana"></a></div>
             <div style="background-color: #80808010">📌&ensp;<a id="cloze_ans_tags"></a></div>
         </div>
@@ -145,23 +153,25 @@
             var cloze_vertical = false;
 
             /* 动态调整：如果是 "竖屏"，增加宽度，减少字体大小 */
-            let autoResize = () => {
-                if (window.innerWidth < window.innerHeight) {
-                    if (!cloze_vertical) {
-                        cloze_vertical = true;
-                        cloze.style.width = "90%";
-                        cloze.style.fontSize = "0.8em";
-                    }
-                } else {
-                    if (cloze_vertical) {
-                        cloze_vertical = false;
-                        cloze.style.width = "70%";
-                        cloze.style.fontSize = "1em";
+            {
+                let autoResize = () => {
+                    if (window.innerWidth < window.innerHeight) {
+                        if (!cloze_vertical) {
+                            cloze_vertical = true;
+                            cloze.style.width = "90%";
+                            cloze.style.fontSize = "0.8em";
+                        }
+                    } else {
+                        if (cloze_vertical) {
+                            cloze_vertical = false;
+                            cloze.style.width = "70%";
+                            cloze.style.fontSize = "1em";
+                        }
                     }
                 }
+                autoResize();
+                window.addEventListener("resize", autoResize);
             }
-            autoResize();
-            window.onresize = autoResize;
 
             /* 新随机题 */
             function newRandomCloze() {
@@ -259,6 +269,11 @@
                 }
             }
 
+            /* 点击翻译事件处理 */
+            cloze_translate.onclick = () => {
+                window.open("https://fanyi.baidu.com/?#en/zh/"+encodeURI(cloze_current.Q.replace("_______", cloze_current.A[0])), "_blank");
+            }
+
             /* 加载题目 */
             cloze_state.innerText = "正在加载题目...";
             var request = new XMLHttpRequest();
@@ -324,15 +339,37 @@
         </script>
     </div>
 
-    <div style="display: block; width: 400px; text-align: center; background: linear-gradient(#d2dbeb3a, #d2dbeb00); margin: auto; padding: 5px; border-radius: 10px 10px;">
-        <div style="text-align: center; font-size: 1.2em;"> <b>Cloze</b> 的简明使用教程： </div>
+    <div id="cloze_hint"
+        style="display: block; width: 40%; text-align: center; background: linear-gradient(#d2dbeb3a, #d2dbeb00); margin: auto; padding: 5px; border-radius: 10px 10px;">
+        <div style="text-align: center; font-size: 1.2em;"> <b>ClozeMaster</b> 的使用教程： </div>
         <br />
         <div style="text-align: left; line-height: 150%;">
             Ⅰ. 读题 —— 根据括号提示想出合适的答案来！<br />
-            Ⅱ. 输入 —— 点击 “你的答案：” 右侧的输入框，然后用你自己的键盘输入！—— 或者使用屏幕上的虚拟键盘输入！<br />
+            Ⅱ. 输入 —— 点击 “你的答案：” 右侧的输入框，然后用你自己的键盘输入！— 或者使用屏幕上的虚拟键盘输入！<br />
             Ⅲ. 提交 —— 敲击回车，或者点击虚拟键盘的 “提交” 来检查你的答案！<br />
             Ⅳ. 继续 —— 再次敲击回车，或者点击 “下一题” 显示新的题目~ <br />
+            <p style="text-align: center;">-- 努力成为语法填空大师吧 --</p>
         </div>
+        <script>
+            {
+                hint_vertical = false;
+                let autoResize = () => {
+                    if (window.innerWidth < window.innerHeight) {
+                        if (!hint_vertical) {
+                            hint_vertical = true;
+                            cloze_hint.style.width = "90%";
+                        }
+                    } else {
+                        if (hint_vertical) {
+                            hint_vertical = false;
+                            cloze_hint.style.width = "40%";
+                        }
+                    }
+                }
+                autoResize();
+                window.addEventListener("resize", autoResize);
+            }
+        </script>
     </div>
     <br />
     <br />
@@ -401,7 +438,7 @@
 
     <br><br><br><br><br><br><br><br>
 
-    <div id="title" class="title" style="visibility: visible;">
+    <div id="title" class="title" style="visibility: hidden;">
 
         <div id="title_close" style="position: absolute; right: 0; font-size: 2em; font-weight: 900;">[X]</div>
 
