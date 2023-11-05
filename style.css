@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'SourceHanSansCN';
-    src:  url('https://mirrors.tuna.tsinghua.edu.cn/adobe-fonts/source-han-sans/Variable/WOFF2/OTF/Subset/SourceHanSansCN-VF.otf.woff2') format('woff2');
+    src:  url('/res/font/SourceHanSansCN-VF.otf.woff2') format('woff2');
 }
 
 html{
