@@ -1,0 +1,173 @@
+﻿{
+  "备注": [
+    "每道题必须包含以下四条数据: ",
+    "Q: 问题, 空必须为 7 个下划线",
+    "A: 答案, 列表格式, 可以有多个答案",
+    "ana: 解析，英文(半角)标点加空格，中文(全角)标点不要带空格",
+    "tags: 考点, 特点相关标签"
+  ],
+  "questions": [
+    {
+      "Q": "When fat and salt _______ (remove) from food, the food tastes as if it is missing something.",
+      "A": [ "are removed" ],
+      "ana": "一般现在时的被动语态。",
+      "tags": [ "一般现在时" ]
+    },
+    {
+      "Q": "_______ (learn) more about Chinese culture, Jack has decided to take Chinese folk music as an elective course.",
+      "A": [ "To learn" ],
+      "ana": "根据句式分析，该题有一个谓语，且无连词，故应填非谓语，根据句意可知此处表目的，故填 To learn。",
+      "tags": []
+    },
+    {
+      "Q": "Much time _______ (spend) sitting at a desk, office workers are generally troubled by health problems.",
+      "A": [ "spent" ],
+      "ana": "根据句式分析，该题只有一个谓语，且无连词，尽管前半句很长，但也应填非谓语，“spend”与“much time”之间为被动关系，故填过去分词 spent。",
+      "tags": [ "过去式", "非谓语动词" ]
+    },
+    {
+      "Q": "Children, when _______ (accompany) by their parents, are allowed to enter the stadium.",
+      "A": [ "accompanied" ],
+      "ana": "本题考查非谓语动词作状语。主语“children”与“accompany”之间为逻辑上的被动关系。",
+      "tags": []
+    },
+    {
+      "Q": "In the last few years, China _______ (make) great achievements in environmental protection.",
+      "A": [ "has made" ],
+      "ana": "根据时间状语“in the last few years”可知，此处使用现在完成时态，主语与“make”之间为主动关系，且为单数。",
+      "tags": []
+    },
+    {
+      "Q": "The book I wrote last year _______ (print) and it will soon come out.",
+      "A": [ "is being printed" ],
+      "ana": "根据“It will soon come out”可知当前正在印刷中，“the book”与“print”之间为被动关系，故用现在进行时态的被动语态。",
+      "tags": []
+    },
+    {
+      "Q": "Just as I got to the school gate, I realized I _______ (leave) my book in the cafe.",
+      "A": [ "had left" ],
+      "ana": "“realized”为一般过去时，其后面宾语从句中的动作发生在其之前，故用过去完成时。",
+      "tags": []
+    },
+    {
+      "Q": "_______ (work) for two days, Steve managed to finish his report on schedule.",
+      "A": [ "Having worked" ],
+      "ana": "此处为非谓语动词作状语结构，句子主语“Steve”为“work”的逻辑主语，两者为主动关系，且“work” 表示的动作发生在谓语动作之前，故用现在分词的完成式。",
+      "tags": []
+    },
+    {
+      "Q": "_______ (raise) in the poorest area of Glasgow, he had a long, hard road to becoming a football star.",
+      "A": [ "Raised" ],
+      "ana": "raise的逻辑主语是句子主语he，两者之间为被动关系，故填Raised。",
+      "tags": []
+    },
+    {
+      "Q": "The film star wears sunglasses. Therefore, he can go shopping without _______ (recognize).",
+      "A": [ "being recognized" ],
+      "ana": "“without” 为介词，后接动名词形式，“recognize”与“he”为逻辑上的被动关系，故答案为 being recognized",
+      "tags": []
+    },
+    {
+      "Q": "_______ (amaze) at his final score, he decided to treat himself to a big dinner.",
+      "A": [ "Amazed" ],
+      "ana": "其逻辑主语为“he”，两者从汉语理解上为主动关系，而实际结构应是“be amazed at”，即为被动关系，故填 Amazed",
+      "tags": []
+    },
+    {
+      "Q": "He _______ (addict) to computer games, his parents were very worried about his future.",
+      "A": [ "addicted" ],
+      "ana": "addict的逻辑主语是“he”而不是“his parents”，所以该题为独立主格结构，(be) addicted to“沉溺于……”。故填addicted。",
+      "tags": []
+    },
+    {
+      "Q": "In my hometown, there is always a harvest supper for the farmers after all the wheat _______ (cut).",
+      "A": [ "has been cut" ],
+      "ana": "从句中 cut 的动作发生在主句动作之前，主句是一般现在时，故该从句使用一般现在时或现在完成时，且“wheat”与“cut”之间为被动，故答案是 has been cut。",
+      "tags": []
+    },
+    {
+      "Q": "I _______ (not exercise) for six months. I'm really out of shape.",
+      "A": [ "haven't exercised", "have not exercised" ],
+      "ana": "根据“I' m really out of shape”说明主语缺乏锻炼造成的，故用现在完成时，表示对现在造成的影响。",
+      "tags": []
+    },
+    {
+      "Q": "I went to see Dr Smith yesterday, only to be told that he _______ (ask) for leave.",
+      "A": [ "had asked" ],
+      "ana": "根据“went”可知该语境发生在过去，因此“ask for leave”发生在“went” 这一动作前，故用过去完成时。",
+      "tags": []
+    },
+    {
+      "Q": "Tom is a great talker. It's high time he _______ (do) something instead of just talking.",
+      "A": [ "did" ],
+      "ana": "考查固定句式“It' s high time + 从句”，从句中使用一般过去时态。",
+      "tags": []
+    },
+    {
+      "Q": "This ferryboat _______ (use) to transport passengers between the harbor and the island for years.",
+      "A": [ "has been used" ],
+      "ana": "根据 for years 及语义理解可知使用现在完成时态，另外“this ferryboat”与“use”之间为被动关系，故填 has been used。",
+      "tags": []
+    },
+    {
+      "Q": "He _______ (work) around the clock since June, when the first Ebola case appeared in this agricultural country.",
+      "A": [ "has been working" ],
+      "ana": "根据时间状语 since June 可确定使用现在完成时，另由“around the clock”可知主语从未停止过工作，故填现在完成进行时。",
+      "tags": []
+    },
+    {
+      "Q": "One of the most effective ways to reduce _______ (anxious) is to talk about feelings with someone you trust.",
+      "A": [ "anxiety" ],
+      "ana": "动词后填名词作宾语。",
+      "tags": []
+    },
+    {
+      "Q": "He gave himself a new name to hide his _______ (identify) when he went to carry out the secret task.",
+      "A": [ "identity" ],
+      "ana": "identify 动词 → identity 名词",
+      "tags": []
+    },
+    {
+      "Q": "While she was in Paris, she developed a _______ (tasty) for fine art.",
+      "A": [ "taste" ],
+      "ana": "tasty 形容词 → taste 名词",
+      "tags": []
+    },
+    {
+      "Q": "Andy is content with the toy. It is _______ (good) he has ever got.",
+      "A": [ "the best" ],
+      "ana": "根据句意可知，空格处用形容词的最高级，且最高级前须加定冠词 the。",
+      "tags": []
+    },
+    {
+      "Q": "We can choose our friends, but _______ (usual) we cannot choose our neighbors.",
+      "A": [ "usually" ],
+      "ana": "修饰 but 后的分句，故填副词。",
+      "tags": []
+    },
+    {
+      "Q": "It' s said that the power plant is now _______ (two) as large as what it was.",
+      "A": [ "twice" ],
+      "ana": "根据句式结构可以看出，此处考查“倍数表达法”，two 的倍数表达为 twice。",
+      "tags": []
+    },
+    {
+      "Q": "Doctors use it to learn more about unfamiliar diseases and the _______ (late) medical development.",
+      "A": [ "latest" ],
+      "ana": "根据空前为冠词，空后为名词可知，此处考查形容词作定语。根据语义，“最新的”，应填 latest",
+      "tags": []
+    },
+    {
+      "Q": "We drank together and talked _______ (merry) till far into the night.",
+      "A": [ "merrily" ],
+      "ana": "根据空格位于动词之后，可知此处考查副词作状语修饰动词，故填 merrily。",
+      "tags": []
+    },
+    {
+      "Q": "A co-housing community has _______ (private) owned houses and shared land.",
+      "A": [ "privately" ],
+      "ana": "空格位于助动词之后，实义动词之前，故应填副词 privately。",
+      "tags": []
+    }
+  ]
+}

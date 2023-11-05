@@ -1,6 +1,5 @@
-# LSDogX.github.io
-LSDog's website
+# LSDog's website
 - trying to create a website
 - study
 - keeping running for life
-- oh its www.LSDog.fun
+- oh its http://LSDog.fun
