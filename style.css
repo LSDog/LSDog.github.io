@@ -1,8 +1,4 @@
-@font-face {
-    font-family: 'SourceHanSansCN';
-    src:  url('/res/font/SourceHanSansCN-VF.otf.woff2') format('woff2');
-}
 
 html{
-    font-family:  SourceHanSansCN, Google Sans, Source Sans, Source Sans Pro, Arial;
+    font-family:  sans-serif;
 }
