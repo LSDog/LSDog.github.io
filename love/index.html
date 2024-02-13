@@ -20,6 +20,7 @@
     <style>
         html {
             background-color: black;
+            color: rgb(255, 255, 255);
         }
     </style>
 
@@ -27,13 +28,102 @@
 
 <body>
 
+    <!-- rickroll video, bpm = 114 -->
     <video id="video" src="https://vdse.bdstatic.com/192d9a98d782d9c74c96f09db9378d93.mp4" autoplay></video>
 
+    <h1 id="title_text" style="visibility: hidden; color: #39c5bb">GOT RICKROLLED LOL</h1>
+    <pre id="lyrics" style="visibility: hidden; font-size: 16px;">
+        lyrics   (￣∀￣)
+        We're no strangers to love
+        You know the rules and so do I (do I)
+        A full commitment's what I'm thinking of
+        You wouldn't get this from any other guy
+        I just wanna tell you how I'm feeling
+        Gotta make you understand
+        Never gonna give you up
+        Never gonna let you down
+        Never gonna run around and desert you
+        Never gonna make you cry
+        Never gonna say goodbye
+        Never gonna tell a lie and hurt you
+        We've known each other for so long
+        Your heart's been aching, but you're too shy to say it (say it)
+        Inside, we both know what's been going on (going on)
+        We know the game and we're gonna play it
+        And if you ask me how I'm feeling
+        Don't tell me you're too blind to see
+        Never gonna give you up
+        Never gonna let you down
+        Never gonna run around and desert you
+        Never gonna make you cry
+        Never gonna say goodbye
+        Never gonna tell a lie and hurt you
+        Never gonna give you up
+        Never gonna let you down
+        Never gonna run around and desert you
+        Never gonna make you cry
+        Never gonna say goodbye
+        Never gonna tell a lie and hurt you
+        (Ooh, give you up)
+        (Ooh, give you up)
+        (Ooh) Never gonna give, never gonna give (give you up)
+        (Ooh) Never gonna give, never gonna give (give you up)
+        We've known each other for so long
+        Your heart's been aching, but you're too shy to say it (to say it)
+        Inside, we both know what's been going on (going on)
+        We know the game and we're gonna play it
+        I just wanna tell you how I'm feeling
+        Gotta make you understand
+        Never gonna give you up
+        Never gonna let you down
+        Never gonna run around and desert you
+        Never gonna make you cry
+        Never gonna say goodbye
+        Never gonna tell a lie and hurt you
+        Never gonna give you up
+        Never gonna let you down
+        Never gonna run around and desert you
+        Never gonna make you cry
+        Never gonna say goodbye
+        Never gonna tell a lie and hurt you
+        Never gonna give you up
+        Never gonna let you down
+        Never gonna run around and desert you
+        Never gonna make you cry
+        Never gonna say goodbye
+        Never gonna tell a lie and hurt you
+    </pre>
+
     <script>
+
+        let a = 0;
+
         document.onclick = () => {
+            
+            document.onclick = null;
+
             log("lol");
+
             video.play();
             video.requestFullscreen();
+
+            document.title = "LSDog's rickroll";
+
+            title_text.style.visibility = "visible";
+            lyrics.style.visibility = "visible";
+
+        }
+
+        video.onplay = () => {
+            setInterval(() => {
+                if (a==0) {
+                    title_text.style.color = "#FAAFBE";
+                    a=1;
+                } else {
+                    title_text.style.color = "#39c5bb";
+                    a=0;
+                }
+            }, 1000*60/114.0);
         }
     </script>
 
