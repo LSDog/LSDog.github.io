@@ -1,0 +1,104 @@
+body {
+    margin: 0;
+}
+
+#container {
+    margin: auto;
+    padding: 1em;
+    max-width: 50em;
+    background-color: #f7f8f4
+}
+
+
+/* 基本信息框 */
+
+.basic-info {
+    display: flex;
+    height: 16em;
+    overflow: hidden;
+}
+
+.basic-info img.photo {
+    display: flex;
+    height: 12em;
+    width: max-content;
+    margin: 1em;
+    /* background-color: white; */
+    outline-color: rgba(255, 255, 255, 0.463);
+    outline-width: 0.5em;
+    outline-style: solid;
+    outline-offset: -1em;
+    /* box-shadow: inset 0em 0em 20px 0px; */
+}
+
+.basic-info .text-info {
+    display: flex;
+    height: 100%;
+    margin: 1em;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.basic-info .text-info .name {
+    margin: 0 0 0.3em 0;
+}
+
+.basic-info .text-info .info-table {
+    border-width: 0 0 0 0.5em;
+    border-style: dashed;
+    border-color: cadetblue;
+    border-spacing: 1em 0.5em;
+}
+
+.basic-info .text-info .info-table .info-key {
+    font-weight: lighter;
+    font-size: 0.75em;
+}
+
+/* 当窄屏幕时 */
+
+@media (max-width: 600px) {
+    .basic-info {
+        height: auto;
+        flex-direction: column;
+    }
+}
+
+
+/* 每个部分通用 */
+
+.section {
+    margin: 1em;
+}
+
+
+/* 个人能力列表 */
+
+.ability-list {
+    padding: 0;
+}
+
+.ability-list li {
+    display: flexbox;
+}
+
+.ability-list ul {
+    padding-inline-start: 1em;
+}
+
+.ability-list li h3 {
+    margin-bottom: 0.5em;
+}
+
+.ability-list li ul li {
+    margin: 0.5em 0 0.5em 0;
+}
+
+.ability-list a {
+    color: #7274cb;
+    text-decoration: none;
+}
+
+.ability-list a:hover {
+    text-decoration: underline;
+}
