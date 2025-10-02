@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+  />
+  <title>公交追逐战 • 行动与计分助手（单页版）</title>
+  <style>
+    :root{
+      --bg:#0f1115;
+      --card:#171a21;
+      --muted:#8a93a6;
+      --text:#e7ecf3;
+      --accent:#4aa3ff;
+      --accent-2:#3ecf8e;
+      --danger:#ff5670;
+      --warning:#ffcc66;
+    }
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--text);
+      background:linear-gradient(180deg,#0c0e12,#12151b 30%,#0f1115);
+    }
+    .container{
+      padding:16px;
+      max-width:1000px;
+      margin:0 auto 80px;
+    }
+    h1,h2,h3{
+      margin:10px 0;
+      line-height:1.2;
+    }
+    h1{
+      font-size:22px;
+    }
+    h2{
+      font-size:18px;
+      color:#dfe7f3;
+      border-left:3px solid var(--accent);
+      padding-left:8px;
+      margin-top:22px;
+    }
+    h3{
+      font-size:16px;
+      color:#dbe3f1;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+    }
+    @media(min-width:720px){
+      .grid.cols-2{
+        grid-template-columns:1fr 1fr;
+      }
+      .grid.cols-3{
+        grid-template-columns:1fr 1fr 1fr;
+      }
+    }
+    .card{
+      background:var(--card);
+      border:1px solid #1f2530;
+      border-radius:12px;
+      padding:12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,.25);
+    }
+    .row{
+      display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+    }
+    label{
+      color:#cbd5e1; font-size:13px; margin-right:6px;
+    }
+    input,select,button,textarea{
+      font-size:15px;
+    }
+    input[type="text"], input[type="number"], input[type="datetime-local"], input[type="date"], select, textarea{
+      background:#10131a;
+      border:1px solid #2a3140;
+      color:var(--text);
+      border-radius:10px;
+      padding:10px 12px;
+      outline:none;
+      min-width:0;
+    }
+    textarea{width:100%; min-height:90px; resize:vertical;}
+    .btn{
+      background:linear-gradient(180deg,#1c6ff5,#0b5bd4);
+      border:none; color:white; padding:10px 14px; border-radius:12px;
+      display:inline-flex; align-items:center; gap:8px; cursor:pointer;
+      box-shadow: 0 6px 14px rgba(76,141,255,.25);
+    }
+    .btn.secondary{ background:linear-gradient(180deg,#2b3342,#232a38); color:#eaf1ff; }
+    .btn.green{ background:linear-gradient(180deg,#25c26e,#1aa75c);}
+    .btn.warn{ background:linear-gradient(180deg,#f6b73c,#e99a12); color:#161616;}
+    .btn.danger{ background:linear-gradient(180deg,#ff5d7a,#e33958);}
+    .muted{ color:var(--muted); font-size:13px;}
+    .tag{
+      padding:2px 8px; border-radius:999px; font-size:12px; border:1px solid #2a3140; color:#cfe2ff;
+      background:#0f1522;
+    }
+    .tag.ok{ color:#d5ffef; background:#0f2019; border-color:#1b4;}
+    .tag.warn{ color:#2d1602; background:#f7d9a3; border-color:#f6b73c;}
+    .tag.danger{ color:#2a0a11; background:#ffc4d0; border-color:#e33958;}
+    .score{
+      font-weight:700; font-size:20px; color:#f0f6ff;
+    }
+    .list{
+      display:flex; flex-direction:column; gap:10px; max-height:300px; overflow:auto; padding-right:4px;
+    }
+    .item{
+      border:1px dashed #2b3342; border-radius:12px; padding:10px; background:#121722;
+      display:flex; gap:10px; align-items:flex-start; justify-content:space-between;
+    }
+    .item .left{display:flex; flex-direction:column; gap:6px; min-width:0;}
+    .item .right{display:flex; gap:6px; align-items:center; flex-wrap:wrap;}
+    .pill{
+      border-radius:999px; background:#0e1422; border:1px solid #293247; padding:6px 10px;
+      display:inline-flex; gap:6px; align-items:center; color:#cfe2ff; font-size:13px;
+    }
+    .section-actions{display:flex; gap:8px; flex-wrap:wrap;}
+    .divider{height:1px; background:#1f2633; margin:10px -12px;}
+    .kbd{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      border:1px solid #2a3140; background:#0e141e; padding:2px 6px; border-radius:6px; font-size:12px; color:#dbe7ff;
+    }
+    .small{font-size:12px}
+    .tight{margin:0; padding:0}
+    .sp-between{display:flex; align-items:center; justify-content:space-between; gap:8px;}
+    .nowrap{white-space:nowrap;}
+    .w100{width:100%}
+    .accent{color:#9fd1ff}
+    .accent2{color:#bcffe3}
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+    .counter{font-variant-numeric: tabular-nums;}
+    .footer{position:fixed; left:0; right:0; bottom:0; background:#0b0e13; border-top:1px solid #1e2430; padding:10px 14px;}
+    .footer .row{justify-content:space-between}
+    .link{color:#9fd1ff; text-decoration:underline; cursor:pointer;}
+    .hidden{display:none !important}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>公交追逐战 • 行动与计分助手（手机适配·单页）</h1>
+    <div class="muted">
+      用途：为个人或本机小队自用，记录玩家/队伍信息、任务卡/道具卡抽取与使用、任务完成与扣分日志、自动推算接下来 3 个关键事件与时间、计分板；所有数据保存在浏览器本地（localStorage）。
+    </div>
+
+    <div class="grid cols-2">
+      <div class="card">
+        <h2>基础设置</h2>
+        <div class="row">
+          <label for="gameDate">比赛日期</label>
+          <input type="date" id="gameDate" />
+        </div>
+        <div class="row">
+          <span class="pill">有效时段 A：<input type="time" id="winAStart" value="09:00"/> – <input type="time" id="winAEnd" value="13:00"/></span>
+          <span class="pill">有效时段 B：<input type="time" id="winBStart" value="14:00"/> – <input type="time" id="winBEnd" value="18:00"/></span>
+        </div>
+        <div class="row">
+          <span class="pill">被动任务抽取间隔：<span class="mono">45</span> 分钟</span>
+          <span class="pill">主动任务抽取冷却：<span class="mono">15</span> 分钟</span>
+          <span class="pill">道具卡首次抽取：<span class="mono">09:15</span>，间隔 <span class="mono">30</span> 分钟</span>
+        </div>
+        <div class="section-actions" style="margin-top:10px">
+          <button class="btn secondary" id="saveConfigBtn">保存设置</button>
+          <span class="muted">设置仅影响本机计算的事件时间轴。</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>玩家与队伍</h2>
+        <div class="grid">
+          <div class="row">
+            <label>玩家ID</label>
+            <input id="playerIdInput" type="text" placeholder="例如：Player-01" />
+            <label>阵营</label>
+            <select id="playerSideSelect">
+              <option value="attack">进攻方</option>
+              <option value="defense">防守方</option>
+            </select>
+            <button class="btn" id="addOrSwitchPlayerBtn">添加/切换</button>
+          </div>
+          <div class="row">
+            <label>当前玩家</label>
+            <span id="currentPlayerTag" class="tag">未选择</span>
+            <span class="muted">你可以在同一设备上管理多个玩家/队伍档案。</span>
+          </div>
+          <div class="divider"></div>
+          <div class="row sp-between">
+            <div>
+              <span class="pill">本玩家得分：<span id="playerScore" class="score counter">0</span></span>
+            </div>
+            <div class="section-actions">
+              <button class="btn secondary" id="renamePlayerBtn">重命名</button>
+              <button class="btn danger" id="deletePlayerBtn">删除玩家</button>
+            </div>
+          </div>
+          <div class="row sp-between">
+            <div>
+              <span class="pill">进攻方总分：<span id="scoreAttack" class="score counter">0</span></span>
+              <span class="pill">防守方总分：<span id="scoreDefense" class="score counter">0</span></span>
+            </div>
+            <div class="section-actions">
+              <button class="btn secondary" id="resetScoresBtn">清零计分板</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>任务系统</h2>
+      <div class="grid cols-3">
+        <div>
+          <h3>任务抽取配置（常规 45 分钟一次）</h3>
+          <div class="row">
+            <label>打卡类抽取</label>
+            <input id="cfgDrawCheckin" type="number" min="1" max="10" value="4" style="width:90px" />
+          </div>
+          <div class="row">
+            <label>打工类抽取</label>
+            <input id="cfgDrawWork" type="number" min="1" max="10" value="2" style="width:90px" />
+          </div>
+          <div class="section-actions" style="margin-top:8px">
+            <button class="btn" id="regularDrawBtn">常规抽取</button>
+            <span class="muted">流程：进攻抽卡→挑 3 张给防守→防守选 1 张执行（1.5 小时）。</span>
+          </div>
+        </div>
+        <div>
+          <h3>额外任务抽取（防守方每 15 分钟一次）</h3>
+          <div class="row">
+            <label>类型</label>
+            <select id="activeDrawType">
+              <option value="checkin">打卡类</option>
+              <option value="work">打工类</option>
+            </select>
+          </div>
+          <div class="section-actions" style="margin-top:8px">
+            <button class="btn" id="activeDrawBtn">抽 3 选 1（1.5 小时）</button>
+            <span id="activeDrawCooldownTag" class="tag warn">冷却未知</span>
+          </div>
+          <div class="muted small">不可叠加：15 分钟冷却内不可再次主动抽。</div>
+        </div>
+        <div>
+          <h3>任务池剩余</h3>
+          <div class="row">
+            <span class="pill">打卡剩余：<span id="poolRemainCheckin" class="mono counter">--</span></span>
+            <span class="pill">打工剩余：<span id="poolRemainWork" class="mono counter">--</span></span>
+          </div>
+          <div class="section-actions" style="margin-top:8px">
+            <button class="btn secondary" id="resetTaskPoolBtn">重置任务池</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div id="drawArea" class="hidden">
+        <h3>抽取结果与选择</h3>
+        <div class="muted">请先选择要提供给防守方的 3 张卡，再在 3 张中确定 1 张执行。</div>
+        <div id="drawList" class="list"></div>
+        <div class="section-actions">
+          <button class="btn warn" id="offerThreeBtn">确认提供 3 张</button>
+          <button class="btn green" id="chooseOneBtn" disabled>防守方选定执行</button>
+          <button class="btn secondary" id="cancelDrawBtn">取消</button>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>进行中任务</h3>
+      <div id="activeTasksList" class="list"></div>
+
+      <h3>已完成 / 失败</h3>
+      <div id="completedTasksList" class="list"></div>
+    </div>
+
+    <div class="card">
+      <h2>道具卡系统</h2>
+      <div class="grid cols-2">
+        <div>
+          <div class="row">
+            <span class="pill">当前玩家阵营：<span id="sideTag" class="mono">--</span></span>
+          </div>
+          <div class="row">
+            <span class="pill">下一次可抽时间（每 30 分钟，首次 09:15）：<span id="nextItemDraw" class="mono counter">--</span></span>
+          </div>
+          <div class="section-actions" style="margin-top:8px">
+            <button class="btn" id="drawItemBtn">抽取道具卡</button>
+            <button class="btn secondary" id="resetItemsBtn">重置道具池</button>
+          </div>
+          <div class="muted small">双方每 30 分钟各抽 1 张；使用需声明，效果对全队有效。</div>
+        </div>
+        <div>
+          <h3>库存与效果</h3>
+          <div id="inventoryList" class="list"></div>
+          <h3 class="tight">生效中效果</h3>
+          <div id="effectsList" class="list"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>加减分与事件</h2>
+      <div class="grid cols-3">
+        <div>
+          <h3>事件快捷操作</h3>
+          <div class="section-actions">
+            <button class="btn green" id="btnPhotoCatch">拍摄到防守方 +150（进攻）</button>
+            <button class="btn green" id="btnGrabCatch">直接抓到 +300（进攻）</button>
+          </div>
+          <div class="muted small">抓捕后自动启动进攻方静止 10 分钟计时。</div>
+          <div class="divider"></div>
+          <div class="row">
+            <label>重复乘坐站段数</label>
+            <input id="dupSegments" type="number" min="1" value="1" style="width:90px" />
+          </div>
+          <div class="section-actions">
+            <button class="btn danger" id="btnDupPenaltyAttack">进攻重坐 扣分</button>
+            <button class="btn danger" id="btnDupPenaltyDefense">防守重坐 扣分</button>
+          </div>
+          <div class="muted small">每重复 1 站区间，扣 2 分，实时通报。</div>
+        </div>
+        <div>
+          <h3>分头行动（仅进攻超时扣分）</h3>
+          <div class="row">
+            <button class="btn secondary" id="btnSplitStart">开始分头</button>
+            <button class="btn secondary" id="btnSplitEnd">结束分头</button>
+          </div>
+          <div class="row">
+            <span class="pill">进攻方分头上限：<span class="mono">30</span> 分钟</span>
+          </div>
+          <div class="muted small">若超过 30 分钟，每超 1 分钟扣 5 分。</div>
+        </div>
+        <div>
+          <h3>自定义加/扣分</h3>
+          <div class="row">
+            <label>对象</label>
+            <select id="customScoreSide">
+              <option value="attack">进攻方</option>
+              <option value="defense">防守方</option>
+              <option value="player">仅当前玩家</option>
+            </select>
+          </div>
+          <div class="row">
+            <label>分值</label>
+            <input id="customScoreValue" type="number" value="10" style="width:100px"/>
+            <label>备注</label>
+            <input id="customScoreNote" type="text" placeholder="例如：完成任务/使用道具"/>
+          </div>
+          <div class="section-actions">
+            <button class="btn" id="btnScorePlus">加分</button>
+            <button class="btn danger" id="btnScoreMinus">扣分</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>接下来 3 个事件与时间</h3>
+      <div id="upcomingList" class="list"></div>
+    </div>
+
+    <div class="card">
+      <h2>操作日志</h2>
+      <div id="logList" class="list"></div>
+      <div class="section-actions" style="margin-top:8px">
+        <button class="btn secondary" id="exportBtn">导出数据</button>
+        <label class="btn secondary">
+          导入数据
+          <input id="importInput" type="file" accept="application/json" style="display:none"/>
+        </label>
+        <button class="btn danger" id="wipeBtn">清空本机数据</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="row">
+      <div class="muted small">
+        公交追逐战助手 · 本地离线 · 自动保存
+      </div>
+      <div class="row">
+        <span class="tag">现在时间：<span id="nowClock" class="mono counter">--:--:--</span></span>
+        <span class="tag">时区：<span id="tz" class="mono"></span></span>
+      </div>
+    </div>
+  </div>
+
+</br>
+</br>
+</body>
+
+<script>
+/* =========================
+   数据定义（任务/道具）
+   ========================= */
+const TASKS_CHECKIN = [
+  // 30
+  {id:'ci-bjxi', name:'北京西火车站', points:30, type:'checkin'},
+  {id:'ci-bjzhan', name:'北京火车站', points:30, type:'checkin'},
+  {id:'ci-fengtai', name:'丰台火车站', points:30, type:'checkin'},
+  {id:'ci-tuqiang2', name:'图强二小', points:30, type:'checkin'},
+  {id:'ci-chenjinglun', name:'北京市陈经纶中学（东大桥高中部）', points:30, type:'checkin'},
+  {id:'ci-guangqumen', name:'广渠门中学', points:30, type:'checkin'},
+  {id:'ci-minda', name:'民大附中（海淀）', points:30, type:'checkin'},
+  {id:'ci-kuangye', name:'矿业大学', points:30, type:'checkin'},
+  {id:'ci-csnu', name:'首都师范大学（校本部）', points:30, type:'checkin'},
+  {id:'ci-jingshan', name:'景山公园（任意大门）', points:30, type:'checkin'},
+  {id:'ci-yuyuantan', name:'玉渊潭公园（任意大门）', points:30, type:'checkin'},
+  {id:'ci-zizhuyuan', name:'紫竹院公园', points:30, type:'checkin'},
+  {id:'ci-dazhalan', name:'大栅栏', points:30, type:'checkin'},
+  {id:'ci-tiantan', name:'天坛公园', points:30, type:'checkin'},
+  {id:'ci-ditan', name:'地坛公园', points:30, type:'checkin'},
+  {id:'ci-qianmen', name:'前门公园', points:30, type:'checkin'},
+  {id:'ci-chaoyang', name:'朝阳公园', points:30, type:'checkin'},
+  {id:'ci-dongdan', name:'东单公园', points:30, type:'checkin'},
+  {id:'ci-wukesong-arc', name:'五棵松万达星际传奇机厅', points:30, type:'checkin'},
+  {id:'ci-wangfujing-arc', name:'王府井插电师机厅', points:30, type:'checkin'},
+  {id:'ci-xidan-arc', name:'西单明珠机厅', points:30, type:'checkin'},
+  {id:'ci-yousige', name:'优士阁大厦B座', points:30, type:'checkin'},
+  {id:'ci-heshenghui', name:'北京朝阳合生汇', points:30, type:'checkin'},
+  {id:'ci-huateng', name:'华腾新天地大厦', points:30, type:'checkin'},
+  {id:'ci-cctv', name:'中央广播电视总台光华路办公区（大裤衩）', points:30, type:'checkin'},
+  {id:'ci-dahongmen', name:'大红门会议中心', points:30, type:'checkin'},
+  {id:'ci-cctower', name:'中央电视塔脚下', points:30, type:'checkin'},
+  // 75
+  {id:'ci-yiheyuan', name:'颐和园（任意大门）', points:75, type:'checkin'},
+  {id:'ci-xiangshan', name:'香山公园（任意大门）', points:75, type:'checkin'},
+  {id:'ci-shougang', name:'首钢园（任意大门）', points:75, type:'checkin'},
+  {id:'ci-birdnest', name:'鸟巢', points:75, type:'checkin'},
+  {id:'ci-wanping', name:'宛平城', points:75, type:'checkin'},
+  {id:'ci-cuc', name:'中国传媒大学', points:75, type:'checkin'},
+  {id:'ci-joycity-chao', name:'朝阳大悦城', points:75, type:'checkin'},
+  {id:'ci-wangjingsoho', name:'望京SOHO', points:75, type:'checkin'},
+  {id:'ci-gongti', name:'工人体育场', points:75, type:'checkin'},
+  {id:'ci-jingxi-arc', name:'京西大悦城太豆机厅', points:75, type:'checkin'},
+  {id:'ci-changying-arc', name:'长楹天街夸特机厅', points:75, type:'checkin'},
+  {id:'ci-zhongjun-arc', name:'中骏世界城风云再起机厅', points:75, type:'checkin'},
+  {id:'ci-xihongmen-arc', name:'西红门泛时空机厅', points:75, type:'checkin'},
+  // 100
+  {id:'ci-yizhuangt1', name:'亦庄T1线（任意站点）', points:100, type:'checkin'},
+];
+
+const TASKS_WORK = [
+  // 30
+  {id:'wk-milk-tea', name:'点一杯奶茶喝', points:30, type:'work'},
+  {id:'wk-fried-chicken', name:'点一份炸鸡吃', points:30, type:'work'},
+  {id:'wk-transfer', name:'完成一次地铁–公交换乘', points:30, type:'work'},
+  {id:'wk-mcd', name:'点一份麦当劳', points:30, type:'work'},
+  {id:'wk-water', name:'买一瓶大水', points:30, type:'work'},
+  {id:'wk-bus-terminal', name:'坐到任意线路终点站', points:30, type:'work'},
+  {id:'wk-arcade-music', name:'游玩任意街机音乐游戏', points:30, type:'work'},
+  {id:'wk-bird', name:'拍到鸟', points:30, type:'work'},
+  // 100
+  {id:'wk-maimaiS', name:'将任意舞萌14+（或中二15）打上S', points:100, type:'work'},
+  {id:'wk-doll', name:'抓到一只娃娃', points:100, type:'work'},
+  {id:'wk-karaoke', name:'K一首歌', points:100, type:'work'},
+  {id:'wk-massage', name:'在按摩椅上躺7分钟', points:100, type:'work'},
+  {id:'wk-catdog', name:'拍到猫（或狗）', points:100, type:'work'},
+  {id:'wk-miku', name:'拍到初音未来', points:100, type:'work'},
+];
+
+// 道具卡（按阵营）
+const ITEMS_ATTACK = [
+  {id:'atk-taxi-3km', name:'打车卡（3km内）', effect:{type:'info', note:'可使用出租车/网约车，距离≤3km'}},
+  {id:'atk-ask-line', name:'询问防守方正在乘坐的线路卡', effect:{type:'info', note:'可询问对方当前公共交通线路'}},
+  {id:'atk-plus-30', name:'加分卡（30分）', effect:{type:'score', delta:30, side:'attack'}},
+  {id:'atk-dup-immunity', name:'抵消重坐减分卡（半小时内）', effect:{type:'duration', minutes:30, label:'忽略重坐扣分（进攻）'}},
+  {id:'atk-fake-pos', name:'公布假位置卡', effect:{type:'info', note:'当防守要求公布位置时可公布假位置'}},
+];
+
+const ITEMS_DEFENSE = [
+  {id:'def-pause-15', name:'暂停公布位置15分钟', effect:{type:'duration', minutes:15, label:'暂停位置共享（防守）'}},
+  {id:'def-pause-30', name:'暂停公布位置30分钟', effect:{type:'duration', minutes:30, label:'暂停位置共享（防守）'}},
+  {id:'def-attack-pos-30', name:'进攻方公布位置卡（30分钟）', effect:{type:'duration', minutes:30, label:'进攻方每5分钟公布位置'}},
+  {id:'def-attack-pos-60', name:'进攻方公布位置卡（60分钟）', effect:{type:'duration', minutes:60, label:'进攻方每5分钟公布位置'}},
+  {id:'def-redraw-task', name:'重抽任务卡', effect:{type:'redraw-task'}},
+  {id:'def-taxi-3km', name:'打车卡（3km内）', effect:{type:'info', note:'可使用出租车/网约车，距离≤3km'}},
+  {id:'def-plus-10', name:'加分卡（10分）', effect:{type:'score', delta:10, side:'Defense'.toLowerCase()}},
+  {id:'def-dup-immunity', name:'抵消重坐减分卡（半小时内）', effect:{type:'duration', minutes:30, label:'忽略重坐扣分（防守）'}},
+  {id:'def-freeze-10', name:'进攻方静止卡（10分钟）', effect:{type:'duration', minutes:10, label:'进攻方必须静止'}},
+  {id:'def-fake-burst', name:'暂停并公布虚假位置卡（30分钟）', effect:{type:'duration', minutes:30, label:'暂停共享，可每5分钟公布假位置（建议 2 次）'}},
+  {id:'def-timed-share', name:'暂停并定时公布位置卡（30分钟）', effect:{type:'duration', minutes:30, label:'每5分钟公布一次真实位置'}},
+];
+
+/* =========================
+   本地存储与状态
+   ========================= */
+const LS_KEY = 'bus-chase-tracker.v1';
+
+const defaultState = () => ({
+  config:{
+    gameDate: '2025-10-02',
+    winAStart: '09:00',
+    winAEnd:   '13:00',
+    winBStart: '14:00',
+    winBEnd:   '18:00',
+    passiveIntervalMin:45,
+    activeCooldownMin:15,
+    itemFirst:'09:15',
+    itemIntervalMin:30,
+  },
+  players:{ /* id: {...} */ },
+  currentPlayerId:null,
+  scoreboard:{attack:0, defense:0},
+  logs:[], // global logs (also duplicated to player logs)
+});
+
+let state = loadState();
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(LS_KEY);
+    if(!raw) return defaultState();
+    const obj = JSON.parse(raw);
+    return obj;
+  }catch(e){
+    console.error(e);
+    return defaultState();
+  }
+}
+function saveState(){
+  localStorage.setItem(LS_KEY, JSON.stringify(state));
+}
+
+/* =========================
+   工具函数（时间/ID/随机）
+   ========================= */
+const ms = {min:60*1000, hour:3600*1000};
+const fmt2 = n => String(n).padStart(2,'0');
+function nowMs(){ return Date.now(); }
+function toDateStr(d){
+  return `${d.getFullYear()}-${fmt2(d.getMonth()+1)}-${fmt2(d.getDate())}`;
+}
+function toTimeStr(d){
+  return `${fmt2(d.getHours())}:${fmt2(d.getMinutes())}:${fmt2(d.getSeconds())}`;
+}
+function parseDateTimeLocal(dateStr, timeStr){
+  // dateStr: YYYY-MM-DD, timeStr: HH:MM
+  const [Y,M,D] = dateStr.split('-').map(Number);
+  const [h,m] = timeStr.split(':').map(Number);
+  return new Date(Y, M-1, D, h, m, 0, 0).getTime();
+}
+function parseDateTimeLocalWithSec(dateStr, timeStr){
+  // timeStr: HH:MM:SS
+  const [Y,M,D] = dateStr.split('-').map(Number);
+  const [h,m,s] = timeStr.split(':').map(Number);
+  return new Date(Y, M-1, D, h, m, s||0, 0).getTime();
+}
+function nextInWindows(now, windows, firstOffsetMin, intervalMin){
+  // windows: [{startMs,endMs}], firstOffsetMin: number (如 15 表示从 start+15min 开始)
+  const t = now;
+  for(const w of windows){
+    if(t <= w.endMs){
+      const startFirst = w.startMs + firstOffsetMin*ms.min;
+      if(t <= startFirst) return startFirst;
+      if(intervalMin<=0){
+        if(t <= startFirst) return startFirst;
+        continue;
+      }
+      // 以 startFirst 为基准每 intervalMin
+      const k = Math.ceil((t - startFirst) / (intervalMin*ms.min));
+      const next = startFirst + k * intervalMin*ms.min;
+      if(next <= w.endMs) return next;
+      // else try next window
+    }
+  }
+  return null;
+}
+function nextEveryInWindows(now, windows, intervalMin, anchorTimeStrInWindow){
+  // anchorTimeStrInWindow: 'HH:MM' or null; if null, anchor = window.start
+  // 用于被动任务抽取（每 45 分钟，首个与窗口起点重合）
+  const t = now;
+  for(const w of windows){
+    if(t <= w.endMs){
+      const anchor = anchorTimeStrInWindow ? (() => {
+        const [h,m] = anchorTimeStrInWindow.split(':').map(Number);
+        const d = new Date(w.startMs);
+        const base = new Date(d.getFullYear(), d.getMonth(), d.getDate(), h, m, 0, 0).getTime();
+        // 如果 anchor 不在窗口内，则回退到窗口起点
+        return Math.max(w.startMs, Math.min(base, w.endMs));
+      })() : w.startMs;
+      if(intervalMin<=0){
+        if(t <= anchor) return anchor;
+        continue;
+      }
+      // 如果还没到 anchor
+      if(t <= anchor) return anchor;
+      const k = Math.ceil((t - anchor) / (intervalMin*ms.min));
+      const next = anchor + k * intervalMin*ms.min;
+      if(next <= w.endMs) return next;
+    }
+  }
+  return null;
+}
+
+function uid(prefix='id'){ return `${prefix}_${Math.random().toString(36).slice(2,9)}`; }
+function randPick(arr, n){
+  const a = [...arr];
+  const out = [];
+  for(let i=0;i<n && a.length;i++){
+    const idx = Math.floor(Math.random()*a.length);
+    out.push(a[idx]);
+    a.splice(idx,1);
+  }
+  return out;
+}
+
+/* =========================
+   玩家对象结构
+   =========================
+  player = {
+    id, side:'attack'|'defense', score:0,
+    taskPool:{checkinIds:[], workIds:[]},
+    activeTasks:[{uid, id, name, points, type, startMs, deadlineMs, offeredFrom?:'regular'|'active'}],
+    completedTasks:[{... , result:'success'|'fail', doneMs}],
+    lastActiveDrawMs:null, // 主动抽取冷却
+    inventory:[{iid, itemId, name, effect, gainedMs}],
+    effects:[{eid, name, label, startMs, endMs, meta?}],
+    split:{startedMs:null},
+    logs:[],
+  }
+*/
+function ensurePlayer(id){
+  if(!state.players[id]){
+    state.players[id] = {
+      id,
+      side:'attack',
+      score:0,
+      taskPool:{
+        checkinIds: TASKS_CHECKIN.map(x=>x.id),
+        workIds: TASKS_WORK.map(x=>x.id),
+      },
+      activeTasks:[],
+      completedTasks:[],
+      lastActiveDrawMs:null,
+      inventory:[],
+      effects:[],
+      split:{startedMs:null},
+      logs:[],
+    };
+  }
+}
+function currentPlayer(){
+  if(!state.currentPlayerId) return null;
+  return state.players[state.currentPlayerId] || null;
+}
+function sideLabel(s){ return s==='attack'?'进攻方':'防守方'; }
+
+/* =========================
+   UI 渲染
+   ========================= */
+const el = sel => document.querySelector(sel);
+
+function renderAll(){
+  const p = currentPlayer();
+  // config
+  el('#gameDate').value = state.config.gameDate;
+  el('#winAStart').value = state.config.winAStart;
+  el('#winAEnd').value = state.config.winAEnd;
+  el('#winBStart').value = state.config.winBStart;
+  el('#winBEnd').value = state.config.winBEnd;
+  // player
+  el('#currentPlayerTag').textContent = p ? `${p.id}（${sideLabel(p.side)}）` : '未选择';
+  el('#sideTag').textContent = p ? sideLabel(p.side) : '--';
+  el('#playerScore').textContent = p ? p.score : 0;
+  el('#scoreAttack').textContent = state.scoreboard.attack;
+  el('#scoreDefense').textContent = state.scoreboard.defense;
+  // pool remaining
+  if(p){
+    el('#poolRemainCheckin').textContent = p.taskPool.checkinIds.length;
+    el('#poolRemainWork').textContent = p.taskPool.workIds.length;
+  }else{
+    el('#poolRemainCheckin').textContent = '--';
+    el('#poolRemainWork').textContent = '--';
+  }
+  // cooldown
+  renderActiveDrawCooldown();
+  // active tasks
+  renderActiveTasks();
+  renderCompletedTasks();
+  // inventory / effects
+  renderInventory();
+  renderEffects();
+  // upcoming
+  renderUpcoming();
+  // logs
+  renderLogs();
+}
+
+function renderActiveDrawCooldown(){
+  const tag = el('#activeDrawCooldownTag');
+  const p = currentPlayer();
+  if(!p){ tag.textContent = '未登录玩家'; tag.className='tag warn'; return; }
+  const now = nowMs();
+  const cd = state.config.activeCooldownMin*ms.min;
+  if(!p.lastActiveDrawMs){
+    tag.textContent = '可用';
+    tag.className = 'tag ok';
+    return;
+  }
+  const next = p.lastActiveDrawMs + cd;
+  if(now >= next){
+    tag.textContent = '可用';
+    tag.className = 'tag ok';
+  }else{
+    const remain = Math.ceil((next - now)/1000);
+    tag.textContent = `冷却中：${Math.floor(remain/60)}分${fmt2(remain%60)}秒`;
+    tag.className = 'tag warn';
+  }
+}
+
+function taskById(id){
+  return TASKS_CHECKIN.concat(TASKS_WORK).find(x=>x.id===id);
+}
+
+let tempDraw = {cards:[], offered:[], chosen:null, from:'regular'}; // UI 选择缓存
+
+function renderDrawArea(){
+  const area = el('#drawArea');
+  const list = el('#drawList');
+  if(tempDraw.cards.length===0){ area.classList.add('hidden'); list.innerHTML=''; return; }
+  area.classList.remove('hidden');
+  list.innerHTML='';
+  tempDraw.cards.forEach(card => {
+    const div = document.createElement('div');
+    div.className = 'item';
+    const left = document.createElement('div');
+    left.className='left';
+    left.innerHTML = `
+      <div><b>${card.name}</b> · <span class="tag">${card.type==='checkin'?'打卡':'打工'}</span></div>
+      <div class="muted small">分值：<span class="mono">${card.points}</span></div>
+    `;
+    const right = document.createElement('div');
+    right.className = 'right';
+    const chk = document.createElement('input');
+    chk.type='checkbox';
+    chk.checked = tempDraw.offered.some(x=>x.id===card.id);
+    chk.addEventListener('change', ()=>{
+      if(chk.checked){
+        if(tempDraw.offered.length>=3){
+          chk.checked=false;
+          alert('最多选择 3 张提供给防守方');
+          return;
+        }
+        tempDraw.offered.push(card);
+      }else{
+        tempDraw.offered = tempDraw.offered.filter(x=>x.id!==card.id);
+      }
+      updateChooseOneButton();
+    });
+    const radio = document.createElement('input');
+    radio.type='radio';
+    radio.name='chooseOne';
+    radio.checked = tempDraw.chosen && tempDraw.chosen.id===card.id;
+    radio.addEventListener('change', ()=>{
+      tempDraw.chosen = card;
+      updateChooseOneButton();
+    });
+    right.append(
+      pill(`分值 ${card.points}`),
+      pill(card.type==='checkin'?'打卡':'打工'),
+      smallLabel('提供?'), chk,
+      smallLabel('执行?'), radio,
+    );
+    div.append(left,right);
+    list.append(div);
+  });
+  updateChooseOneButton();
+}
+function updateChooseOneButton(){
+  const btn = el('#chooseOneBtn');
+  if(tempDraw.offered.length!==3){
+    btn.disabled = true;
+    btn.textContent = '需先选择 3 张提供';
+  }else if(!tempDraw.chosen || !tempDraw.offered.some(x=>x.id===tempDraw.chosen.id)){
+    btn.disabled = true;
+    btn.textContent = '在 3 张中选 1 张执行';
+  }else{
+    btn.disabled = false;
+    btn.textContent = '防守方选定执行';
+  }
+}
+
+function renderActiveTasks(){
+  const p = currentPlayer();
+  const list = el('#activeTasksList');
+  list.innerHTML='';
+  if(!p){ return; }
+  if(p.activeTasks.length===0){
+    const div = document.createElement('div');
+    div.className='muted';
+    div.textContent='暂无进行中任务';
+    list.append(div);
+    return;
+  }
+  p.activeTasks
+    .sort((a,b)=>a.deadlineMs-b.deadlineMs)
+    .forEach(t=>{
+      const div = document.createElement('div');
+      div.className='item';
+      const left = document.createElement('div');
+      left.className='left';
+      const remain = t.deadlineMs - nowMs();
+      left.innerHTML = `
+        <div><b>${t.name}</b> · <span class="tag">${t.type==='checkin'?'打卡':'打工'}</span> · <span class="tag">${t.points}分</span></div>
+        <div class="muted small">开始：<span class="mono">${fmtTime(t.startMs)}</span> · 截止：<span class="mono">${fmtTime(t.deadlineMs)}</span></div>
+        <div class="${remain>0?'muted':'accent'} small">剩余：<span class="mono counter">${fmtRemain(remain)}</span></div>
+      `;
+      const right = document.createElement('div');
+      right.className='right';
+      const btnOk = document.createElement('button');
+      btnOk.className='btn green';
+      btnOk.textContent='完成（得分）';
+      btnOk.onclick=()=>completeTask(t.uid,'success');
+      const btnFail = document.createElement('button');
+      btnFail.className='btn danger';
+      btnFail.textContent='失败（扣分）';
+      btnFail.onclick=()=>completeTask(t.uid,'fail');
+      const btnForce = document.createElement('button');
+      btnForce.className='btn secondary';
+      btnForce.textContent='进攻抢先完成 +20（仅记录）';
+      btnForce.onclick=()=>attackFirstComplete(t);
+      right.append(btnOk, btnFail, btnForce);
+      div.append(left,right);
+      list.append(div);
+    });
+}
+
+function renderCompletedTasks(){
+  const p = currentPlayer();
+  const list = el('#completedTasksList');
+  list.innerHTML='';
+  if(!p){ return; }
+  if(p.completedTasks.length===0){
+    const div = document.createElement('div');
+    div.className='muted';
+    div.textContent='暂无历史记录';
+    list.append(div);
+    return;
+  }
+  p.completedTasks.slice().reverse().slice(0,50).forEach(t=>{
+    const div = document.createElement('div');
+    div.className='item';
+    const left = document.createElement('div');
+    left.className='left';
+    left.innerHTML=`
+      <div><b>${t.name}</b> · <span class="tag">${t.type==='checkin'?'打卡':'打工'}</span> · <span class="tag">${t.points}分</span></div>
+      <div class="muted small">结果：${t.result==='success'?'<span class="tag ok">完成</span>':'<span class="tag danger">未完成</span>'} · 时间：<span class="mono">${fmtTime(t.doneMs)}</span></div>
+    `;
+    const right = document.createElement('div');
+    right.className='right';
+    list.append(div);
+    div.append(left,right);
+  });
+}
+
+function renderInventory(){
+  const p = currentPlayer();
+  const list = el('#inventoryList');
+  list.innerHTML='';
+  if(!p){ return; }
+  if(p.inventory.length===0){
+    const div = document.createElement('div');
+    div.className='muted';
+    div.textContent='暂无道具';
+    list.append(div);
+    return;
+  }
+  p.inventory.slice().reverse().forEach(it=>{
+    const div = document.createElement('div');
+    div.className='item';
+    const left = document.createElement('div');
+    left.className='left';
+    left.innerHTML = `
+      <div><b>${it.name}</b></div>
+      <div class="muted small">获得：<span class="mono">${fmtTime(it.gainedMs)}</span></div>
+    `;
+    const right = document.createElement('div');
+    right.className='right';
+    const btnUse = document.createElement('button');
+    btnUse.className='btn';
+    btnUse.textContent='使用';
+    btnUse.onclick = ()=>useItem(it.iid);
+    right.append(btnUse);
+    div.append(left,right);
+    list.append(div);
+  });
+}
+
+function renderEffects(){
+  const p = currentPlayer();
+  const list = el('#effectsList');
+  list.innerHTML='';
+  if(!p){ return; }
+  // 还可显示“静止10分钟”等内建效果（以 effects 管理）
+  const effs = p.effects.slice().sort((a,b)=>a.endMs-b.endMs);
+  if(effs.length===0){
+    const div = document.createElement('div');
+    div.className='muted';
+    div.textContent='暂无持续效果';
+    list.append(div);
+    return;
+  }
+  effs.forEach(e=>{
+    const div = document.createElement('div');
+    div.className='item';
+    const left = document.createElement('div');
+    left.className='left';
+    const remain = e.endMs - nowMs();
+    left.innerHTML = `
+      <div><b>${e.name}</b> · <span class="tag">${e.label||'持续效果'}</span></div>
+      <div class="muted small">开始：<span class="mono">${fmtTime(e.startMs)}</span> · 结束：<span class="mono">${fmtTime(e.endMs)}</span></div>
+      <div class="${remain>0?'muted':'accent'} small">剩余：<span class="mono counter">${fmtRemain(remain)}</span></div>
+    `;
+    const right = document.createElement('div');
+    right.className='right';
+    const btnStop = document.createElement('button');
+    btnStop.className='btn secondary';
+    btnStop.textContent='结束效果';
+    btnStop.onclick=()=>endEffect(e.eid, '手动结束');
+    right.append(btnStop);
+    div.append(left,right);
+    list.append(div);
+  });
+}
+
+function renderUpcoming(){
+  const p = currentPlayer();
+  const list = el('#upcomingList');
+  list.innerHTML='';
+  if(!p){ return; }
+  const evts = computeUpcomingEvents(12); // compute more, then slice 3 after sorting
+  const top3 = evts.slice(0,3);
+  if(top3.length===0){
+    const div = document.createElement('div');
+    div.className='muted';
+    div.textContent='暂无可预告事件';
+    list.append(div);
+    return;
+  }
+  top3.forEach(e=>{
+    const div = document.createElement('div');
+    div.className='item';
+    const left = document.createElement('div'); left.className='left';
+    left.innerHTML = `
+      <div><b>${e.title}</b></div>
+      <div class="muted small">${e.detail||''}</div>
+      <div class="muted">时间：<span class="mono">${fmtTime(e.whenMs)}</span> · 距离：<span class="mono counter">${fmtRemain(e.whenMs - nowMs())}</span></div>
+    `;
+    const right = document.createElement('div'); right.className='right';
+    div.append(left,right);
+    list.append(div);
+  });
+}
+
+function renderLogs(){
+  const list = el('#logList');
+  list.innerHTML='';
+  const logs = (currentPlayer()?.logs || []);
+  if(logs.length===0){
+    const div = document.createElement('div');
+    div.className='muted';
+    div.textContent='暂无日志';
+    list.append(div);
+    return;
+  }
+  logs.slice().reverse().slice(0,120).forEach(l=>{
+    const div = document.createElement('div');
+    div.className='item';
+    const left = document.createElement('div'); left.className='left';
+    left.innerHTML = `
+      <div><b>${l.title}</b> ${l.side?`· <span class="tag">${sideLabel(l.side)}</span>`:''} ${typeof l.delta==='number'?`· <span class="tag ${l.delta>=0?'ok':'danger'}">${l.delta>0?'+':''}${l.delta}</span>`:''}</div>
+      <div class="muted small"><span class="mono">${fmtTime(l.ts)}</span> · ${l.note||''}</div>
+    `;
+    list.append(div);
+    div.append(left, document.createElement('div'));
+  });
+}
+
+/* =========================
+   UI 小组件
+   ========================= */
+function pill(text){
+  const span = document.createElement('span');
+  span.className='pill';
+  span.textContent = text;
+  return span;
+}
+function smallLabel(text){
+  const span = document.createElement('span');
+  span.className='muted small';
+  span.textContent = text;
+  return span;
+}
+function fmtTime(t){
+  const d = new Date(t);
+  return `${d.getMonth()+1}/${fmt2(d.getDate())} ${fmt2(d.getHours())}:${fmt2(d.getMinutes())}:${fmt2(d.getSeconds())}`;
+}
+function fmtRemain(diffMs){
+  if(diffMs<=0) return '已到';
+  const s = Math.ceil(diffMs/1000);
+  const h = Math.floor(s/3600);
+  const m = Math.floor((s%3600)/60);
+  const ss = s%60;
+  if(h>0) return `${h}时${fmt2(m)}分${fmt2(ss)}秒`;
+  return `${m}分${fmt2(ss)}秒`;
+}
+
+/* =========================
+   操作：玩家/配置
+   ========================= */
+function addOrSwitchPlayer(){
+  const id = el('#playerIdInput').value.trim();
+  if(!id){ alert('请输入玩家ID'); return; }
+  ensurePlayer(id);
+  const side = el('#playerSideSelect').value;
+  state.players[id].side = side;
+  state.currentPlayerId = id;
+  logPlayer({title:`切换到玩家 ${id}`, note:`阵营：${sideLabel(side)}`});
+  saveState(); renderAll();
+}
+function renamePlayer(){
+  const p = currentPlayer();
+  if(!p){ alert('请先选择玩家'); return; }
+  const newId = prompt('输入新的玩家ID', p.id);
+  if(!newId || newId===p.id) return;
+  if(state.players[newId]){ alert('该ID已存在'); return; }
+  state.players[newId] = {...p, id:newId};
+  delete state.players[p.id];
+  state.currentPlayerId = newId;
+  logPlayer({title:`重命名玩家`, note:`${p.id} -> ${newId}`});
+  saveState(); renderAll();
+}
+function deletePlayer(){
+  const p = currentPlayer();
+  if(!p){ alert('未选择玩家'); return; }
+  if(!confirm(`删除玩家 ${p.id} 及其本地数据？`)) return;
+  delete state.players[p.id];
+  state.currentPlayerId = null;
+  saveState(); renderAll();
+}
+function resetScores(){
+  if(!confirm('清零全局计分板（进攻/防守）？')) return;
+  state.scoreboard.attack = 0;
+  state.scoreboard.defense = 0;
+  logGlobal({title:'清零计分板', note:'进攻/防守总分归零'});
+  saveState(); renderAll();
+}
+function saveConfig(){
+  state.config.gameDate = el('#gameDate').value || state.config.gameDate;
+  state.config.winAStart = el('#winAStart').value;
+  state.config.winAEnd = el('#winAEnd').value;
+  state.config.winBStart = el('#winBStart').value;
+  state.config.winBEnd = el('#winBEnd').value;
+  logGlobal({title:'保存设置', note:`日期 ${state.config.gameDate}`});
+  saveState(); renderAll();
+}
+
+/* =========================
+   操作：任务抽取与完成
+   ========================= */
+function resetTaskPool(){
+  const p = currentPlayer();
+  if(!p){ alert('未选择玩家'); return; }
+  if(!confirm('重置任务池为初始状态？已抽取的卡不会退回。')) return;
+  p.taskPool.checkinIds = TASKS_CHECKIN.map(x=>x.id);
+  p.taskPool.workIds = TASKS_WORK.map(x=>x.id);
+  logPlayer({title:'重置任务池', note:'全部任务池恢复初始'});
+  saveState(); renderAll();
+}
+
+function doRegularDraw(){
+  const p = currentPlayer();
+  if(!p){ alert('未选择玩家'); return; }
+  const nCk = Math.max(1, Number(el('#cfgDrawCheckin').value||4));
+  const nWk = Math.max(1, Number(el('#cfgDrawWork').value||2));
+  const poolCk = p.taskPool.checkinIds.map(id=>taskById(id));
+  const poolWk = p.taskPool.workIds.map(id=>taskById(id));
+  if(poolCk.length===0 && poolWk.length===0){ alert('任务池已空'); return; }
+  const cards = [
+    ...randPick(poolCk, nCk),
+    ...randPick(poolWk, nWk),
+  ];
+  if(cards.length===0){ alert('无可抽取的卡'); return; }
+  tempDraw = {cards, offered:[], chosen:null, from:'regular'};
+  renderDrawArea();
+}
+
+function doActiveDraw(){
+  const p = currentPlayer();
+  if(!p){ alert('未选择玩家'); return; }
+  // 冷却
+  const nextAvail = getNextActiveDrawMs();
+  if(nextAvail && nowMs() < nextAvail){
+    alert('主动抽取冷却中');
+    return;
+  }
+  const tp = el('#activeDrawType').value; // 'checkin' or 'work'
+  const pool = (tp==='checkin'? p.taskPool.checkinIds : p.taskPool.workIds).map(id=>taskById(id));
+  if(pool.length===0){ alert('该类型任务池已空'); return; }
+  const cards = randPick(pool, 3);
+  tempDraw = {cards, offered:[...cards], chosen:null, from:'active'};
+  renderDrawArea();
+}
+
+function confirmOfferThree(){
+  if(tempDraw.offered.length!==3){
+    alert('需选择 3 张提供给防守方');
+    return;
+  }
+  alert('已选择 3 张提供给防守方，请在其中确定 1 张执行。');
+  renderDrawArea();
+}
+
+function confirmChooseOne(){
+  const p = currentPlayer();
+  if(!p){ alert('未选择玩家'); return; }
+  if(tempDraw.offered.length!==3 || !tempDraw.chosen){ return; }
+  // 添加进行中任务（1.5 小时时限）
+  const ch = tempDraw.chosen;
+  const start = nowMs();
+  const deadline = start + 90*ms.min;
+  const rec = { uid:uid('task'), id:ch.id, name:ch.name, points:ch.points, type:ch.type, startMs:start, deadlineMs:deadline, from:tempDraw.from };
+  p.activeTasks.push(rec);
+  // 从任务池移除已选择的一张（规则：已选中的任务从任务池永久移除）
+  if(ch.type==='checkin'){
+    p.taskPool.checkinIds = p.taskPool.checkinIds.filter(x=>x!==ch.id);
+  }else{
+    p.taskPool.workIds = p.taskPool.workIds.filter(x=>x!==ch.id);
+  }
+  // 主动抽取需要进入冷却
+  if(tempDraw.from==='active'){
+    p.lastActiveDrawMs = start;
+  }
+  logPlayer({title:`开始任务：${ch.name}`, note:`类型：${ch.type==='checkin'?'打卡':'打工'} · 时限 1.5 小时`});
+  tempDraw = {cards:[], offered:[], chosen:null, from:'regular'};
+  saveState(); renderAll();
+}
+
+function cancelDraw(){
+  tempDraw = {cards:[], offered:[], chosen:null, from:'regular'};
+  renderDrawArea();
+}
+
+function completeTask(uid, result){
+  const p = currentPlayer(); if(!p) return;
+  const idx = p.activeTasks.findIndex(x=>x.uid===uid);
+  if(idx<0) return;
+  const t = p.activeTasks[idx];
+  p.activeTasks.splice(idx,1);
+  p.completedTasks.push({...t, result, doneMs: nowMs()});
+  const delta = (result==='success'? t.points : -t.points);
+  applyScore({target:'player', delta, note:`${result==='success'?'完成':'未完成'}任务：${t.name}`});
+  // 阵营得失分（与玩家同阵营）
+  applyScore({target: p.side, delta, note:`${result==='success'?'完成':'未完成'}任务（玩家结算同步）`});
+  logPlayer({title:`${result==='success'?'完成':'未完成'}任务`, delta, note:t.name, side:p.side});
+  saveState(); renderAll();
+}
+
+function attackFirstComplete(task){
+  // 进攻方率先完成防守正在执行的任务：+20 分（进攻）
+  applyScore({target:'attack', delta:20, note:`抢先完成任务：${task.name}`});
+  logGlobal({title:'进攻抢先完成 +20', side:'attack', delta:20, note:task.name});
+  saveState(); renderAll();
+}
+
+/* =========================
+   操作：道具抽取与使用
+   ========================= */
+function resetItems(){
+  const p = currentPlayer(); if(!p){ alert('未选择玩家'); return; }
+  if(!confirm('重置库存与效果？（不影响计分与日志）')) return;
+  p.inventory = [];
+  p.effects = [];
+  logPlayer({title:'重置道具', note:'清空库存与效果'});
+  saveState(); renderAll();
+}
+
+function getWindowsMs(){
+  const date = state.config.gameDate;
+  const aS = parseDateTimeLocal(date, state.config.winAStart);
+  const aE = parseDateTimeLocal(date, state.config.winAEnd);
+  const bS = parseDateTimeLocal(date, state.config.winBStart);
+  const bE = parseDateTimeLocal(date, state.config.winBEnd);
+  return [{startMs:aS, endMs:aE},{startMs:bS, endMs:bE}];
+}
+
+function getNextItemDrawMs(){
+  const wins = getWindowsMs();
+  const now = nowMs();
+  const next = nextInWindows(now, wins, timeStrToMin(state.config.itemFirst), state.config.itemIntervalMin);
+  return next;
+}
+
+function getNextPassiveTaskDrawMs(){
+  const wins = getWindowsMs();
+  const now = nowMs();
+  // 每 45 分钟，首次与窗口起点重合（比赛开始时进行首次抽取）
+  return nextEveryInWindows(now, wins, state.config.passiveIntervalMin, null);
+}
+
+function timeStrToMin(hhmm){
+  const [h,m] = hhmm.split(':').map(Number);
+  return h*60+m;
+}
+
+function getNextActiveDrawMs(){
+  const p = currentPlayer(); if(!p) return null;
+  const cd = state.config.activeCooldownMin*ms.min;
+  if(!p.lastActiveDrawMs) return nowMs()-1;
+  return p.lastActiveDrawMs + cd;
+}
+
+function drawItem(){
+  const p = currentPlayer(); if(!p){ alert('未选择玩家'); return; }
+  const pool = p.side==='attack' ? ITEMS_ATTACK : ITEMS_DEFENSE;
+  if(pool.length===0){ alert('道具池为空'); return; }
+  const pick = pool[Math.floor(Math.random()*pool.length)];
+  const item = {iid:uid('item'), itemId:pick.id, name:pick.name, effect:pick.effect, gainedMs: nowMs()};
+  p.inventory.push(item);
+  logPlayer({title:`抽到道具：${item.name}`, note:'每 30 分钟一次（双方）'});
+  saveState(); renderAll();
+}
+
+function useItem(iid){
+  const p = currentPlayer(); if(!p) return;
+  const idx = p.inventory.findIndex(x=>x.iid===iid);
+  if(idx<0) return;
+  const it = p.inventory[idx];
+  const eff = it.effect || {};
+  if(eff.type==='score'){
+    const delta = Number(eff.delta||0);
+    const side = (eff.side||p.side).toLowerCase();
+    applyScore({target: side, delta, note:`使用道具：${it.name}`});
+    logGlobal({title:`使用加分卡`, side:side, delta, note:it.name});
+    // 从库存移除
+    p.inventory.splice(idx,1);
+  }else if(eff.type==='duration'){
+    const e = {
+      eid:uid('eff'), name:it.name, label:eff.label||'持续效果',
+      startMs: nowMs(),
+      endMs: nowMs() + (eff.minutes||0)*ms.min,
+      meta:{fromItem:true, side:p.side}
+    };
+    p.effects.push(e);
+    logPlayer({title:`效果开始：${e.name}`, note:e.label});
+    p.inventory.splice(idx,1);
+  }else if(eff.type==='redraw-task'){
+    // 重抽任务卡：选择一个正在执行的任务无效化，并按原规则重新抽取同类型 1 张（计时不变）
+    if(p.activeTasks.length===0){
+      alert('当前没有正在执行的任务可重抽');
+    }else{
+      const options = p.activeTasks.map((t,i)=>`${i+1}. [${t.type==='checkin'?'打卡':'打工'}] ${t.name}`).join('\n');
+      const sel = prompt(`选择要重抽的任务序号：\n${options}`);
+      const ix = Number(sel)-1;
+      if(ix>=0 && ix<p.activeTasks.length){
+        const tgt = p.activeTasks[ix];
+        // 抽取同类型 1 张，替换名称与分值（计时不变）
+        const poolIds = tgt.type==='checkin'? p.taskPool.checkinIds : p.taskPool.workIds;
+        const pool = poolIds.map(id=>taskById(id));
+        if(pool.length===0){
+          alert('同类型任务池已空，无法重抽');
+        }else{
+          const newCard = randPick(pool,1)[0];
+          // 从池移除新卡
+          if(tgt.type==='checkin'){
+            p.taskPool.checkinIds = p.taskPool.checkinIds.filter(x=>x!==newCard.id);
+          }else{
+            p.taskPool.workIds = p.taskPool.workIds.filter(x=>x!==newCard.id);
+          }
+          const oldName = tgt.name;
+          tgt.id = newCard.id;
+          tgt.name = newCard.name;
+          tgt.points = newCard.points;
+          logPlayer({title:'重抽任务卡', note:`${oldName} → ${tgt.name}（计时不变）`});
+          p.inventory.splice(idx,1);
+        }
+      }
+    }
+  }else{
+    // info 类或未知：仅记录使用
+    logPlayer({title:`使用道具：${it.name}`, note:eff.note||'已声明使用'});
+    p.inventory.splice(idx,1);
+  }
+  saveState(); renderAll();
+}
+
+function endEffect(eid, note=''){
+  const p = currentPlayer(); if(!p) return;
+  const ix = p.effects.findIndex(x=>x.eid===eid);
+  if(ix<0) return;
+  const e = p.effects[ix];
+  p.effects.splice(ix,1);
+  logPlayer({title:`效果结束：${e.name}`, note});
+  saveState(); renderAll();
+}
+
+/* =========================
+   操作：事件与计分
+   ========================= */
+function applyScore({target, delta, note}){
+  const p = currentPlayer(); if(!p) return;
+  if(target==='player'){
+    p.score += delta;
+  }else if(target==='attack' || (target||'').toLowerCase()==='attack'){
+    state.scoreboard.attack += delta;
+  }else if(target==='defense' || (target||'').toLowerCase()==='defense'){
+    state.scoreboard.defense += delta;
+  }
+  saveState();
+}
+function logGlobal({title, side, delta, note}){
+  const rec = {id:uid('log'), ts:nowMs(), title, side, delta, note};
+  state.logs.push(rec);
+  const p = currentPlayer();
+  if(p) p.logs.push(rec);
+}
+function logPlayer({title, side, delta, note}){
+  const p = currentPlayer(); if(!p) return;
+  const rec = {id:uid('log'), ts:nowMs(), title, side, delta, note};
+  p.logs.push(rec);
+  state.logs.push({...rec, player:p.id});
+}
+
+function photoCatch(){
+  applyScore({target:'attack', delta:150, note:'拍摄到防守方'});
+  logGlobal({title:'进攻拍摄到防守 +150', side:'attack', delta:150});
+  // 进攻静止 10 分钟效果
+  startEffect('进攻方静止（抓捕后）', '必须静止', 10, 'attack');
+}
+function grabCatch(){
+  applyScore({target:'attack', delta:300, note:'抓到防守方'});
+  logGlobal({title:'进攻抓到防守 +300', side:'attack', delta:300});
+  startEffect('进攻方静止（抓捕后）', '必须静止', 10, 'attack');
+}
+function startEffect(name,label,minutes, side){
+  const p = currentPlayer(); if(!p) return;
+  const e = {eid:uid('eff'), name, label, startMs:nowMs(), endMs: nowMs()+minutes*ms.min, meta:{side}};
+  p.effects.push(e);
+  logPlayer({title:`效果开始：${name}`, note:`${label} · ${minutes} 分钟`});
+  saveState(); renderAll();
+}
+
+function dupPenalty(side){
+  const n = Math.max(1, Number(el('#dupSegments').value||1));
+  const delta = -2*n;
+  applyScore({target: side, delta, note:`重复乘坐 ${n} 段`});
+  logGlobal({title:`重坐扣分`, side, delta, note:`重复 ${n} 段（每段 -2）`});
+  saveState(); renderAll();
+}
+
+function splitStart(){
+  const p = currentPlayer(); if(!p){ alert('未选择玩家'); return; }
+  if(p.split.startedMs){
+    alert('已在分头中');
+    return;
+  }
+  p.split.startedMs = nowMs();
+  logPlayer({title:'开始分头行动', note:'进攻/防守均可分头，进攻超时才扣分'});
+  saveState(); renderAll();
+}
+function splitEnd(){
+  const p = currentPlayer(); if(!p){ alert('未选择玩家'); return; }
+  if(!p.split.startedMs){
+    alert('未在分头中');
+    return;
+  }
+  const started = p.split.startedMs;
+  const durMin = Math.round((nowMs()-started)/ms.min);
+  p.split.startedMs = null;
+  logPlayer({title:'结束分头行动', note:`持续 ${durMin} 分钟`});
+  // 若当前玩家是进攻方并超 30 分钟，扣分
+  if(p.side==='attack' && durMin>30){
+    const over = durMin - 30;
+    const delta = -5 * over;
+    applyScore({target:'attack', delta, note:`分头超时 ${over} 分钟`});
+    logGlobal({title:'进攻分头超时扣分', side:'attack', delta, note:`超 ${over} 分钟（每分钟 -5）`});
+  }
+  saveState(); renderAll();
+}
+
+/* =========================
+   预告事件计算
+   ========================= */
+function computeUpcomingEvents(limit=6){
+  const out = [];
+  const p = currentPlayer(); if(!p) return out;
+  const now = nowMs();
+
+  // 1) 被动任务抽取（每45分钟，窗口起点抽第一次）
+  const nPassive = getNextPassiveTaskDrawMs();
+  if(nPassive){
+    out.push({whenMs:nPassive, title:'被动任务抽取（常规）', detail:'每 45 分钟一次；开局即抽', type:'schedule'});
+  }
+
+  // 2) 道具卡抽取（首次 09:15，每30分钟）
+  const nItem = getNextItemDrawMs();
+  if(nItem){
+    out.push({whenMs:nItem, title:'道具卡抽取', detail:'双方各 1 张；首次 09:15，间隔 30 分钟', type:'schedule'});
+  }
+  // 更新“下一次可抽时间”展示
+  el('#nextItemDraw').textContent = nItem ? fmtTime(nItem) : '—';
+
+  // 3) 主动任务抽取冷却（防守）
+  const nActive = getNextActiveDrawMs();
+  if(nActive && now < nActive){
+    out.push({whenMs:nActive, title:'主动任务抽取冷却结束', detail:'防守方每 15 分钟一次（不可叠加）', type:'cooldown'});
+  }
+
+  // 4) 进行中任务的截止时间（1.5 小时）
+  p.activeTasks.forEach(t=>{
+    out.push({whenMs:t.deadlineMs, title:`任务截止：${t.name}`, detail:`${t.type==='checkin'?'打卡':'打工'} · ${t.points}分`, type:'deadline'});
+  });
+
+  // 5) 效果结束时间（包括抓捕后静止10分等）
+  p.effects.forEach(e=>{
+    out.push({whenMs:e.endMs, title:`效果结束：${e.name}`, detail:e.label||'', type:'effect-end'});
+  });
+
+  // 6) 分头行动达到 30 分钟（进攻上限）
+  if(p.split.startedMs){
+    const limitMs = p.split.startedMs + 30*ms.min;
+    out.push({whenMs:limitMs, title:'分头行动 30 分钟点', detail:'进攻方超过将开始扣分（每分钟 -5）', type:'split-limit'});
+  }
+
+  // 7) 有效时段边界（便于掌握时间轴）
+  const wins = getWindowsMs();
+  wins.forEach(w=>{
+    if(now < w.startMs) out.push({whenMs:w.startMs, title:'有效时段开始', detail:'可进行计分与抽取', type:'window'});
+    if(now < w.endMs) out.push({whenMs:w.endMs, title:'有效时段结束', detail:'暂停计分与抽取', type:'window'});
+  });
+
+  // 排序与截取
+  out.sort((a,b)=>a.whenMs-b.whenMs);
+  return out.slice(0, limit);
+}
+
+/* =========================
+   导出 / 导入 / 清空
+   ========================= */
+function exportData(){
+  const blob = new Blob([JSON.stringify(state,null,2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `bus-chase-tracker_${Date.now()}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+function importData(file){
+  const reader = new FileReader();
+  reader.onload = e=>{
+    try{
+      const obj = JSON.parse(e.target.result);
+      state = obj;
+      saveState(); renderAll();
+      alert('导入成功');
+    }catch(err){
+      alert('导入失败：文件格式错误');
+    }
+  };
+  reader.readAsText(file);
+}
+function wipeAll(){
+  if(!confirm('确定清空本机所有数据？此操作不可撤销。')) return;
+  localStorage.removeItem(LS_KEY);
+  state = defaultState();
+  renderAll();
+}
+
+/* =========================
+   绑定事件
+   ========================= */
+el('#addOrSwitchPlayerBtn').addEventListener('click', addOrSwitchPlayer);
+el('#renamePlayerBtn').addEventListener('click', renamePlayer);
+el('#deletePlayerBtn').addEventListener('click', deletePlayer);
+el('#resetScoresBtn').addEventListener('click', resetScores);
+el('#saveConfigBtn').addEventListener('click', saveConfig);
+
+el('#resetTaskPoolBtn').addEventListener('click', resetTaskPool);
+el('#regularDrawBtn').addEventListener('click', doRegularDraw);
+el('#activeDrawBtn').addEventListener('click', doActiveDraw);
+el('#offerThreeBtn').addEventListener('click', confirmOfferThree);
+el('#chooseOneBtn').addEventListener('click', confirmChooseOne);
+el('#cancelDrawBtn').addEventListener('click', cancelDraw);
+
+el('#drawItemBtn').addEventListener('click', drawItem);
+el('#resetItemsBtn').addEventListener('click', resetItems);
+
+el('#btnPhotoCatch').addEventListener('click', photoCatch);
+el('#btnGrabCatch').addEventListener('click', grabCatch);
+el('#btnDupPenaltyAttack').addEventListener('click', ()=>dupPenalty('attack'));
+el('#btnDupPenaltyDefense').addEventListener('click', ()=>dupPenalty('defense'));
+el('#btnSplitStart').addEventListener('click', splitStart);
+el('#btnSplitEnd').addEventListener('click', splitEnd);
+
+el('#btnScorePlus').addEventListener('click', ()=>{
+  const side = el('#customScoreSide').value;
+  const val = Number(el('#customScoreValue').value||0);
+  const note = el('#customScoreNote').value||'';
+  if(!val) return;
+  if(side==='player'){
+    applyScore({target:'player', delta:val, note});
+    logPlayer({title:'自定义加分（玩家）', delta:val, note});
+  }else{
+    applyScore({target:side, delta:val, note});
+    logGlobal({title:'自定义加分', side, delta:val, note});
+  }
+  saveState(); renderAll();
+});
+el('#btnScoreMinus').addEventListener('click', ()=>{
+  const side = el('#customScoreSide').value;
+  const val = -Math.abs(Number(el('#customScoreValue').value||0));
+  const note = el('#customScoreNote').value||'';
+  if(!val) return;
+  if(side==='player'){
+    applyScore({target:'player', delta:val, note});
+    logPlayer({title:'自定义扣分（玩家）', delta:val, note});
+  }else{
+    applyScore({target:side, delta:val, note});
+    logGlobal({title:'自定义扣分', side, delta:val, note});
+  }
+  saveState(); renderAll();
+});
+
+el('#exportBtn').addEventListener('click', exportData);
+el('#importInput').addEventListener('change', (e)=>{
+  const f = e.target.files[0];
+  if(f) importData(f);
+});
+el('#wipeBtn').addEventListener('click', wipeAll);
+
+/* 时钟与自动刷新 */
+function tick(){
+  el('#nowClock').textContent = toTimeStr(new Date());
+  el('#tz').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Local';
+  // 动态更新冷却与倒计时
+  renderActiveDrawCooldown();
+  renderActiveTasks();
+  renderEffects();
+  renderUpcoming();
+}
+setInterval(tick, 1000);
+
+/* 初始渲染 */
+if(!state.currentPlayerId){
+  // 初始化示例玩家，便于第一次打开直接体验
+  ensurePlayer('Player-01');
+  state.players['Player-01'].side='defense';
+  state.currentPlayerId='Player-01';
+  saveState();
+}
+renderAll();
+
+/* =========================
+   初始化结束
+   ========================= */
+</script>
+</body>
+</html>
