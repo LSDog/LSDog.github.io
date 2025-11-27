@@ -20,14 +20,14 @@ body {
 
 .basic-info img.photo {
     display: flex;
-    height: 12em;
+    height: 13em;
     width: max-content;
     margin: 1em;
     /* background-color: white; */
     outline-color: rgba(255, 255, 255, 0.463);
-    outline-width: 0.5em;
+    outline-width: 1em;
     outline-style: solid;
-    outline-offset: -1em;
+    outline-offset: -0.75em;
     /* box-shadow: inset 0em 0em 20px 0px; */
 }
 
