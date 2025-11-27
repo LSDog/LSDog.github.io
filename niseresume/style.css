@@ -1,0 +1,176 @@
+body {
+    margin: 0;
+}
+
+#container {
+    margin: auto;
+    padding: 1em;
+    max-width: 50em;
+    background-color: #fafeff
+}
+
+
+/* 基本信息框 */
+
+.basic-info {
+    display: flex;
+    height: 16em;
+    overflow: hidden;
+}
+
+.basic-info img.photo {
+    display: flex;
+    height: 12em;
+    width: max-content;
+    margin: 1em;
+    /* background-color: white; */
+    outline-color: rgba(255, 255, 255, 0.463);
+    outline-width: 0.5em;
+    outline-style: solid;
+    outline-offset: -1em;
+    /* box-shadow: inset 0em 0em 20px 0px; */
+}
+
+.basic-info .text-info {
+    display: flex;
+    height: 100%;
+    margin: 1em;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.basic-info .text-info .name {
+    margin: 0 0 0.3em 0;
+}
+
+.basic-info .text-info .info-table {
+    border-width: 0 0 0 0.5em;
+    border-style: dashed;
+    border-color: cadetblue;
+    border-spacing: 1em 0.5em;
+}
+
+.basic-info .text-info .info-table .info-key {
+    font-weight: lighter;
+    font-size: 0.75em;
+}
+
+/* 当窄屏幕时 */
+
+@media (max-width: 600px) {
+    .basic-info {
+        height: auto;
+        flex-direction: column;
+    }
+}
+
+
+/* 每个部分通用 */
+
+.section {
+    margin: 1em;
+}
+
+
+/* 个人能力列表 */
+
+.ability-list {
+    padding: 0;
+}
+
+.ability-list li {
+    display: flexbox;
+}
+
+.ability-list ul {
+    padding-inline-start: 1em;
+}
+
+.ability-list li h3 {
+    margin-bottom: 0.5em;
+}
+
+.ability-list li ul li {
+    margin: 0.5em 0 0.5em 0;
+}
+
+.ability-list a {
+    color: #7274cb;
+    text-decoration: none;
+}
+
+.ability-list a:hover {
+    text-decoration: underline;
+}
+
+/* 主题色与标题/重点样式（柔和、易读、不突兀） */
+/* 主色系：温润的青蓝 + 暖灰中性文字 */
+:root {
+    --accent: #dc451b;       /* cadetblue-ish, used for accents */
+    --muted: #89786b;        /* 文本次要颜色 */
+    --heading: #dc1b1b;      /* 深色标题 */
+    --highlight: #f6fbfa;    /* 极浅背景高亮 */
+}
+
+/* 大标题 */
+.basic-info .text-info .name {
+    color: var(--heading);
+    font-size: 1.75rem;
+    letter-spacing: 0.6px;
+    margin-bottom: 0.2rem;
+}
+
+/* 二级标题（Section） */
+.section h2 {
+    color: var(--heading);
+    border-left: 6px solid var(--accent);
+    padding-left: 0.6rem;
+    margin: 0.2rem 0 0.6rem 0;
+    background: linear-gradient(90deg, rgba(95,158,160,0.04), transparent);
+    border-radius: 4px;
+    display: inline-block;
+}
+
+/* 三级标题（子项） */
+.ability-list li h3,
+.section h3 {
+    color: #545454;
+    font-size: 1.05rem;
+    margin: 0.3rem 0 0.4rem 0;
+}
+
+/* 强调（加粗）视觉调整：保留加粗语义，但用主色辅助识别 */
+strong, b {
+    color: var(--accent);
+    font-weight: 700;
+}
+
+/* info-key 视觉更明朗，但不抢镜 */
+.basic-info .text-info .info-table .info-key {
+    color: var(--muted);
+    font-weight: 600;
+}
+
+/* 段落与列表的微调，提升可读性 */
+.section p, .ability-list li ul li, .ability-list li ul {
+    color: #2d3b45;
+    line-height: 1.6;
+}
+
+/* 轻微卡片感分割，帮助视觉定位而不抢眼 */
+.section {
+    padding: 0.6rem 0.6rem;
+    border-radius: 6px;
+}
+
+/* 在窄屏上微调标题大小 */
+@media (max-width: 600px) {
+    .basic-info .text-info .name {
+        font-size: 1.45rem;
+    }
+    .section h2 { padding-left: 0.4rem; border-left-width: 4px; }
+}
+
+/* 小调整：链接颜色与整体风格一致 */
+.ability-list a { color: var(--accent); }
+
