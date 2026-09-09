@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>美国把计算机纳入基础教育的历程 · 课程汇报</title>
+<style>
+  :root{
+    --bg:#faf3e7; --ink:#3a2d20; --muted:#8a7458; --deep:#5a2e17;
+    --accent:#b4471f; --accent2:#c9702e; --amber:#d98e32;
+    --line:#e6d5b8; --block:#f6ead2; --paper:#fffaf0;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--ink);
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC",sans-serif;
+    line-height:1.85;font-size:15.5px;}
+  a{color:#8a4a1d;text-decoration:none;border-bottom:1px dotted #c99a5e;}
+  a:hover{color:var(--accent);border-bottom-style:solid;}
+
+  #progress{position:fixed;top:0;left:0;height:4px;width:0;
+    background:linear-gradient(90deg,var(--amber),var(--accent));z-index:99;}
+
+  /* ===== 封面 ===== */
+  .cover{background:linear-gradient(155deg,#6e2a12 0%,#9c3f1b 48%,#c05a24 100%);
+    color:#f7ead6;padding:70px 22px 66px;position:relative;overflow:hidden;}
+  .cover::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:radial-gradient(rgba(247,234,214,.14) 1.2px,transparent 1.3px);
+    background-size:26px 26px;}
+  .cover-frame{max-width:860px;margin:0 auto;border:1px solid rgba(247,234,214,.5);
+    padding:46px 42px;position:relative;}
+  .cover-frame::before{content:"";position:absolute;inset:8px;
+    border:1px solid rgba(247,234,214,.25);pointer-events:none;}
+  .course-tag{display:inline-block;letter-spacing:3px;font-size:13px;
+    border:1px solid rgba(247,234,214,.6);padding:4px 14px;margin-bottom:26px;}
+  .cover h1{font-family:Georgia,"Noto Serif SC","Songti SC","SimSun",serif;
+    font-size:clamp(28px,5vw,44px);line-height:1.35;font-weight:800;letter-spacing:1px;}
+  .subtitle{margin-top:14px;font-size:15.5px;opacity:.92;letter-spacing:.5px;}
+  .meta-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:30px;margin-top:38px;text-align:left;}
+  .meta-grid h3{font-size:15px;letter-spacing:2px;margin-bottom:10px;
+    border-bottom:1px solid rgba(247,234,214,.45);padding-bottom:6px;}
+  table.members{width:100%;border-collapse:collapse;font-size:14px;}
+  table.members th,table.members td{padding:6px 8px;text-align:left;
+    border-bottom:1px dashed rgba(247,234,214,.35);}
+  table.members th{width:58px;font-weight:600;opacity:.85;}
+  table.members td.sid{font-family:Georgia,serif;letter-spacing:1px;opacity:.9;}
+  .presenter-box{border:1px solid rgba(247,234,214,.55);background:rgba(0,0,0,.14);
+    padding:16px 18px;font-size:14.5px;line-height:2;}
+  .presenter-box b{color:#ffd9a8;font-size:16px;}
+  .cover-note{margin-top:26px;font-size:12px;opacity:.75;letter-spacing:1px;}
+
+  /* ===== 正文 ===== */
+  main{max-width:860px;margin:0 auto;padding:58px 24px 30px;}
+  section{margin-bottom:70px;}
+  .sec-head{display:flex;align-items:baseline;gap:16px;
+    border-bottom:3px double #c98a4b;padding-bottom:12px;margin-bottom:26px;}
+  .sec-num{font-family:Georgia,serif;font-size:42px;font-weight:800;color:var(--accent);line-height:1;}
+  .sec-head h2{font-family:Georgia,"Noto Serif SC","Songti SC","SimSun",serif;
+    font-size:25px;color:var(--deep);letter-spacing:1px;}
+  .sec-kicker{margin-left:auto;font-family:Georgia,serif;font-size:12px;
+    letter-spacing:3px;color:var(--muted);text-transform:uppercase;}
+  p+p{margin-top:12px;}
+  .lead{font-size:16px;color:#4a3a28;}
+  .hl{background:linear-gradient(transparent 62%,#f3d3a4 62%);font-weight:700;color:#7a3413;padding:0 2px;}
+
+  /* ===== 表格 ===== */
+  .tbl-wrap{overflow-x:auto;margin:24px 0;}
+  table.tbl{width:100%;border-collapse:collapse;font-size:13.8px;background:var(--paper);border:1px solid var(--line);}
+  .tbl caption{caption-side:top;text-align:left;font-weight:700;color:#7a5a33;padding-bottom:8px;font-size:13.5px;}
+  .tbl th{background:#a6431d;color:#fdf3e0;padding:9px 10px;text-align:left;font-weight:600;}
+  .tbl td{padding:9px 10px;border-bottom:1px solid #e8d9bf;vertical-align:top;}
+  .tbl tbody tr:nth-child(even){background:#f6ecd9;}
+  .tbl td.stage{font-weight:700;color:#8a3a17;white-space:nowrap;}
+  .tbl td.yr{font-family:Georgia,serif;white-space:nowrap;color:#6b5638;}
+
+  /* ===== 三线口径示意图 ===== */
+  .strand-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0 10px;}
+  .strand-box{background:var(--block);border:1px solid #e0c9a2;border-top:4px solid var(--accent2);
+    padding:14px 14px 12px;font-size:13.4px;color:#5d4c38;}
+  .strand-box.main{border-top-color:var(--accent);background:#f9e6c8;}
+  .strand-box b{display:block;color:#8a3a17;font-size:14.5px;margin-bottom:6px;}
+  .strand-note{margin:10px 0 4px;font-size:13px;color:#6d5a41;background:#f3e8d2;
+    border:1px dashed #cfa877;padding:10px 14px;}
+
+  /* ===== 时间线 ===== */
+  .timeline{position:relative;margin:30px 0 10px;padding-left:30px;}
+  .timeline::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:2px;background:#dcbd92;}
+  .t-item{position:relative;padding-bottom:26px;}
+  .t-item:last-child{padding-bottom:6px;}
+  .t-item::before{content:"";position:absolute;left:-36px;top:7px;width:11px;height:11px;
+    border-radius:50%;background:var(--accent);border:3px solid var(--bg);box-shadow:0 0 0 1.5px var(--accent);}
+  .t-item.key::before{background:var(--amber);box-shadow:0 0 0 2px var(--accent),0 0 0 6px rgba(217,142,50,.25);}
+  .t-year{display:inline-block;background:var(--accent);color:#fdf3e0;font-weight:700;
+    font-size:13px;padding:1px 12px;border-radius:999px;margin-right:10px;font-family:Georgia,serif;}
+  .t-item.key .t-year{background:var(--amber);color:#4a2410;}
+  .t-title{font-weight:700;color:#4a3423;font-size:15.5px;}
+  .tag{display:inline-block;font-size:11px;padding:0 8px;border-radius:3px;margin-left:8px;
+    vertical-align:2px;letter-spacing:1px;border:1px solid #caa26b;background:#f6e7cd;color:#7a4a1d;}
+  .t-speaker{font-size:12.8px;color:#8a6a40;margin-top:4px;}
+  .t-speaker b{color:#7a4a1d;}
+  .t-desc{font-size:14px;color:#5d4c38;margin-top:3px;}
+  .t-doc{font-size:12.3px;color:#93805f;margin-top:4px;}
+  .t-doc a{color:#96602c;}
+
+  /* ===== 条形图 ===== */
+  figure.chart{margin:28px 0;background:var(--paper);border:1px solid var(--line);padding:20px 24px 14px;}
+  figure.chart figcaption.cap{font-weight:700;font-size:14px;color:#7a5a33;margin-bottom:12px;}
+  .bar-row{display:grid;grid-template-columns:190px 1fr 52px;gap:12px;align-items:center;margin:8px 0;}
+  .bar-label{font-size:13px;color:#6b5638;}
+  .bar-track{background:#f1e5cd;height:16px;border-radius:2px;overflow:hidden;}
+  .bar-fill{height:100%;background:linear-gradient(90deg,var(--amber),var(--accent));}
+  .bar-val{font-size:12.5px;color:#8a6a40;font-family:Georgia,serif;}
+  figcaption.src{font-size:12px;color:#93805f;margin-top:12px;border-top:1px dashed #e0cfae;padding-top:8px;}
+
+  /* ===== 引文 ===== */
+  blockquote.quote{margin:26px 0;padding:18px 24px;background:var(--block);
+    border-left:5px solid var(--accent);color:#54371d;font-size:15.5px;
+    font-family:Georgia,"Noto Serif SC","Songti SC","SimSun",serif;}
+  .quote .en{font-style:italic;color:#6d4a26;display:block;margin-top:6px;}
+  .quote cite{display:block;margin-top:12px;font-size:12.5px;color:#8a6a40;font-style:normal;}
+  .docline{font-size:13px;color:#8a6a40;margin:-14px 0 22px;}
+
+  /* ===== 关键节点 ===== */
+  .node-hero{display:flex;align-items:center;gap:24px;margin:6px 0 22px;flex-wrap:wrap;}
+  .node-year{font-family:Georgia,serif;font-size:92px;font-weight:800;color:var(--accent);line-height:1;}
+  .node-label{font-size:15px;color:#6b5638;border-left:2px solid #d9b98c;padding-left:18px;max-width:540px;}
+  ol.goals{list-style:none;margin:20px 0 6px;counter-reset:g;}
+  ol.goals li{counter-increment:g;position:relative;padding:14px 18px 14px 64px;margin:14px 0;
+    background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--accent2);font-size:14.8px;}
+  ol.goals li::before{content:counter(g,decimal-leading-zero);position:absolute;left:16px;top:16px;
+    width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fdf3e0;
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-family:Georgia,serif;font-size:14px;}
+  ol.goals li b{color:#8a3a17;}
+
+  /* ===== 证据 ===== */
+  .ev{margin:24px 0;padding:2px 0 2px 20px;border-left:4px solid var(--accent);}
+  .ev.e2{border-left-color:var(--amber);}
+  .ev.e3{border-left-color:#8c6d2f;}
+  .ev.e4{border-left-color:#9a6b4f;}
+  .ev-head{font-weight:800;color:#8a3a17;font-size:16.5px;}
+  .ev-src{font-size:12.5px;color:#93805f;margin:2px 0 8px;letter-spacing:.3px;}
+  .ev p{font-size:14.8px;}
+  .tri-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:26px;}
+  .tri-box{background:var(--block);border:1px dashed #c99a5e;padding:12px 10px;text-align:center;
+    font-size:13.2px;color:#6d4a26;}
+  .tri-arrow{text-align:center;color:var(--accent);font-size:22px;margin:8px 0;}
+  .tri-concl{background:#8a3a17;color:#fbf0dc;text-align:center;padding:13px 16px;
+    font-weight:700;letter-spacing:2px;font-size:14.5px;}
+  .caveat{margin-top:18px;font-size:13.5px;color:#6d5a41;background:#f3e8d2;
+    border:1px dashed #cfa877;padding:12px 16px;}
+
+  /* ===== 参考文献 ===== */
+  .refs h3{font-size:16px;color:#8a3a17;margin:26px 0 12px;border-left:4px solid var(--accent2);padding-left:10px;}
+  ol.refs-list{list-style:none;}
+  .refs-list li{font-size:13.6px;padding-left:2.4em;text-indent:-2.4em;margin-bottom:10px;color:#4a3a28;word-break:break-all;}
+  .refs-note{font-size:12.5px;color:#93805f;margin-top:16px;border-top:1px dashed #e0cfae;padding-top:10px;}
+
+  footer{background:#4a2412;color:#e8d5b8;text-align:center;padding:30px 20px 34px;font-size:13px;letter-spacing:1px;}
+  footer .f-line{opacity:.75;margin-top:6px;font-size:12px;}
+
+  @media (max-width:640px){
+    .meta-grid,.strand-row{grid-template-columns:1fr;}
+    .cover-frame{padding:32px 22px;}
+    .node-year{font-size:64px;}
+    .sec-kicker{display:none;}
+    .bar-row{grid-template-columns:120px 1fr 46px;}
+  }
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<!-- ============ 1 封面页 ============ -->
+<header class="cover">
+  <div class="cover-frame">
+    <span class="course-tag">《信息技术教育学科教学法》课程汇报</span>
+    <h1>美国把计算机纳入基础教育的历程</h1>
+    <p class="subtitle">官方文件时间轴（1958—2026）：三线并行、七次转向的学科制度史</p>
+
+    <div class="meta-grid">
+      <div>
+        <h3>第 1 组 · 成员名单</h3><!-- 组号为占位示例，可替换 -->
+        <table class="members">
+          <tr><th>组长</th><td>周博锐</td><td class="sid">1241003023</td></tr>
+          <tr><th>组员</th><td>王昊宇</td><td class="sid">1241003016</td></tr>
+          <tr><th>组员</th><td>朱家熙</td><td class="sid">1241003024</td></tr>
+          <tr><th>组员</th><td>朱瑞基</td><td class="sid">1241003025</td></tr>
+        </table>
+      </div>
+      <div class="presenter-box">
+        汇报人：<b>周博锐</b><br>
+        汇报日期：2026 年 9 月 9 日<br>
+        汇报时长：约 2 分钟<br>
+        课件形式：网页流式演示
+      </div>
+    </div>
+    <p class="cover-note">向下滚动浏览 · SCROLL TO READ ↓</p>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ 2 内容页：发展史脉络 ============ -->
+<section>
+  <div class="sec-head"><span class="sec-num">01</span><h2>学科发展史的整体脉络</h2><span class="sec-kicker">1958–2026</span></div>
+
+  <p class="lead">事实上：美国<span class="hl">没有一门全国统一的“信息技术课”</span>。教育权在州（联邦宪法第十修正案），联邦的杠杆是“钱（立法拨款）＋数据（全国评估）＋总统倡议＋行业号召”。因此中国语境下的“信息技术学科”，在美国对应三条并行线：</p>
+
+  <div class="strand-row">
+    <div class="strand-box main"><b>① 计算机科学 CS（本讲主线）</b>编程、算法、数据、网络、AI 素养；1990 年代以前多称“计算机素养／计算机教育”，最接近“信息技术学科”的课程线。</div>
+    <div class="strand-box"><b>② 教育技术与数字素养 EdTech</b>“用技术教”的数字化环境与设备：E-rate 联网、历版《国家教育技术计划》(NETP)、ISTE 标准。</div>
+    <div class="strand-box"><b>③ 职教“信息技术”职业群 CTE–IT</b>《珀金斯法》资助的中学职业课程：网络、编程、网络安全等，走职业经费通道。</div>
+  </div>
+  <p class="strand-note">图 2　美国中学“信息技术”的三条并行线（主线①为本时间轴主干，②③作支线标注）。</p>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 1　七个阶段总览（据官方文件时间轴整理）</caption>
+      <thead><tr><th>阶段</th><th>时期</th><th>核心命题</th><th>代表性官方文件／事件（发言人）</th></tr></thead>
+      <tbody>
+        <tr><td class="stage">前史与实验</td><td class="yr">1958–1982</td><td>没有课程，只有零星实验</td><td>《国防教育法》NDEA（1958，艾森豪威尔签署）；PLATO(1960)、BASIC(1964)、LOGO(1980) 试点</td></tr>
+        <tr><td class="stage">觉醒</td><td class="yr">1983–1990</td><td>把 CS 写进国家建议</td><td>《国家处于危险之中》(1983，Bell 委托、Gardner 提交)；《珀金斯法》(1984，里根签署)；AP CS 开考</td></tr>
+        <tr><td class="stage">基建与素养</td><td class="yr">1994–2002</td><td>技术素养成为国家目标</td><td>Goals 2000(1994，克林顿)；《电信法》§254/E-rate(1996)；第一、二份 NETP(1996/2000，Riley)；NETS·S(1998，ISTE)；NCLB(2002，小布什)</td></tr>
+        <tr><td class="stage">学科化转折</td><td class="yr">2004–2008</td><td>从“用电脑”到“学电脑”</td><td>CSTA 成立(2004，ACM)；第三份 NETP(2004，Paige)；Perkins IV 确立 IT 职业群(2006，小布什)</td></tr>
+        <tr><td class="stage">总统倡议</td><td class="yr">2009–2016</td><td>STEM→CS 成为国家优先</td><td>Educate to Innovate(2009，奥巴马)；ConnectED(2013)；ESSA 写入 CS(2015)；CS for All(2016-01-30)；K-12 CS Framework(2016-09)；AP CSP 首考(2017-05)</td></tr>
+        <tr><td class="stage">两党延续·州立法潮</td><td class="yr">2017–2020</td><td>联邦定优先、州级立法</td><td>特朗普总统备忘录 ≥2 亿美元/年(2017-09-25)；Perkins V(2018)；EO 13859 AI 行政令(2019)；各州 CS 标准与学分立法潮</td></tr>
+        <tr><td class="stage">AI 时代</td><td class="yr">2021–2026</td><td>联邦收缩、州与行业接力</td><td>《AI 与教与学的未来》(2023-05，Cardona)；EO 14110(2023，拜登)；2024 NETP(2024-01-22)；EO 14179 与教育部裁撤令(2025，特朗普)；《CS for All 法案》再提交(2025-12-10，Rivas)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="timeline">
+    <div class="t-item"><span class="t-year">1958-09-02</span><span class="t-title">艾森豪威尔签署《国防教育法》(NDEA)</span><span class="tag">📜 法案</span>
+      <div class="t-speaker">发言人：<b>德怀特·艾森豪威尔总统</b>（签署）；国会推动者参议员 Lister Hill 等</div>
+      <div class="t-desc"> Sputnik 冲击后联邦首次重金介入中小学数理科技教育；此后十年中学零星出现“计算机素养”选修与 CAI，计算机尚非正式学科——学科的前夜。</div>
+      <div class="t-doc">📜 法案原文（72 Stat. 1580）：<a href="https://www.govinfo.gov/content/pkg/STATUTE-72/pdf/STATUTE-72-Pg1580.pdf" target="_blank">govinfo</a></div></div>
+
+    <div class="t-item key"><span class="t-year">1983-04-26</span><span class="t-title">《国家处于危险之中》：CS 列入“五项新基础”</span><span class="tag">🏛️ 联邦文件</span>
+      <div class="t-speaker">发言人：教育部长 <b>Terrel H. Bell</b>（1981-08 委托起草）；委员会主席 <b>David P. Gardner</b>（1983-04-26 提交）；里根政府背书推广</div>
+      <div class="t-desc">报告提出高中生“五项新基础”毕业建议，第五项为<b>半学年计算机科学</b>，并呼吁教师掌握计算机应用——联邦级官方文件首次把 CS 作为中学学习内容写进国家议程，“计算机素养运动”的政策起点（关键节点，见 02 节）。</div>
+      <div class="t-doc">🏛️ 教育部全文：<a href="https://www2.ed.gov/pubs/NatAtRisk/risk.html" target="_blank">ed.gov</a> ｜ ERIC 存档：<a href="https://eric.ed.gov/?id=ED226006" target="_blank">ED226006</a></div></div>
+
+    <div class="t-item"><span class="t-year">1984-10-19</span><span class="t-title">里根签署《卡尔·珀金斯职业教育法》</span><span class="tag">📜 法案</span>
+      <div class="t-speaker">发言人：<b>罗纳德·里根总统</b>（签署）</div>
+      <div class="t-desc">首次以联邦法确立中学职业与技术教育大规模拨款，含“高技术与新兴职业课程”支持——IT 课程自此可走职教经费通道（支线③源头）。</div>
+      <div class="t-doc">📜 法案页（H.R. 4164, 98th）：<a href="https://www.congress.gov/bill/98th-congress/house-bill/4164" target="_blank">congress.gov</a></div></div>
+
+    <div class="t-item"><span class="t-year">1996-02-08</span><span class="t-title">《1996 年电信法》§254 设立 E-rate</span><span class="tag">📜 法案</span>
+      <div class="t-speaker">发言人：<b>比尔·克林顿总统</b>（签署）；副总统<b>戈尔</b>宣讲“信息高速公路”</div>
+      <div class="t-desc">为学校与图书馆设电信/互联网普遍服务折扣（1997 年 FCC 立规、1998 年运行）——全美 K-12“电脑＋网络进课堂”最大的联邦资金管道。</div>
+      <div class="t-doc">📜 法案页（S. 652, 104th）：<a href="https://www.congress.gov/bill/104th-congress/senate-bill/652" target="_blank">congress.gov</a> ｜ 🏛️ <a href="https://www.fcc.gov/general/e-rate-and-education-history" target="_blank">FCC《E-Rate 与教育史》</a></div></div>
+
+    <div class="t-item"><span class="t-year">1996-06</span><span class="t-title">第一份《国家教育技术计划》(NETP)</span><span class="tag">🗄️ 白宫档案</span>
+      <div class="t-speaker">发言人：教育部长 <b>Richard W. Riley</b>（提交）；<b>克林顿</b>国情咨文：“到 21 世纪让每个 12 岁孩子会用电脑”</div>
+      <div class="t-desc">《让美国学生为 21 世纪做好准备》确立“技术素养挑战”四年目标：所有教师受训、每间教室联网——美国官方第一份教育技术总纲。</div>
+      <div class="t-doc">🗄️ 克林顿总统图书馆(NARA)文本：<a href="https://clinton.presidentiallibraries.us/files/original/dff3ba96baf5946f7a7d402dc2085dc2.pdf" target="_blank">PDF</a> ｜ 🏛️ 历版 NETP：<a href="https://tech.ed.gov/netp/" target="_blank">tech.ed.gov/netp</a></div></div>
+
+    <div class="t-item"><span class="t-year">1998</span><span class="t-title">首套全国《学生教育技术标准》NETS·S</span><span class="tag">🏢 行业机构</span>
+      <div class="t-speaker">发布机构：<b>国际教育技术协会 (ISTE)</b> 牵头（行业标准，非联邦法）</div>
+      <div class="t-desc">界定“技术素养/信息素养”应达水平，成为各州课程与评估蓝本；联邦 ERIC 收录（ED421971）。</div>
+      <div class="t-doc">🏛️ ERIC 收录记录：<a href="https://eric.ed.gov/?id=ED421971" target="_blank">ED421971</a></div></div>
+
+    <div class="t-item"><span class="t-year">2004</span><span class="t-title">ACM 创立 CSTA：CS 教师共同体诞生</span><span class="tag">🏢 行业机构</span>
+      <div class="t-speaker">发言人/机构：<b>ACM</b>（总裁 Maria Klawe 任内推动）；首任执行总监 <b>Chris Stephenson</b></div>
+      <div class="t-desc">回应中学 CS 教师“孤军奋战、无标准可依”；此后发布教师标准(2007)、K-12 CS 标准(2011)——推动“CS 是学科而非工具”的核心专业力量。</div>
+      <div class="t-doc">🏢 CSTA 官方：<a href="https://csteachers.org/" target="_blank">csteachers.org</a></div></div>
+
+    <div class="t-item"><span class="t-year">2006-08-12</span><span class="t-title">Perkins IV：确立“信息技术”职业群</span><span class="tag">📜 法案</span>
+      <div class="t-speaker">发言人：<b>乔治·W·布什总统</b>（签署）</div>
+      <div class="t-desc">以联邦法确立 16 大职业群，“IT”为其一（信息支持、网络系统、编程与软件开发等）；中学 IT/CS 课程名正言顺使用联邦 CTE 经费。</div>
+      <div class="t-doc">📜 法案页（H.R. 416, 109th）：<a href="https://www.congress.gov/bill/109th-congress/house-bill/416" target="_blank">congress.gov</a></div></div>
+
+    <div class="t-item"><span class="t-year">2009-11-23</span><span class="t-title">奥巴马启动“以创新促教育”</span><span class="tag">🗄️ 白宫档案</span>
+      <div class="t-speaker">发言人：<b>巴拉克·奥巴马总统</b>（白宫讲话）；教育部长 Arne Duncan、能源部长 Steven Chu、NSF 署长 Arden Bement 出席</div>
+      <div class="t-desc">企业首期承诺逾 2.6 亿美元，含向全校推广“编程、机器人、互动科学”——白宫首次把“教孩子编程”当作国家竞争力抓手。</div>
+      <div class="t-doc">🗄️ 讲话全文（DCPD-200900940）：<a href="https://www.govinfo.gov/content/pkg/DCPD-200900940/html/DCPD-200900940.htm" target="_blank">govinfo</a></div></div>
+
+    <div class="t-item"><span class="t-year">2013-06-06</span><span class="t-title">ConnectED：五年内 99% 学生接入高速网络</span><span class="tag">🗄️ 白宫档案</span>
+      <div class="t-speaker">发言人：<b>奥巴马总统</b>（北卡 Mooresville 学区宣布）；2014-07-11 FCC 主席 <b>Tom Wheeler</b> 通过 E-rate 现代化命令</div>
+      <div class="t-desc">把“数字环境”从设备普及推进到带宽与教师能力；E-rate 现代化年增约 15 亿美元用于校内宽带/无线。</div>
+      <div class="t-doc">🗄️ 白宫档案博客：<a href="https://obamawhitehouse.archives.gov/blog/2013/06/06/what-connected" target="_blank">What is ConnectED?</a></div></div>
+
+    <div class="t-item"><span class="t-year">2014 / 2018</span><span class="t-title">NAEP 首测“技术与工程素养 (TEL)”</span><span class="tag">🧮 联邦评估</span>
+      <div class="t-speaker">发言人/机构：<b>NCES 与国家评估管理委员会 (NAGB)</b>（“国家成绩单”）</div>
+      <div class="t-desc">2014 年首测 8 年级 TEL（技术原理、设计方案、用 ICT 解决问题），2018 年二测并发布报告卡——官方认证体系首次把“信息技术素养”与数学、阅读并列全国测量。</div>
+      <div class="t-doc">🧮 NAEP TEL 官方页：<a href="https://www.nces.ed.gov/nationsreportcard/tel/" target="_blank">nces.ed.gov</a> ｜ 2018 结果：<a href="https://nces.ed.gov/pubssearch/pubsinfo.asp?pubid=2019068" target="_blank">NCES 2019068</a></div></div>
+
+    <div class="t-item"><span class="t-year">2015-12-10</span><span class="t-title">ESSA：CS 首次写入联邦基础教育大法</span><span class="tag">📜 法案</span>
+      <div class="t-speaker">发言人：<b>奥巴马总统</b>（签署仪式讲话）</div>
+      <div class="t-desc">取代 NCLB，把 CS 写进“全面发展教育 (well-rounded education)”条款：州/学区可用联邦拨款开 CS/STEM 课、培训 CS 教师、支持 AP CS——法律层面首次承认“CS＝基础教育的一部分”。</div>
+      <div class="t-doc">📜 法案页（S. 1177, 114th）：<a href="https://www.congress.gov/bill/114th-congress/senate-bill/1177" target="_blank">congress.gov</a> ｜ 🗄️ <a href="https://www.govinfo.gov/content/pkg/DCPD-201500881/html/DCPD-201500881.htm" target="_blank">DCPD-201500881</a></div></div>
+
+    <div class="t-item"><span class="t-year">2016-01-30</span><span class="t-title">“Computer Science for All”国家倡议</span><span class="tag">🗄️ 白宫档案</span>
+      <div class="t-speaker">发言人：<b>奥巴马总统</b>（01-12 国情咨文提出；01-30《每周广播讲话》正式宣布）</div>
+      <div class="t-desc">① FY2017 约 40 亿美元州级 CS 拨款请求；② NSF 与 CNCS 五年约 1.35 亿美元培训 CS 教师；③ 联合各州、企业与 Code.org 扩大 AP CS。名句：“CS 不再是可选技能，而是与‘三R’并列的基本技能。”</div>
+      <div class="t-doc">🗄️ 每周广播讲话全文：<a href="https://www.govinfo.gov/content/pkg/PPP-2016-book1/xml/PPP-2016-book1-doc-pg83-2.xml" target="_blank">govinfo</a> ｜ 🗄️ <a href="https://obamawhitehouse.archives.gov/sites/default/files/microsites/ostp/csforall-factsheet-long-december-2016.pdf" target="_blank">OSTP 一周年行动清单</a></div></div>
+
+    <div class="t-item"><span class="t-year">2016-09</span><span class="t-title">《K-12 计算机科学框架》发布</span><span class="tag">🏢 行业机构</span>
+      <div class="t-speaker">发布机构：<b>ACM、CSTA、Code.org、CIC、NMSI</b> 联合（后被 AP CSP 与多数州标准引用）</div>
+      <div class="t-desc">定义五条核心主线（计算系统、网络与互联网、数据与分析、算法与编程、计算的影响）及年级进展——填补联邦无课程大纲的空缺，事实上的全国参照。</div>
+      <div class="t-doc">🏢 官网：<a href="https://k12cs.org/" target="_blank">k12cs.org</a></div></div>
+
+    <div class="t-item"><span class="t-year">2017-09-25</span><span class="t-title">特朗普备忘录：CS/STEM 列为拨款优先（≥2 亿美元/年）</span><span class="tag">🗄️ 白宫档案</span>
+      <div class="t-speaker">发言人：<b>唐纳德·特朗普总统</b>（签署）；总统科技顾问与 Ivanka Trump 推动；当日业界追加承诺逾 3 亿美元</div>
+      <div class="t-desc">首次给出联邦层“计算机科学”定义；备忘录列举 2016 年数据：约六成高中不开编程课、仅 18% 有资格开 AP 的高中开设 AP CS、AP CS A 考生中女生不足 1/4（见图 1）。</div>
+      <div class="t-doc">🗄️ 备忘录全文（DCPD-201700687）：<a href="https://www.govinfo.gov/content/pkg/DCPD-201700687/html/DCPD-201700687.htm" target="_blank">govinfo</a> ｜ 🏛️ <a href="https://www.govinfo.gov/content/pkg/FR-2017-09-28/pdf/2017-21032.pdf" target="_blank">联邦公报 FR 2017-21032</a></div></div>
+
+    <div class="t-item"><span class="t-year">2023-05</span><span class="t-title">首份《人工智能与教与学的未来》指导意见</span><span class="tag">🏛️ 联邦文件</span>
+      <div class="t-speaker">发言人：教育部长 <b>Miguel Cardona</b>（教育技术办公室 OET 发布）</div>
+      <div class="t-desc">联邦首次系统指导 K-12 应对生成式 AI：把“AI 素养”纳入数字素养教学、划定师生 AI 使用与隐私边界——信息技术素养从编程扩为 AI 素养。</div>
+      <div class="t-doc">🏛️ OET 官方页：<a href="https://tech.ed.gov/ai/" target="_blank">tech.ed.gov/ai</a>（2025 年后下线，可用 <a href="https://www.newamerica.org/education-policy/collections/newamericaorgeducation-policycollectionsarchive-of-former-oet-resources/" target="_blank">New America 存档</a>）</div></div>
+
+    <div class="t-item"><span class="t-year">2025-12-10</span><span class="t-title">《人人学计算机科学法案》再提交国会</span><span class="tag">📜 法案</span>
+      <div class="t-speaker">发言人：众议员 <b>Luz Rivas</b>（加州 29 选区；11 名两党议员联署；NEA、ITI 背书）</div>
+      <div class="t-desc">授权 2.5 亿美元/5 年，把 CS 从学前教育覆盖到 12 年级，支持师资与弱势群体帮扶；截至时间轴编制时（2026-09）尚未通过——联邦层面仍在争取立法。同期背景：2025-03-20 特朗普行政令启动教育部裁撤，联邦“自上而下推 CS”力度显著减弱，推手转为州议会、学区与行业组织。</div>
+      <div class="t-doc">📜 法案全文（H.R. 6591, 119th）：<a href="https://www.govinfo.gov/content/pkg/BILLS-119hr6591ih/html/BILLS-119hr6591ih.htm" target="_blank">govinfo</a> ｜ 🏛️ <a href="https://rivas.house.gov/media/press-releases/congresswoman-luz-rivas-introduces-bill-expand-access-computer-science" target="_blank">提案人新闻稿</a></div></div>
+  </div>
+
+  <figure class="chart">
+    <figcaption class="cap">图 1　2016 年美国高中 CS 课程供给与考生结构（2017-09-25 总统备忘录引用数据）</figcaption>
+    <div class="bar-row"><span class="bar-label">不开编程课的高中占比</span><div class="bar-track"><div class="bar-fill" style="width:60%"></div></div><span class="bar-val">约 60%</span></div>
+    <div class="bar-row"><span class="bar-label">开设 AP CS 的合格高中占比</span><div class="bar-track"><div class="bar-fill" style="width:18%"></div></div><span class="bar-val">18%</span></div>
+    <div class="bar-row"><span class="bar-label">AP CS A 考生中女生占比</span><div class="bar-track"><div class="bar-fill" style="width:25%"></div></div><span class="bar-val">&lt; 1/4</span></div>
+    <figcaption class="src">数据来源：Presidential Memorandum (DCPD-201700687), 2017-09-25。供给与公平缺口正是此后“CS for All”与州级立法潮的政策动因。</figcaption>
+  </figure>
+</section>
+
+<!-- ============ 3 内容页：关键节点 ============ -->
+<section>
+  <div class="sec-head"><span class="sec-num">02</span><h2>我们选定的关键节点：1983</h2><span class="sec-kicker">Turning Point</span></div>
+
+  <div class="node-hero">
+    <span class="node-year">1983</span>
+    <p class="node-label">1983 年 4 月 26 日，国家卓越教育委员会主席 <b>David P. Gardner</b> 提交《国家处于危险之中》（教育部长 <b>Terrel H. Bell</b> 于 1981 年 8 月委托起草，里根政府背书）：高中“五项新基础”之五为<b>半学年计算机科学</b>——联邦官方报告首次把 CS 写进中学毕业建议。</p>
+  </div>
+
+  <p>选择理由：1983 年之前，计算机在学校中是<b>课外存在</b>——CAI 实验、兴趣小组与零星选修，无学分、无标准、无师资认证；1983 年之后，CS 获得<b>学科身份</b>，触发毕业学分、教师认证、教科书与市场、教研共同体的连锁反应，并被 .md 时间轴明确认定为美国“计算机素养运动”的政策起点。</p>
+
+  <blockquote class="quote">
+    报告要求所有中学生以“五项新基础”修满毕业学分：英语、数学、科学、社会研究，以及<b>计算机科学（半学年）</b>；并呼吁教师掌握计算机应用。
+    <span class="en">“…the five new basics: English, mathematics, science, social studies, and computer science…” (one-half semester of computer science)</span>
+    <cite>—— National Commission on Excellence in Education. <i>A Nation at Risk</i>, 1983-04-26（报告原文节译）</cite>
+  </blockquote>
+  <p class="docline">🏛️ 官方全文：<a href="https://www2.ed.gov/pubs/NatAtRisk/risk.html" target="_blank">ed.gov/pubs/NatAtRisk</a> ｜ 🏛️ ERIC 存档：<a href="https://eric.ed.gov/?id=ED226006" target="_blank">ED226006</a></p>
+
+  <h3 style="font-size:17px;color:#8a3a17;margin:26px 0 4px;">▍当时的课程要培养什么人</h3>
+  <ol class="goals">
+    <li><b>面向全体毕业生的“计算机素养公民”。</b>半学年学分面向所有高中生而非少数精英：知道计算机如何工作、能把它用作工具、能评价其社会影响——“懂、会用、会批判”的合格公民。</li>
+    <li><b>面向高科技经济的工作者与竞争者。</b>报告把教育危机归因于“平庸之潮”并上升到国家竞争力高度，要求新一代掌握含 CS 在内的“新基础”，课程目标首次与宏观经济叙事直接绑定。</li>
+    <li><b>“使用者与评价者”，而非“人人程序员”。</b>重心从天才式编程训练转向大众素养，同时要求<b>教师</b>掌握计算机应用、把计算机用作支持各学科学习的工具——为 1990 年代“技术整合”与 2016 年后“CS 即基本技能”埋下伏笔。</li>
+  </ol>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 2　关键节点前后（1983 年前 / 后）的课程形态对比</caption>
+      <thead><tr><th style="width:18%">维度</th><th>1983 年之前</th><th>1983 年之后</th></tr></thead>
+      <tbody>
+        <tr><td class="stage">学科地位</td><td>课外实验：CAI 项目、兴趣俱乐部、零星选修</td><td>“五项新基础”之一，进入国家毕业建议</td></tr>
+        <tr><td class="stage">培养对象</td><td>少数编程爱好者与补救教学对象</td><td>全体高中毕业生（大众素养）</td></tr>
+        <tr><td class="stage">课程形态</td><td>校本选修，无统一标准</td><td>半学年学分建议＋各州标准跟进＋AP CS 开考(1984)</td></tr>
+        <tr><td class="stage">支撑体系</td><td>几乎空白</td><td>教师认证、州立法、教科书与微机市场、Perkins 职教经费通道</td></tr>
+        <tr><td class="stage">代表话语</td><td>“计算机可以辅助教学”</td><td>“计算机素养是信息时代的新基础素养”</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ 4 内容页：证据与可信度 ============ -->
+<section>
+  <div class="sec-head"><span class="sec-num">03</span><h2>证据是什么，为何可信</h2><span class="sec-kicker">Evidence</span></div>
+
+  <div class="ev e1">
+    <div class="ev-head">证据一　政策原文与完整发言人链（🏛️）</div>
+    <div class="ev-src">来源：NCEE. (1983). <i>A Nation at Risk</i>. 教育部电子版全文＋ERIC ED226006</div>
+    <p>报告原文将 computer science 列入 five new basics 并规定半学年学分；发言人链完整可考：教育部长 Bell 委托（1981-08）→ 委员会主席 Gardner 提交（1983-04-26）→ 里根政府背书推广。联邦官方出版物＋ERIC 存档编号双重落款，属第一手政策证据。</p>
+  </div>
+
+  <div class="ev e2">
+    <div class="ev-head">证据二　法案与总统文件链：制度化的连续性（📜 / 🗄️）</div>
+    <div class="ev-src">来源：govinfo / congress.gov 永久档案：NDEA(72 Stat. 1580) → Perkins(H.R.4164) → Goals 2000(H.R.1804) → 电信法(S.652) → NCLB(H.R.1) → Perkins IV(H.R.416) → ESSA(S.1177) → 总统备忘录(DCPD-201700687) → H.R.6591(2025)</div>
+    <p>1983 节点并非孤立事件：其后每一阶段都有可查法案号、Statute 页码或 DCPD 编号的联邦文件接续强化（拨款、联网、问责、写入“全面发展教育”）。govinfo/congress.gov 为永久性官方档案，白宫各届档案站为冻结档案，链接长期有效、无转述失真。</p>
+  </div>
+
+  <div class="ev e3">
+    <div class="ev-head">证据三　联邦全国评估与统计数据（🧮）</div>
+    <div class="ev-src">来源：NCES/NAGB·NAEP TEL（2014 首测、2018 二测，NCES 2019068）；2017 总统备忘录引用的 2016 年数据（图 1）</div>
+    <p>“国家成绩单”首次把技术与工程素养（含 ICT 素养）与数学、阅读并列全国测量——官方认证体系对“信息技术素养”的正式承认；备忘录自引的供给缺口数据（60%/18%/女生&lt;1/4）则从反面印证学科化仍未完成，构成可检验的经验证据。</p>
+  </div>
+
+  <div class="ev e4">
+    <div class="ev-head">证据四　学术与行业佐证（🏢 / 同行评审）</div>
+    <div class="ev-src">来源：Cuban (2001)；包秋 (1997)；钱松岭、董玉琦 (2016)；K-12 CS Framework (2016)；CSG (2025) 州级综述</div>
+    <p>Cuban 的专著将 1980 年代“计算机素养”运动定位为计算机课程化第一波；中外期刊评述同样以 1983/1980 年代为分期界标；《K-12 CS 框架》被 AP CSP 与多数州标准引用、CSG 综述记录 2016–2020 州级立法潮——独立第三方研究与官方文本在分期结论上收敛一致。</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 3　证据类型与可信度分析</caption>
+      <thead><tr><th style="width:13%">证据</th><th style="width:17%">类型</th><th style="width:30%">出处性质</th><th>为何可信</th></tr></thead>
+      <tbody>
+        <tr><td class="stage">证据一</td><td>一手政策文献</td><td>联邦委员会报告（ed.gov＋ERIC 双存档）</td><td>原文公开可查、发言人链完整、有存档编号</td></tr>
+        <tr><td class="stage">证据二</td><td>法律/总统文件链</td><td>govinfo、congress.gov 永久档案；白宫冻结档案</td><td>法案号/Statute 页码/DCPD 编号可逐条核验，链接长期有效</td></tr>
+        <tr><td class="stage">证据三</td><td>联邦评估与统计</td><td>NCES/NAGB（“国家成绩单”）</td><td>联邦统计与评估机构、概率抽样、纵向复测（2014/2018）</td></tr>
+        <tr><td class="stage">证据四</td><td>学术与行业研究</td><td>大学出版社专著、中外期刊、行业框架与州级综述</td><td>同行评审/独立第三方，与证据一~三交叉互证</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tri-row">
+    <div class="tri-box">政策文本<br>（规定了什么）</div>
+    <div class="tri-box">法案文件链<br>（如何被接续强化）</div>
+    <div class="tri-box">全国评估数据<br>（实际测到了什么）</div>
+    <div class="tri-box">学术史研究<br>（后人如何评价）</div>
+  </div>
+  <div class="tri-arrow">▼　四源三角互证（Triangulation）　▼</div>
+  <div class="tri-concl">结论：1983 年是计算机被纳入美国基础教育的制度起点</div>
+
+  <p class="caveat"><b>局限说明：</b>① 上述证据能证明“制度纳入”，不能直接证明课堂使用质量——Cuban (2001) 即批评计算机“被高卖而低用”；② 联邦无统一课程，州际差异大，州级证据以 CSG (2025) 综述补足；③ 2025 年后 ed.gov / tech.ed.gov 部分内容下线，引用时以 govinfo 永久档案或 web.archive.org、New America OET 存档回溯为准。</p>
+</section>
+
+<!-- ============ 5 文献页 ============ -->
+<section class="refs">
+  <div class="sec-head"><span class="sec-num">04</span><h2>参考文献</h2><span class="sec-kicker">References</span></div>
+
+  <h3>中文文献（GB/T 7714—2015 格式）</h3>
+  <ol class="refs-list">
+    <li>[1] 包秋. 美国中小学计算机应用及对中国的启示[J]. 华东师范大学学报(教育科学版), 1997, 15(1): 68-74.</li>
+    <li>[2] 钱松岭, 董玉琦. 美国中小学计算机科学课程发展新动向及启示[J]. 中国电化教育, 2016(10): 83-89.</li>
+  </ol>
+
+  <h3>英文文献与官方文件（APA 第 7 版格式）</h3>
+  <ol class="refs-list">
+    <li>ACM, CSTA, Code.org, Cyber Innovation Center, &amp; NMSI. (2016). <i>K-12 computer science framework</i>. https://k12cs.org/</li>
+    <li>Council of State Governments. (2025, September 18). <i>New laws, investments and partnerships are prioritizing high school instruction in computer science</i>. https://www.csg.org/2025/09/18/new-laws-investments-and-partnerships-are-prioritizing-high-school-instruction-in-computer-science/</li>
+    <li>Cuban, L. (2001). <i>Oversold and underused: Computers in the classroom</i>. Harvard University Press.</li>
+    <li>National Commission on Excellence in Education. (1983). <i>A nation at risk: The imperative for educational reform</i>. U.S. Department of Education. https://www2.ed.gov/pubs/NatAtRisk/risk.html</li>
+    <li>National Center for Education Statistics. (2019). <i>The Nation's Report Card: Technology &amp; Engineering Literacy (TEL) 2018</i> (NCES 2019068). U.S. Department of Education. https://nces.ed.gov/pubssearch/pubsinfo.asp?pubid=2019068</li>
+    <li>Obama, B. (2016, January 30). <i>Weekly address: Computer Science for All</i> [Weekly radio address]. Office of the Press Secretary, The White House. https://www.govinfo.gov/content/pkg/PPP-2016-book1/xml/PPP-2016-book1-doc-pg83-2.xml</li>
+    <li>The White House. (2013, June 6). <i>What is ConnectED?</i> [Blog post]. Obama White House Archives. https://obamawhitehouse.archives.gov/blog/2013/06/06/what-connected</li>
+    <li>The White House. (2017, September 25). <i>Presidential memorandum on promoting science, technology, engineering, and mathematics education</i> (DCPD-201700687). govinfo. https://www.govinfo.gov/content/pkg/DCPD-201700687/html/DCPD-201700687.htm</li>
+    <li>U.S. Congress. (1958). <i>National Defense Education Act of 1958</i> (Pub. L. No. 85-864, 72 Stat. 1580). govinfo. https://www.govinfo.gov/content/pkg/STATUTE-72/pdf/STATUTE-72-Pg1580.pdf</li>
+    <li>U.S. Congress. (1996). <i>Telecommunications Act of 1996</i> (S. 652, 104th Congress). Congress.gov. https://www.congress.gov/bill/104th-congress/senate-bill/652</li>
+    <li>U.S. Congress. (2015). <i>Every Student Succeeds Act</i> (S. 1177, 114th Congress). Congress.gov. https://www.congress.gov/bill/114th-congress/senate-bill/1177</li>
+    <li>U.S. Department of Education. (1996). <i>Getting America's students ready for the 21st century: Achieving the technology literacy challenge</i>. Office of Educational Technology. （克林顿总统图书馆 NARA 数字化文本）</li>
+    <li>U.S. Department of Education, Office of Educational Technology. (2023). <i>Artificial intelligence and the future of teaching and learning</i>. https://tech.ed.gov/ai/</li>
+    <li>International Society for Technology in Education. (1998). <i>National educational technology standards for students</i> (ED421971). ERIC. https://eric.ed.gov/?id=ED421971</li>
+  </ol>
+
+  <p class="refs-note">说明：中文文献著录遵循 GB/T 7714—2015；英文文献与官方文件著录遵循 APA 7th。govinfo / congress.gov / federalregister.gov 为永久官方档案；obamawhitehouse.archives.gov、bidenwhitehouse.archives.gov 为冻结档案站；ed.gov / fcc.gov / nsf.gov 内容 2025 年后有删改，可经 web.archive.org 或 New America OET 存档集合回溯。</p>
+</section>
+
+</main>
+
+<footer>
+  第 1 组 · 《信息技术教育学科教学法》课程汇报 · 汇报人：周博锐
+  <div class="f-line">美国把计算机纳入基础教育的历程（1958—2026 官方文件时间轴） · 2026 年 9 月 9 日 · 感谢聆听</div>
+</footer>
+
+<script>
+  const bar = document.getElementById('progress');
+  const update = () => {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+  };
+  document.addEventListener('scroll', update, {passive:true});
+  window.addEventListener('resize', update);
+  update();
+</script>
+</body>
+</html>
